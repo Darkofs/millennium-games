@@ -18,7 +18,7 @@ const footerSections = [
   {
     title: "Support",
     links: [
-      { label: "Contact Us", href: "#" },
+      { label: "Contact Us", href: "/#support" },
       { label: "FAQ", href: "#" },
       { label: "How to Setup Accounts", href: "#" },
       { label: "Order Tracking", href: "#" },
@@ -110,6 +110,27 @@ export default function Footer() {
             <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
               Your trusted premium digital game account marketplace. Official accounts, instant delivery, and offline/online modes.
             </p>
+            {/* Contact Info */}
+            <div className="space-y-2.5 pt-2 text-xs text-slate-500 font-semibold">
+              <div className="flex items-center gap-2">
+                <span>📧</span>
+                <a href="mailto:millenniumpcgames@gmail.com" className="hover:text-mint transition-colors">
+                  millenniumpcgames@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>📞</span>
+                <a href="tel:+918089406346" className="hover:text-mint transition-colors">
+                  +91 8089406346
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="mt-0.5">📍</span>
+                <span className="whitespace-pre-line leading-relaxed">
+                  Millennium Games, Meencut PO Pallivasal, Munnar, Kerala - 685565
+                </span>
+              </div>
+            </div>
             {/* Social Icons */}
             <div className="flex gap-3 pt-2">
               {socialIcons.map((social) => (
