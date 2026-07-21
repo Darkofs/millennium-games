@@ -20,6 +20,22 @@ export default function CartDrawer() {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [purchasedKeys, setPurchasedKeys] = useState<PurchaseRecord[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Helper to load Razorpay SDK dynamically
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      if ((window as any).Razorpay) {
+        resolve(true);
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
 
   const cartDetails = cart
     .map((item) => {
@@ -44,18 +60,76 @@ export default function CartDrawer() {
 
   const total = cartDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setErrorMsg("");
     if (!user) {
       setErrorMsg("Please Sign In to complete your purchase.");
       return;
     }
-    const res = checkout();
-    if (res.success && res.keys) {
-      setPurchasedKeys(res.keys);
-      setCheckoutSuccess(true);
-    } else {
-      setErrorMsg(res.error || "An error occurred during checkout.");
+
+    setLoading(true);
+
+    try {
+      // 1. Load Razorpay script
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        throw new Error("Failed to load Razorpay payment SDK.");
+      }
+
+      // 2. Create Razorpay order on our server
+      const res = await fetch("/api/razorpay", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: total }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Failed to create order on server.");
+      }
+
+      const order = await res.json();
+
+      // 3. Configure and open Razorpay modal
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_live_TG4A7LJ6rJhWjU",
+        amount: order.amount,
+        currency: order.currency,
+        name: "Millennium Games",
+        description: "Payment for Digital Games",
+        order_id: order.id,
+        handler: function (response: any) {
+          // Payment is successful! complete local key generation
+          const checkoutResult = checkout();
+          if (checkoutResult.success && checkoutResult.keys) {
+            setPurchasedKeys(checkoutResult.keys);
+            setCheckoutSuccess(true);
+          } else {
+            setErrorMsg(checkoutResult.error || "Payment succeeded, but key generation failed. Please contact support.");
+          }
+          setLoading(false);
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+        },
+        theme: {
+          color: "#0f172a",
+        },
+        modal: {
+          ondismiss: function () {
+            setLoading(false);
+          }
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } catch (err: any) {
+      setErrorMsg(err.message || "An error occurred during payment setup.");
+      setLoading(false);
     }
   };
 
@@ -295,9 +369,20 @@ export default function CartDrawer() {
                   <Magnetic>
                     <button
                       onClick={handleCheckout}
-                      className="w-full btn-primary text-center py-3.5 font-bold uppercase tracking-wider cursor-pointer"
+                      disabled={loading}
+                      className="w-full btn-primary text-center py-3.5 font-bold uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Complete Purchase (Pay ₹{total})
+                      {loading ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-[#0f172a]" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Processing...
+                        </>
+                      ) : (
+                        `Complete Purchase (Pay ₹${total})`
+                      )}
                     </button>
                   </Magnetic>
                   <span className="text-[10px] text-slate-500 text-center block leading-relaxed">
