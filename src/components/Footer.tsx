@@ -19,10 +19,10 @@ const footerSections = [
     title: "Support",
     links: [
       { label: "Contact Us", href: "/#support" },
-      { label: "FAQ", href: "#" },
+      { label: "FAQ", href: "/faq" },
       { label: "How to Setup Accounts", href: "#" },
       { label: "Order Tracking", href: "#" },
-      { label: "Help Center", href: "#" },
+      { label: "Help Center", href: "/help-center" },
     ],
   },
   {
