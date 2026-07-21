@@ -5,6 +5,7 @@ import { useApp, findGameById, PurchaseRecord } from "@/context/AppContext";
 import Link from "next/link";
 import Magnetic from "./Magnetic";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CartDrawer() {
   const {
@@ -16,6 +17,8 @@ export default function CartDrawer() {
     checkout,
     user,
   } = useApp();
+
+  const router = useRouter();
 
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [purchasedKeys, setPurchasedKeys] = useState<PurchaseRecord[]>([]);
@@ -63,7 +66,8 @@ export default function CartDrawer() {
   const handleCheckout = async () => {
     setErrorMsg("");
     if (!user) {
-      setErrorMsg("Please Sign In to complete your purchase.");
+      setCartOpen(false);
+      router.push("/auth");
       return;
     }
 
@@ -380,6 +384,8 @@ export default function CartDrawer() {
                           </svg>
                           Processing...
                         </>
+                      ) : !user ? (
+                        "Sign In to Purchase"
                       ) : (
                         `Complete Purchase (Pay ₹${total})`
                       )}
