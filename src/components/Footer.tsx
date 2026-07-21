@@ -87,7 +87,7 @@ const socialIcons = [
 
 export default function Footer() {
   return (
-    <footer id="support" className="relative border-t border-slate-300/40" style={{ background: "transparent" }}>
+    <footer className="relative border-t border-slate-300/40" style={{ background: "transparent" }}>
       <div className="starburst starburst-lg -top-16 -right-16" style={{ animation: "rotateStar 60s linear infinite" }} />
       <div className="starburst starburst-sm bottom-[20%] left-[3%]" style={{ animation: "rotateStar 40s linear infinite reverse" }} />
       <div className="container-custom relative z-10">

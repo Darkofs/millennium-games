@@ -7,6 +7,7 @@ import TrustSection from "@/components/TrustSection";
 import Reviews from "@/components/Reviews";
 import About from "@/components/About";
 import Deals from "@/components/Deals";
+import SupportSection from "@/components/SupportSection";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Reviews />
       <About />
       <Deals />
+      <SupportSection />
       <Newsletter />
       <Footer />
     </main>
