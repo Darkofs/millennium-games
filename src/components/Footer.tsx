@@ -29,9 +29,9 @@ const footerSections = [
     title: "Policies",
     links: [
       { label: "Refund Policy", href: "/refund-policy" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "Terms of Service", href: "/terms-of-service" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
     ],
   },
   {
