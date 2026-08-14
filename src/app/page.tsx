@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeaturedGames from "@/components/FeaturedGames";
+import VideoCatalogue from "@/components/VideoCatalogue";
 import TrendingCarousel from "@/components/TrendingCarousel";
 import UpcomingReleases from "@/components/UpcomingReleases";
 import TrustSection from "@/components/TrustSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <Hero />
       <TrustSection />
       <FeaturedGames />
+      <VideoCatalogue />
       <TrendingCarousel />
       <UpcomingReleases />
       <Reviews />
