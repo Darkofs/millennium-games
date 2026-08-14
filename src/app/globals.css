@@ -458,19 +458,13 @@ a:hover h4 {
 .aspect-\[4\/3\] button,
 .relative.w-full.sm\:w-48 span,
 .relative.w-full.sm\:w-48 button,
-#video-catalogue h3,
-#video-catalogue h4,
-#video-catalogue p,
-#video-catalogue span,
-#video-catalogue div:not(.starburst) {
+.video-card-overlay h3,
+.video-card-overlay h4,
+.video-card-overlay p,
+.video-card-overlay span,
+.video-[#000] {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-}
-
-#video-catalogue .section-subheading {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  opacity: 0.9 !important;
 }
 
 .section-heading {
