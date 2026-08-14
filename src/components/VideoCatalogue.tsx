@@ -3,6 +3,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
+import { useApp } from "@/context/AppContext";
+
+export interface FeaturedGameRef {
+  id: number;
+  title: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+}
 
 interface VideoItem {
   id: string;
@@ -15,6 +24,7 @@ interface VideoItem {
   quality: string;
   youtubeId: string;
   description: string;
+  games: FeaturedGameRef[]; // Single game or multiple games featured in this video!
 }
 
 const videosData: VideoItem[] = [
@@ -29,18 +39,43 @@ const videosData: VideoItem[] = [
     quality: "4K HDR",
     youtubeId: "pnS8t9A7-eQ",
     description: "Experience the mythic journey of the Destined One in stunning 4K visuals powered by Unreal Engine 5.",
+    games: [
+      {
+        id: 6,
+        title: "Black Myth: Wukong",
+        price: 399,
+        originalPrice: 499,
+        image: "/images/Game Images/Black Myth Wukong.svg",
+      },
+    ],
   },
   {
     id: "v2",
-    title: "Grand Theft Auto VI - Official Trailer 1 Showcase",
-    game: "GTA 6",
-    category: "Official Trailers",
+    title: "GTA VI & Night City Showdown - Next-Gen Open World Showcase",
+    game: "GTA 5 & Cyberpunk 2077",
+    category: "Gameplay 4K",
     thumbnail: "/images/Game Images/GTA 5.svg",
-    duration: "1:31",
+    duration: "6:31",
     views: "190M views",
     quality: "4K 60FPS",
     youtubeId: "QdBZY2fkU-0",
-    description: "Welcome to Vice City. Watch the record-breaking debut trailer of Grand Theft Auto VI.",
+    description: "A dual open-world extravaganza showcasing GTA V and Cyberpunk 2077 ray tracing graphics.",
+    games: [
+      {
+        id: 20,
+        title: "Grand Theft Auto V",
+        price: 399,
+        originalPrice: 798,
+        image: "/images/Game Images/GTA 5.svg",
+      },
+      {
+        id: 12,
+        title: "Cyberpunk 2077",
+        price: 399,
+        originalPrice: 798,
+        image: "/images/Game Images/Cyberpunk 2077.svg",
+      },
+    ],
   },
   {
     id: "v3",
@@ -53,18 +88,43 @@ const videosData: VideoItem[] = [
     quality: "4K RTX ON",
     youtubeId: "P99qNUfs9f0",
     description: "Explore the dangerous district of Dogtown in full Path Tracing glory on PC.",
+    games: [
+      {
+        id: 12,
+        title: "Cyberpunk 2077",
+        price: 399,
+        originalPrice: 798,
+        image: "/images/Game Images/Cyberpunk 2077.svg",
+      },
+    ],
   },
   {
     id: "v4",
-    title: "Elden Ring: Shadow of the Erdtree - Gameplay Reveal Trailer",
-    game: "Elden Ring",
+    title: "Elden Ring & Wukong: Ultimate Soulslike Combat Masterclass",
+    game: "Elden Ring & Wukong",
     category: "Cinematics",
     thumbnail: "/images/Game Images/Elden Ring.svg",
-    duration: "3:05",
+    duration: "8:05",
     views: "12M views",
     quality: "4K HDR",
     youtubeId: "qLZenOn7WUo",
-    description: "Return to the Lands Between and uncover dark secrets in the Land of Shadow expansion.",
+    description: "Compare boss fights, lethal weapon skills, and dark fantasy lore between Elden Ring and Black Myth: Wukong.",
+    games: [
+      {
+        id: 14,
+        title: "Elden Ring",
+        price: 399,
+        originalPrice: 499,
+        image: "/images/Game Images/Elden Ring.svg",
+      },
+      {
+        id: 6,
+        title: "Black Myth: Wukong",
+        price: 399,
+        originalPrice: 499,
+        image: "/images/Game Images/Black Myth Wukong.svg",
+      },
+    ],
   },
   {
     id: "v5",
@@ -77,6 +137,14 @@ const videosData: VideoItem[] = [
     quality: "4K 60FPS",
     youtubeId: "vovkzbtYBC8",
     description: "Immerse yourself in feudal Japan through the dual perspectives of Naoe and Yasuke.",
+    games: [
+      {
+        id: 4,
+        title: "Assassin's Creed Shadows",
+        price: 399,
+        image: "/images/Game Images/Assassin's Creed Shadow.svg",
+      },
+    ],
   },
   {
     id: "v6",
@@ -89,18 +157,43 @@ const videosData: VideoItem[] = [
     quality: "4K 120FPS",
     youtubeId: "hfJ4Km46A-0",
     description: "Experience Kratos and Atreus' epic Norse journey unlocked for high-end PC rigs.",
+    games: [
+      {
+        id: 22,
+        title: "God of War Ragnarök",
+        price: 399,
+        originalPrice: 475,
+        image: "/images/Game Images/God Of War Ragnarök.svg",
+      },
+    ],
   },
   {
     id: "v7",
-    title: "Alan Wake 2 - Mind Place & Dark Place Gameplay Spotlight",
-    game: "Alan Wake 2",
+    title: "Remedy Horror Anthology: Alan Wake 2 & Alan Wake Remastered",
+    game: "Alan Wake 2 & Remastered",
     category: "Review Spotlights",
     thumbnail: "/images/Game Images/Alan Wake 2.svg",
-    duration: "7:15",
+    duration: "9:15",
     views: "1.9M views",
     quality: "4K HDR",
     youtubeId: "dlQ3Fe-7cT0",
-    description: "Deep dive into Remedy Entertainment's psychological survival horror masterpiece.",
+    description: "Explore Bright Falls and the Dark Place across both Alan Wake 2 and Alan Wake Remastered.",
+    games: [
+      {
+        id: 2,
+        title: "Alan Wake 2",
+        price: 399,
+        originalPrice: 475,
+        image: "/images/Game Images/Alan Wake 2.svg",
+      },
+      {
+        id: 3,
+        title: "Alan Wake Remastered",
+        price: 399,
+        originalPrice: 798,
+        image: "/images/Game Images/Alan Wake Remastered.svg",
+      },
+    ],
   },
   {
     id: "v8",
@@ -113,6 +206,15 @@ const videosData: VideoItem[] = [
     quality: "4K 60FPS",
     youtubeId: "ZgI5x-Wc6r8",
     description: "Master the blade of Jin Sakai with fluid stance switching and cinematic lethal strikes.",
+    games: [
+      {
+        id: 21,
+        title: "Ghost of Tsushima: Director's Cut",
+        price: 399,
+        originalPrice: 596,
+        image: "/images/Game Images/Ghost Of Tsushima.svg",
+      },
+    ],
   },
 ];
 
@@ -121,6 +223,7 @@ const categories = ["All", "Official Trailers", "Gameplay 4K", "Cinematics", "Re
 export default function VideoCatalogue() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
+  const { addToCart, setCartOpen } = useApp();
 
   const featuredSpotlight = videosData[0]; // Black Myth Wukong as spotlight
 
@@ -128,6 +231,23 @@ export default function VideoCatalogue() {
     if (activeCategory === "All") return true;
     return video.category === activeCategory;
   });
+
+  const handleAddToCart = (e: React.MouseEvent, gameId: number) => {
+    e.stopPropagation();
+    addToCart(gameId, "offline");
+  };
+
+  const handleBuyNow = (e: React.MouseEvent, gameId: number) => {
+    e.stopPropagation();
+    addToCart(gameId, "offline");
+    setCartOpen(true);
+  };
+
+  const handleAddBundleToCart = (e: React.MouseEvent, games: FeaturedGameRef[]) => {
+    e.stopPropagation();
+    games.forEach((g) => addToCart(g.id, "offline"));
+    setCartOpen(true);
+  };
 
   return (
     <section id="video-catalogue" className="relative py-24 overflow-hidden">
@@ -154,7 +274,7 @@ export default function VideoCatalogue() {
             Video <span className="gradient-text">Catalogue</span>
           </h2>
           <p className="section-subheading mx-auto">
-            Watch official cinematic game trailers, raw 4K 60FPS gameplay showcases, and deep-dive reviews.
+            Watch official cinematic game trailers, raw 4K 60FPS gameplay showcases, and buy featured titles directly.
           </p>
         </motion.div>
 
@@ -176,9 +296,9 @@ export default function VideoCatalogue() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
 
             {/* Play Button Overlay */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <Magnetic>
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/75 backdrop-blur-md border border-white/70 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-black/90 transition-all duration-300">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/75 backdrop-blur-md border border-white/70 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-black/90 transition-all duration-300 pointer-events-auto">
                   <svg className="w-10 h-10 md:w-12 md:h-12 ml-1 fill-current text-white" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
@@ -196,7 +316,7 @@ export default function VideoCatalogue() {
               </span>
             </div>
 
-            {/* Bottom Content (Overlaid on dark image -> pure white text) */}
+            {/* Bottom Content & Purchase Buttons */}
             <div className="absolute bottom-6 left-6 right-6 md:left-10 md:right-10 flex flex-col md:flex-row md:items-end justify-between gap-4 video-card-overlay">
               <div className="max-w-2xl">
                 <span className="text-xs font-bold uppercase tracking-widest text-white/90 mb-1 block">
@@ -210,19 +330,37 @@ export default function VideoCatalogue() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-bold text-white">
-                <span className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/40">
-                  ⏱️ {featuredSpotlight.duration}
-                </span>
-                <span className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/40">
-                  👁️ {featuredSpotlight.views}
-                </span>
+              {/* Purchase Quick Actions */}
+              <div className="flex flex-wrap items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                {featuredSpotlight.games.length === 1 ? (
+                  <>
+                    <button
+                      onClick={(e) => handleAddToCart(e, featuredSpotlight.games[0].id)}
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-white/20 hover:bg-white/30 text-white border border-white/40 backdrop-blur-md transition-all flex items-center gap-1.5"
+                    >
+                      🛒 Add to Cart (₹{featuredSpotlight.games[0].price})
+                    </button>
+                    <button
+                      onClick={(e) => handleBuyNow(e, featuredSpotlight.games[0].id)}
+                      className="px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 shadow-lg transition-all flex items-center gap-1.5"
+                    >
+                      ⚡ Buy Now
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={(e) => handleAddBundleToCart(e, featuredSpotlight.games)}
+                    className="px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 shadow-lg transition-all flex items-center gap-1.5"
+                  >
+                    📦 Buy All {featuredSpotlight.games.length} Games
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Category Filters (Matching Website Theme - Dark text on Light Glass) */}
+        {/* Category Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -287,12 +425,18 @@ export default function VideoCatalogue() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 
-                {/* Duration & Quality Badges */}
-                <div className="absolute top-3 left-3">
+                {/* Duration & Multi-Game Badges */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5">
                   <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white bg-black/80 backdrop-blur-md border border-white/50">
                     {video.quality}
                   </span>
+                  {video.games.length > 1 && (
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-900 bg-amber-400 backdrop-blur-md border border-amber-300 shadow-sm">
+                      🎮 {video.games.length} Games
+                    </span>
+                  )}
                 </div>
+
                 <div className="absolute bottom-3 right-3">
                   <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-white bg-black/80 backdrop-blur-md border border-white/50">
                     {video.duration}
@@ -309,7 +453,7 @@ export default function VideoCatalogue() {
                 </div>
               </div>
 
-              {/* Card Meta Info (Light Glass Card -> Dark Charcoal Black Text) */}
+              {/* Card Meta Info */}
               <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block mb-1">
@@ -320,11 +464,31 @@ export default function VideoCatalogue() {
                   </h4>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-700 pt-3 border-t border-slate-300/50">
-                  <span className="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-white/60 border border-white/80 text-slate-800">
-                    {video.category}
-                  </span>
-                  <span className="font-bold text-slate-700">{video.views}</span>
+                {/* Action Buttons for Cart / Buy Now */}
+                <div className="space-y-2 pt-2 border-t border-slate-300/50" onClick={(e) => e.stopPropagation()}>
+                  {video.games.length === 1 ? (
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={(e) => handleAddToCart(e, video.games[0].id)}
+                        className="w-full py-1.5 rounded-lg text-xs font-semibold bg-white/70 hover:bg-white text-slate-900 border border-slate-300 shadow-sm transition-all"
+                      >
+                        🛒 Add
+                      </button>
+                      <button
+                        onClick={(e) => handleBuyNow(e, video.games[0].id)}
+                        className="w-full py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-black text-white shadow-sm transition-all"
+                      >
+                        ⚡ Buy Now
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={(e) => handleAddBundleToCart(e, video.games)}
+                      className="w-full py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-black text-white shadow-sm transition-all flex items-center justify-center gap-1"
+                    >
+                      📦 Add {video.games.length} Games (₹{video.games.reduce((acc, g) => acc + g.price, 0)})
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -332,14 +496,14 @@ export default function VideoCatalogue() {
         </motion.div>
       </div>
 
-      {/* Video Modal Player */}
+      {/* Video Modal Player with Featured Games Purchase Panel */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-slate-950/85 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-slate-950/85 backdrop-blur-xl overflow-y-auto"
             onClick={() => setSelectedVideo(null)}
           >
             <motion.div
@@ -347,7 +511,7 @@ export default function VideoCatalogue() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
-              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl video-card-overlay"
+              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl my-auto video-card-overlay"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -380,18 +544,66 @@ export default function VideoCatalogue() {
                 />
               </div>
 
-              {/* Modal Footer info */}
-              <div className="p-6 bg-slate-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-white/10">
-                <p className="text-xs md:text-sm text-white/90 max-w-2xl leading-relaxed">
-                  {selectedVideo.description}
-                </p>
-                <div className="flex items-center gap-3 text-xs font-semibold text-white">
-                  <span className="px-3 py-1.5 rounded-full bg-white/15 border border-white/30 text-white">
-                    Quality: {selectedVideo.quality}
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-white/15 border border-white/30 text-white">
-                    Views: {selectedVideo.views}
-                  </span>
+              {/* Featured Games in Video Purchase Section */}
+              <div className="p-6 bg-slate-950 border-t border-white/10 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm md:text-base font-bold text-white flex items-center gap-2">
+                    <span>🎮 Featured Game{selectedVideo.games.length > 1 ? "s" : ""} in Video</span>
+                    <span className="text-xs font-normal text-white/70">
+                      ({selectedVideo.games.length} available)
+                    </span>
+                  </h4>
+
+                  {selectedVideo.games.length > 1 && (
+                    <button
+                      onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
+                      className="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md transition-all flex items-center gap-1.5"
+                    >
+                      📦 Buy All {selectedVideo.games.length} Games (₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)})
+                    </button>
+                  )}
+                </div>
+
+                {/* List of Featured Games */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {selectedVideo.games.map((g) => (
+                    <div
+                      key={g.id}
+                      className="flex items-center justify-between p-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <img
+                          src={g.image}
+                          alt={g.title}
+                          className="w-12 h-12 object-cover rounded-xl border border-white/30 flex-shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <h5 className="text-sm font-bold text-white truncate">{g.title}</h5>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-white">₹{g.price}</span>
+                            {g.originalPrice && (
+                              <span className="text-xs text-white/60 line-through">₹{g.originalPrice}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <button
+                          onClick={(e) => handleAddToCart(e, g.id)}
+                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/20 hover:bg-white/30 text-white border border-white/30 transition-all"
+                        >
+                          🛒 Cart
+                        </button>
+                        <button
+                          onClick={(e) => handleBuyNow(e, g.id)}
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 transition-all"
+                        >
+                          ⚡ Buy Now
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </motion.div>

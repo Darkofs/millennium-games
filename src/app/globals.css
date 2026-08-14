@@ -461,8 +461,7 @@ a:hover h4 {
 .video-card-overlay h3,
 .video-card-overlay h4,
 .video-card-overlay p,
-.video-card-overlay span,
-.video-[#000] {
+.video-card-overlay span {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
