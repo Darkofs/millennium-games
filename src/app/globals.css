@@ -457,10 +457,20 @@ a:hover h4 {
 .aspect-\[3\/4\] button,
 .aspect-\[4\/3\] button,
 .relative.w-full.sm\:w-48 span,
-.relative.w-full.sm\:w-48 button {
+.relative.w-full.sm\:w-48 button,
+#video-catalogue h3,
+#video-catalogue h4,
+#video-catalogue p,
+#video-catalogue span,
+#video-catalogue div:not(.starburst) {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+}
+
+#video-catalogue .section-subheading {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 0.9 !important;
 }
 
 .section-heading {
