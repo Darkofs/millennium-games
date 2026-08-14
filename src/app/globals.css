@@ -417,10 +417,10 @@ nav p, nav li, nav h3, nav h4,
 }
 
 /* Interactive elements: links and buttons */
-section a, section button,
-#home a, #home button,
-footer a, footer button,
-nav a, nav button {
+section a, section button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+#home a, #home button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+footer a, footer button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+nav a, nav button:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
   color: #000000;
   text-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.8), 
@@ -428,15 +428,31 @@ nav a, nav button {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-section a:hover, section button:hover,
-#home a:hover, #home button:hover,
-footer a:hover, footer button:hover,
-nav a:hover, nav button:hover {
+section a:hover, section button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+#home a:hover, #home button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+footer a:hover, footer button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
+nav a:hover, nav button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
   color: #000000 !important;
   -webkit-text-fill-color: #000000 !important;
   text-shadow: 
     0 0.5px 0 rgba(0, 0, 0, 0.15), 
     0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-theme-dark {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.7)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.6) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.btn-theme-light {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.45)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  text-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Group-hover text transitions inside game cards and values */
@@ -460,10 +476,91 @@ a:hover h4 {
 .relative.w-full.sm\:w-48 button,
 .video-card-overlay h3,
 .video-card-overlay h4,
+.video-card-overlay h5,
+.video-card-overlay h6,
 .video-card-overlay p,
-.video-card-overlay span {
+.video-card-overlay span,
+.video-modal-content h3,
+.video-modal-content h4,
+.video-modal-content h5,
+.video-modal-content h6,
+.video-modal-content p,
+.video-modal-content span {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
+}
+
+.btn-glossy-white {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-glossy-white:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-modal-buy {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 #ffffff !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-modal-buy:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-modal-cart {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 #ffffff !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-modal-cart:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-modal-bundle {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 #ffffff !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-modal-bundle:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 #ffffff !important;
+  transform: translateY(-1px) !important;
 }
 
 .section-heading {

@@ -24,7 +24,7 @@ interface VideoItem {
   quality: string;
   youtubeId: string;
   description: string;
-  games: FeaturedGameRef[]; // Single game or multiple games featured in this video!
+  games: FeaturedGameRef[];
 }
 
 const videosData: VideoItem[] = [
@@ -225,7 +225,7 @@ export default function VideoCatalogue() {
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const { addToCart, setCartOpen } = useApp();
 
-  const featuredSpotlight = videosData[0]; // Black Myth Wukong as spotlight
+  const featuredSpotlight = videosData[0];
 
   const filteredVideos = videosData.filter((video) => {
     if (activeCategory === "All") return true;
@@ -298,8 +298,8 @@ export default function VideoCatalogue() {
             {/* Play Button Overlay */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <Magnetic>
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/75 backdrop-blur-md border border-white/70 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-black/90 transition-all duration-300 pointer-events-auto">
-                  <svg className="w-10 h-10 md:w-12 md:h-12 ml-1 fill-current text-white" viewBox="0 0 24 24">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full btn-glossy-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-300 pointer-events-auto">
+                  <svg className="w-10 h-10 md:w-12 md:h-12 ml-1 fill-current text-black" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
@@ -308,10 +308,10 @@ export default function VideoCatalogue() {
 
             {/* Top Badges */}
             <div className="absolute top-6 left-6 flex items-center gap-3">
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-black/80 backdrop-blur-md border border-white/60 shadow-md">
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-black bg-white/90 backdrop-blur-md border border-white/80 shadow-md">
                 ⭐ Featured Spotlight
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-bold text-white bg-black/70 backdrop-blur-md border border-white/40">
+              <span className="px-3 py-1 rounded-full text-xs font-bold text-black bg-white/80 backdrop-blur-md border border-white/60">
                 {featuredSpotlight.quality}
               </span>
             </div>
@@ -336,13 +336,13 @@ export default function VideoCatalogue() {
                   <>
                     <button
                       onClick={(e) => handleAddToCart(e, featuredSpotlight.games[0].id)}
-                      className="px-4 py-2 rounded-full text-xs font-bold bg-white/20 hover:bg-white/30 text-white border border-white/40 backdrop-blur-md transition-all flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-md"
                     >
                       🛒 Add to Cart (₹{featuredSpotlight.games[0].price})
                     </button>
                     <button
                       onClick={(e) => handleBuyNow(e, featuredSpotlight.games[0].id)}
-                      className="px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 shadow-lg transition-all flex items-center gap-1.5"
+                      className="px-5 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-lg"
                     >
                       ⚡ Buy Now
                     </button>
@@ -350,7 +350,7 @@ export default function VideoCatalogue() {
                 ) : (
                   <button
                     onClick={(e) => handleAddBundleToCart(e, featuredSpotlight.games)}
-                    className="px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 shadow-lg transition-all flex items-center gap-1.5"
+                    className="px-5 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-lg"
                   >
                     📦 Buy All {featuredSpotlight.games.length} Games
                   </button>
@@ -373,25 +373,9 @@ export default function VideoCatalogue() {
               <button
                 id={`cat-filter-${cat.toLowerCase().replace(/\s/g, "-")}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-md ${
-                  activeCategory === cat
-                    ? "text-[#0f172a] shadow-lg font-bold"
-                    : "text-slate-700 hover:text-[#0f172a]"
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 backdrop-blur-md cursor-pointer ${
+                  activeCategory === cat ? "btn-glossy-white border-2 border-black/30 shadow-lg scale-105" : "btn-glossy-white opacity-80 hover:opacity-100"
                 }`}
-                style={
-                  activeCategory === cat
-                    ? {
-                        background: "linear-gradient(135deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.2))",
-                        border: "1px solid rgba(0, 0, 0, 0.55)",
-                        boxShadow:
-                          "0 8px 24px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 8px rgba(0,0,0,0.04)",
-                      }
-                    : {
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2))",
-                        border: "1px solid rgba(255,255,255,0.55)",
-                        boxShadow: "0 4px 12px rgba(90,110,125,0.08), inset 0 1px 0 rgba(255,255,255,0.75)",
-                      }
-                }
               >
                 {cat}
               </button>
@@ -427,26 +411,26 @@ export default function VideoCatalogue() {
 
                 {/* Duration & Multi-Game Badges */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white bg-black/80 backdrop-blur-md border border-white/50">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-black bg-white/90 backdrop-blur-md border border-white/80">
                     {video.quality}
                   </span>
                   {video.games.length > 1 && (
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-900 bg-amber-400 backdrop-blur-md border border-amber-300 shadow-sm">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-black bg-white/90 backdrop-blur-md border border-white/80 shadow-sm">
                       🎮 {video.games.length} Games
                     </span>
                   )}
                 </div>
 
                 <div className="absolute bottom-3 right-3">
-                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-white bg-black/80 backdrop-blur-md border border-white/50">
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-black bg-white/90 backdrop-blur-md border border-white/80">
                     {video.duration}
                   </span>
                 </div>
 
                 {/* Center Play Icon on Hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-full bg-black/75 backdrop-blur-md border border-white/60 text-white flex items-center justify-center shadow-lg">
-                    <svg className="w-6 h-6 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 rounded-full btn-glossy-white flex items-center justify-center shadow-lg">
+                    <svg className="w-6 h-6 ml-0.5 fill-current text-black" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
@@ -470,13 +454,13 @@ export default function VideoCatalogue() {
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         onClick={(e) => handleAddToCart(e, video.games[0].id)}
-                        className="w-full py-1.5 rounded-lg text-xs font-semibold bg-white/70 hover:bg-white text-slate-900 border border-slate-300 shadow-sm transition-all"
+                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
                       >
                         🛒 Add
                       </button>
                       <button
                         onClick={(e) => handleBuyNow(e, video.games[0].id)}
-                        className="w-full py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-black text-white shadow-sm transition-all"
+                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
                       >
                         ⚡ Buy Now
                       </button>
@@ -484,7 +468,7 @@ export default function VideoCatalogue() {
                   ) : (
                     <button
                       onClick={(e) => handleAddBundleToCart(e, video.games)}
-                      className="w-full py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-black text-white shadow-sm transition-all flex items-center justify-center gap-1"
+                      className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all flex items-center justify-center gap-1 cursor-pointer"
                     >
                       📦 Add {video.games.length} Games (₹{video.games.reduce((acc, g) => acc + g.price, 0)})
                     </button>
@@ -511,7 +495,7 @@ export default function VideoCatalogue() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
-              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl my-auto video-card-overlay"
+              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl my-auto video-modal-content"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -526,7 +510,7 @@ export default function VideoCatalogue() {
                 </div>
                 <button
                   onClick={() => setSelectedVideo(null)}
-                  className="w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors text-xl font-bold"
+                  className="w-10 h-10 rounded-full btn-glossy-white flex items-center justify-center text-xl font-bold cursor-pointer"
                   aria-label="Close modal"
                 >
                   ✕
@@ -557,7 +541,7 @@ export default function VideoCatalogue() {
                   {selectedVideo.games.length > 1 && (
                     <button
                       onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
-                      className="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md transition-all flex items-center gap-1.5"
+                      className="px-4 py-1.5 rounded-full text-xs font-bold btn-glossy-white shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                     >
                       📦 Buy All {selectedVideo.games.length} Games (₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)})
                     </button>
@@ -578,9 +562,11 @@ export default function VideoCatalogue() {
                           className="w-12 h-12 object-cover rounded-xl border border-white/30 flex-shrink-0"
                         />
                         <div className="min-w-0">
-                          <h5 className="text-sm font-bold text-white truncate">{g.title}</h5>
+                          <h5 className="text-sm font-bold text-white truncate" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
+                            {g.title}
+                          </h5>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-white">₹{g.price}</span>
+                            <span className="text-sm font-bold text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>₹{g.price}</span>
                             {g.originalPrice && (
                               <span className="text-xs text-white/60 line-through">₹{g.originalPrice}</span>
                             )}
@@ -591,13 +577,13 @@ export default function VideoCatalogue() {
                       <div className="flex items-center gap-2 flex-shrink-0">
                         <button
                           onClick={(e) => handleAddToCart(e, g.id)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/20 hover:bg-white/30 text-white border border-white/30 transition-all"
+                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
                         >
                           🛒 Cart
                         </button>
                         <button
                           onClick={(e) => handleBuyNow(e, g.id)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 transition-all"
+                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
                         >
                           ⚡ Buy Now
                         </button>
