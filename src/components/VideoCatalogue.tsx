@@ -146,14 +146,14 @@ export default function VideoCatalogue() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-slate-800 text-sm font-bold mb-4 backdrop-blur-md bg-white/40 border border-white/60 shadow-sm">
-            <span className="w-2.5 h-2.5 rounded-full bg-slate-900 animate-ping" />
-            <span>4K HDR Game Trailers & Gameplay</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-sm font-bold mb-4 backdrop-blur-md bg-black/50 border border-white/40 shadow-sm">
+            <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
+            <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>4K HDR Game Trailers & Gameplay</span>
           </div>
           <h2 className="section-heading mb-4" style={{ fontFamily: "var(--font-outfit)" }}>
             Video <span className="gradient-text">Catalogue</span>
           </h2>
-          <p className="section-subheading mx-auto">
+          <p className="section-subheading mx-auto text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
             Watch official cinematic game trailers, raw 4K 60FPS gameplay showcases, and deep-dive reviews.
           </p>
         </motion.div>
@@ -164,22 +164,22 @@ export default function VideoCatalogue() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative mb-14 rounded-[28px] overflow-hidden glass-card group cursor-pointer"
+          className="relative mb-14 rounded-[28px] overflow-hidden glass-card group cursor-pointer border border-white/40 shadow-2xl bg-slate-950/70"
           onClick={() => setSelectedVideo(featuredSpotlight)}
         >
           <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden">
             <img
               src={featuredSpotlight.thumbnail}
               alt={featuredSpotlight.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-100"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
 
             {/* Play Button Overlay */}
             <div className="absolute inset-0 flex items-center justify-center">
               <Magnetic>
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/65 backdrop-blur-md border border-white/60 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-black/85 transition-all duration-300">
-                  <svg className="w-10 h-10 md:w-12 md:h-12 ml-1 fill-current" viewBox="0 0 24 24">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/75 backdrop-blur-md border border-white/70 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-black/90 transition-all duration-300">
+                  <svg className="w-10 h-10 md:w-12 md:h-12 ml-1 fill-current text-white" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
@@ -188,10 +188,10 @@ export default function VideoCatalogue() {
 
             {/* Top Badges */}
             <div className="absolute top-6 left-6 flex items-center gap-3">
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#0f172a] bg-white/80 backdrop-blur-md border border-white/80 shadow-md">
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-black/80 backdrop-blur-md border border-white/60 shadow-md" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                 ⭐ Featured Spotlight
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-bold text-white bg-black/60 backdrop-blur-md border border-white/30">
+              <span className="px-3 py-1 rounded-full text-xs font-bold text-white bg-black/70 backdrop-blur-md border border-white/40" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                 {featuredSpotlight.quality}
               </span>
             </div>
@@ -199,22 +199,22 @@ export default function VideoCatalogue() {
             {/* Bottom Content */}
             <div className="absolute bottom-6 left-6 right-6 md:left-10 md:right-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div className="max-w-2xl">
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-200 mb-1 block">
+                <span className="text-xs font-bold uppercase tracking-widest text-white/90 mb-1 block" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                   {featuredSpotlight.game} • {featuredSpotlight.category}
                 </span>
-                <h3 className="text-xl md:text-3xl font-extrabold text-white leading-tight mb-2 drop-shadow-lg">
+                <h3 className="text-xl md:text-3xl font-extrabold text-white leading-tight mb-2" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", textShadow: "0 2px 8px rgba(0,0,0,0.9)" }}>
                   {featuredSpotlight.title}
                 </h3>
-                <p className="text-sm text-slate-200 line-clamp-2 hidden md:block drop-shadow">
+                <p className="text-sm text-white/90 line-clamp-2 hidden md:block" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", textShadow: "0 2px 6px rgba(0,0,0,0.9)" }}>
                   {featuredSpotlight.description}
                 </p>
               </div>
 
               <div className="flex items-center gap-3 text-xs font-bold text-white">
-                <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/30">
+                <span className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/40" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                   ⏱️ {featuredSpotlight.duration}
                 </span>
-                <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/30">
+                <span className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/40" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                   👁️ {featuredSpotlight.views}
                 </span>
               </div>
@@ -222,7 +222,7 @@ export default function VideoCatalogue() {
           </div>
         </motion.div>
 
-        {/* Category Filters (Matching Website Theme) */}
+        {/* Category Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -235,23 +235,25 @@ export default function VideoCatalogue() {
               <button
                 id={`cat-filter-${cat.toLowerCase().replace(/\s/g, "-")}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-md ${
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-md text-white ${
                   activeCategory === cat
-                    ? "text-[#0f172a] shadow-lg font-bold"
-                    : "text-slate-600 hover:text-[#0f172a]"
+                    ? "font-bold shadow-lg"
+                    : "opacity-80 hover:opacity-100"
                 }`}
                 style={
                   activeCategory === cat
                     ? {
-                        background: "linear-gradient(135deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.2))",
-                        border: "1px solid rgba(0, 0, 0, 0.55)",
-                        boxShadow:
-                          "0 8px 24px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 8px rgba(0,0,0,0.04)",
+                        background: "linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.65))",
+                        border: "1px solid rgba(255, 255, 255, 0.7)",
+                        color: "#ffffff",
+                        WebkitTextFillColor: "#ffffff",
+                        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
                       }
                     : {
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2))",
-                        border: "1px solid rgba(255,255,255,0.55)",
-                        boxShadow: "0 4px 12px rgba(90,110,125,0.08), inset 0 1px 0 rgba(255,255,255,0.75)",
+                        background: "linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3))",
+                        border: "1px solid rgba(255, 255, 255, 0.35)",
+                        color: "#ffffff",
+                        WebkitTextFillColor: "#ffffff",
                       }
                 }
               >
@@ -274,7 +276,7 @@ export default function VideoCatalogue() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="glass-card rounded-[24px] overflow-hidden group cursor-pointer flex flex-col justify-between"
+              className="glass-card rounded-[24px] overflow-hidden group cursor-pointer flex flex-col justify-between border border-white/30 bg-slate-950/60 shadow-xl"
               onClick={() => setSelectedVideo(video)}
             >
               {/* Thumbnail Container */}
@@ -285,24 +287,24 @@ export default function VideoCatalogue() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
 
                 {/* Duration & Quality Badges */}
                 <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#0f172a] bg-white/80 backdrop-blur-md border border-white/70 shadow-sm">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white bg-black/80 backdrop-blur-md border border-white/50" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {video.quality}
                   </span>
                 </div>
                 <div className="absolute bottom-3 right-3">
-                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-white bg-black/70 backdrop-blur-md border border-white/30">
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-white bg-black/80 backdrop-blur-md border border-white/50" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {video.duration}
                   </span>
                 </div>
 
                 {/* Center Play Icon on Hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-full bg-black/65 backdrop-blur-md border border-white/60 text-white flex items-center justify-center shadow-lg">
-                    <svg className="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 rounded-full bg-black/75 backdrop-blur-md border border-white/60 text-white flex items-center justify-center shadow-lg">
+                    <svg className="w-6 h-6 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
@@ -310,21 +312,21 @@ export default function VideoCatalogue() {
               </div>
 
               {/* Card Meta Info */}
-              <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+              <div className="p-4 flex-1 flex flex-col justify-between space-y-3 bg-slate-950/70">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {video.game}
                   </span>
-                  <h4 className="text-sm font-bold text-[#0f172a] leading-tight line-clamp-2 group-hover:text-black transition-colors">
+                  <h4 className="text-sm font-bold text-white leading-tight line-clamp-2 group-hover:text-white transition-colors" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
                     {video.title}
                   </h4>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-300/40">
-                  <span className="text-[11px] px-2.5 py-0.5 rounded-full font-medium bg-white/50 border border-white/70 text-slate-700">
+                <div className="flex items-center justify-between text-xs text-white pt-3 border-t border-white/20">
+                  <span className="text-[11px] px-2.5 py-0.5 rounded-full font-medium bg-black/50 border border-white/30 text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {video.category}
                   </span>
-                  <span className="font-semibold text-slate-600">{video.views}</span>
+                  <span className="font-semibold text-white/90" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>{video.views}</span>
                 </div>
               </div>
             </motion.div>
@@ -339,7 +341,7 @@ export default function VideoCatalogue() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-slate-950/75 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-slate-950/85 backdrop-blur-xl"
             onClick={() => setSelectedVideo(null)}
           >
             <motion.div
@@ -347,23 +349,24 @@ export default function VideoCatalogue() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
-              className="relative w-full max-w-5xl bg-slate-900 rounded-[28px] overflow-hidden border border-white/30 shadow-2xl"
+              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/80">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-white/20 bg-slate-950">
                 <div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">
+                  <span className="text-xs font-bold text-white/80 uppercase tracking-widest block" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {selectedVideo.game} • {selectedVideo.category}
                   </span>
-                  <h3 className="text-base md:text-lg font-bold text-white truncate max-w-xl">
+                  <h3 className="text-base md:text-lg font-bold text-white truncate max-w-xl" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {selectedVideo.title}
                   </h3>
                 </div>
                 <button
                   onClick={() => setSelectedVideo(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors text-xl font-bold"
+                  className="w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors text-xl font-bold"
                   aria-label="Close modal"
+                  style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
                 >
                   ✕
                 </button>
@@ -381,15 +384,15 @@ export default function VideoCatalogue() {
               </div>
 
               {/* Modal Footer info */}
-              <div className="p-6 bg-slate-950/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              <div className="p-6 bg-slate-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-white/10">
+                <p className="text-xs md:text-sm text-white/90 max-w-2xl leading-relaxed" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                   {selectedVideo.description}
                 </p>
-                <div className="flex items-center gap-3 text-xs font-semibold text-slate-300">
-                  <span className="px-3 py-1.5 rounded-full bg-white/10 border border-white/20">
+                <div className="flex items-center gap-3 text-xs font-semibold text-white">
+                  <span className="px-3 py-1.5 rounded-full bg-white/15 border border-white/30 text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     Quality: {selectedVideo.quality}
                   </span>
-                  <span className="px-3 py-1.5 rounded-full bg-white/10 border border-white/20">
+                  <span className="px-3 py-1.5 rounded-full bg-white/15 border border-white/30 text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     Views: {selectedVideo.views}
                   </span>
                 </div>
