@@ -31,12 +31,12 @@ interface VideoItem {
 const videosData: VideoItem[] = [
   {
     id: "v1",
-    title: "Black Myth: Wukong - Deluxe Edition 4K Master Showcase",
+    title: "Black Myth: Wukong - Deluxe Edition",
     game: "Black Myth: Wukong",
     category: "Official Account",
     thumbnail: "/images/Game Images/Black Myth Wukong.svg",
-    duration: "4K Master",
-    views: "Direct 4K Master",
+    duration: "",
+    views: "",
     quality: "4K 60FPS Lossless",
     videoSrc: "/Game Videos/Black myth Wukong Deluxe Edition.mp4",
     youtubeId: "pnS8t9A7-eQ",
