@@ -22,7 +22,8 @@ interface VideoItem {
   duration: string;
   views: string;
   quality: string;
-  youtubeId: string;
+  youtubeId?: string;
+  videoSrc?: string;
   description: string;
   games: FeaturedGameRef[];
 }
@@ -30,15 +31,16 @@ interface VideoItem {
 const videosData: VideoItem[] = [
   {
     id: "v1",
-    title: "Black Myth: Wukong - Official Final Gameplay Trailer",
+    title: "Black Myth: Wukong - Deluxe Edition 4K Master Showcase",
     game: "Black Myth: Wukong",
     category: "Official Trailers",
     thumbnail: "/images/Game Images/Black Myth Wukong.svg",
-    duration: "4:12",
-    views: "8.4M views",
-    quality: "4K HDR",
+    duration: "4K Master",
+    views: "Direct 4K Master",
+    quality: "4K 60FPS Lossless",
+    videoSrc: "/Game Videos/Black myth Wukong Deluxe Edition.mp4",
     youtubeId: "pnS8t9A7-eQ",
-    description: "Experience the mythic journey of the Destined One in stunning 4K visuals powered by Unreal Engine 5.",
+    description: "Experience the mythic journey of the Destined One in Black Myth: Wukong Deluxe Edition with pristine raw high-bitrate visuals.",
     games: [
       {
         id: 6,
@@ -58,6 +60,7 @@ const videosData: VideoItem[] = [
     duration: "6:31",
     views: "190M views",
     quality: "4K 60FPS",
+    videoSrc: "/Game Videos/GTA 5 .mp4",
     youtubeId: "QdBZY2fkU-0",
     description: "A dual open-world extravaganza showcasing GTA V and Cyberpunk 2077 ray tracing graphics.",
     games: [
@@ -107,6 +110,7 @@ const videosData: VideoItem[] = [
     duration: "8:05",
     views: "12M views",
     quality: "4K HDR",
+    videoSrc: "/Game Videos/Wukong,RDR 2.mp4",
     youtubeId: "qLZenOn7WUo",
     description: "Compare boss fights, lethal weapon skills, and dark fantasy lore between Elden Ring and Black Myth: Wukong.",
     games: [
@@ -135,6 +139,7 @@ const videosData: VideoItem[] = [
     duration: "5:20",
     views: "4.1M views",
     quality: "4K 60FPS",
+    videoSrc: "/Game Videos/Shadow Deluxe Edition Ubisoft.mp4",
     youtubeId: "vovkzbtYBC8",
     description: "Immerse yourself in feudal Japan through the dual perspectives of Naoe and Yasuke.",
     games: [
@@ -176,6 +181,7 @@ const videosData: VideoItem[] = [
     duration: "9:15",
     views: "1.9M views",
     quality: "4K HDR",
+    videoSrc: "/Game Videos/alan wake 2 and remasterd.mp4",
     youtubeId: "dlQ3Fe-7cT0",
     description: "Explore Bright Falls and the Dark Place across both Alan Wake 2 and Alan Wake Remastered.",
     games: [
@@ -204,6 +210,7 @@ const videosData: VideoItem[] = [
     duration: "4:50",
     views: "5.6M views",
     quality: "4K 60FPS",
+    videoSrc: "/Game Videos/Ghost Of Tsushima Epic.mp4",
     youtubeId: "ZgI5x-Wc6r8",
     description: "Master the blade of Jin Sakai with fluid stance switching and cinematic lethal strikes.",
     games: [
@@ -288,11 +295,24 @@ export default function VideoCatalogue() {
           onClick={() => setSelectedVideo(featuredSpotlight)}
         >
           <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden">
-            <img
-              src={featuredSpotlight.thumbnail}
-              alt={featuredSpotlight.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
-            />
+            {featuredSpotlight.videoSrc ? (
+              <video
+                src={featuredSpotlight.videoSrc}
+                poster={featuredSpotlight.thumbnail}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
+              />
+            ) : (
+              <img
+                src={featuredSpotlight.thumbnail}
+                alt={featuredSpotlight.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
 
             {/* Play Button Overlay */}
@@ -517,15 +537,29 @@ export default function VideoCatalogue() {
                 </button>
               </div>
 
-              {/* Iframe Video Container */}
-              <div className="relative aspect-[16/9] w-full bg-black">
-                <iframe
-                  src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
-                  title={selectedVideo.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                />
+              {/* Video Container (Lossless MP4 or YouTube) */}
+              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center">
+                {selectedVideo.videoSrc ? (
+                  <video
+                    key={selectedVideo.videoSrc}
+                    src={selectedVideo.videoSrc}
+                    controls
+                    autoPlay
+                    playsInline
+                    preload="auto"
+                    className="w-full h-full object-contain"
+                  >
+                    Your browser does not support high-definition video playback.
+                  </video>
+                ) : (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
+                    title={selectedVideo.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                  />
+                )}
               </div>
 
               {/* Featured Games in Video Purchase Section */}
