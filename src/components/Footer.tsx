@@ -96,11 +96,11 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1 space-y-4">
             <Link href="/#home" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35))', border: '1px solid rgba(255,255,255,0.6)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.75)' }}>
+              <div className="w-9 h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
                 <img
-                  src="/images/logo/Millennium%20Games.png"
-                  alt="M"
-                  className="absolute w-[180%] h-[180%] max-w-none top-[-2%] left-1/2 -translate-x-1/2 object-contain"
+                  src="/images/logo/logo-mark.png"
+                  alt="Millennium Games"
+                  className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
               <span className="text-lg font-bold text-[#0f172a] tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>

@@ -92,11 +92,11 @@ export default function AuthPage() {
             {/* Header/Toggle slider */}
             <div className="space-y-4 text-center">
               <Link href="/" className="inline-flex items-center gap-2 group justify-center">
-                <div className="w-8 h-8 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35))', border: '1px solid rgba(255,255,255,0.6)' }}>
+                <div className="w-8 h-8 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
                   <img
-                    src="/images/logo/Millennium%20Games.png"
-                    alt="M"
-                    className="absolute w-[180%] h-[180%] max-w-none top-[-2%] left-1/2 -translate-x-1/2 object-contain"
+                    src="/images/logo/logo-mark.png"
+                    alt="Millennium Games"
+                    className="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <span className="text-base font-bold text-[#0f172a] tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>

@@ -28,11 +28,28 @@ export const metadata: Metadata = {
     "game store",
     "game deals",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png" },
+    ],
+  },
   openGraph: {
     title: "Millennium Games – Premium Digital Game Store",
     description:
       "Buy authentic Steam and Epic Games titles instantly. Fast delivery, secure payments, trusted by thousands of gamers.",
     siteName: "Millennium Games",
+    images: [
+      {
+        url: "/images/logo/logo-mark.png",
+        width: 512,
+        height: 512,
+        alt: "Millennium Games Logo",
+      },
+    ],
     type: "website",
   },
 };
