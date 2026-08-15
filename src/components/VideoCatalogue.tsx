@@ -17,7 +17,7 @@ interface VideoItem {
   id: string;
   title: string;
   game: string;
-  category: "Official Trailers" | "Gameplay 4K" | "Cinematics" | "Review Spotlights";
+  category: "Official Account" | "Gameplay 4K" | "Cinematics" | "Review Spotlights";
   thumbnail: string;
   duration: string;
   views: string;
@@ -134,7 +134,7 @@ const videosData: VideoItem[] = [
     id: "v5",
     title: "Assassin's Creed Shadows - Official World & Gameplay Breakdown",
     game: "Assassin's Creed Shadows",
-    category: "Official Trailers",
+    category: "Official Account",
     thumbnail: "/images/Game Images/Assassin's Creed Shadow.svg",
     duration: "5:20",
     views: "4.1M views",
@@ -225,7 +225,7 @@ const videosData: VideoItem[] = [
   },
 ];
 
-const categories = ["All", "Official Trailers", "Gameplay 4K", "Cinematics", "Review Spotlights"];
+const categories = ["All", "Official Account", "Gameplay 4K", "Cinematics", "Review Spotlights"];
 
 export default function VideoCatalogue() {
   const [activeCategory, setActiveCategory] = useState("All");
