@@ -33,7 +33,7 @@ const videosData: VideoItem[] = [
     id: "v1",
     title: "Black Myth: Wukong - Deluxe Edition 4K Master Showcase",
     game: "Black Myth: Wukong",
-    category: "Official Trailers",
+    category: "Official Account",
     thumbnail: "/images/Game Images/Black Myth Wukong.svg",
     duration: "4K Master",
     views: "Direct 4K Master",
@@ -393,9 +393,8 @@ export default function VideoCatalogue() {
               <button
                 id={`cat-filter-${cat.toLowerCase().replace(/\s/g, "-")}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 backdrop-blur-md cursor-pointer ${
-                  activeCategory === cat ? "btn-glossy-white border-2 border-black/30 shadow-lg scale-105" : "btn-glossy-white opacity-80 hover:opacity-100"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 backdrop-blur-md cursor-pointer ${activeCategory === cat ? "btn-glossy-white border-2 border-black/30 shadow-lg scale-105" : "btn-glossy-white opacity-80 hover:opacity-100"
+                  }`}
               >
                 {cat}
               </button>
