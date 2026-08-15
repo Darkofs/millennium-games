@@ -54,7 +54,7 @@ const videosData: VideoItem[] = [
   {
     id: "v2",
     title: "Alan Wake 2 & Bundle - Official Account",
-    game: "Alan Wake 2 & Remastered",
+    game: "Alan Wake 2 & Other Games",
     category: "Official Account",
     thumbnail: "/images/Game Images/Alan Wake 2.svg",
     duration: "",
@@ -73,7 +73,7 @@ const videosData: VideoItem[] = [
       },
       {
         id: 3,
-        title: "Alan Wake Remastered",
+        title: "Other Games",
         price: 399,
         originalPrice: 798,
         image: "/images/Game Images/Alan Wake Remastered.svg",
