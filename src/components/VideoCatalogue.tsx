@@ -53,30 +53,30 @@ const videosData: VideoItem[] = [
   },
   {
     id: "v2",
-    title: "GTA VI & Night City Showdown - Next-Gen Open World Showcase",
-    game: "GTA 5 & Cyberpunk 2077",
-    category: "Gameplay 4K",
-    thumbnail: "/images/Game Images/GTA 5.svg",
-    duration: "6:31",
-    views: "190M views",
-    quality: "4K 60FPS",
-    videoSrc: "/Game Videos/GTA 5 .mp4",
-    youtubeId: "QdBZY2fkU-0",
-    description: "A dual open-world extravaganza showcasing GTA V and Cyberpunk 2077 ray tracing graphics.",
+    title: "Alan Wake 2 & Bundle - Official Account",
+    game: "Alan Wake 2 & Remastered",
+    category: "Official Account",
+    thumbnail: "/images/Game Images/Alan Wake 2.svg",
+    duration: "",
+    views: "",
+    quality: "4K 60FPS Lossless",
+    videoSrc: "/Game Videos/Alan Wake 2 and Bundle.mp4",
+    youtubeId: "dlQ3Fe-7cT0",
+    description: "Explore Bright Falls and the Dark Place across Alan Wake 2 and Alan Wake Remastered with pristine 4K visuals.",
     games: [
       {
-        id: 20,
-        title: "Grand Theft Auto V",
+        id: 2,
+        title: "Alan Wake 2",
         price: 399,
-        originalPrice: 798,
-        image: "/images/Game Images/GTA 5.svg",
+        originalPrice: 475,
+        image: "/images/Game Images/Alan Wake 2.svg",
       },
       {
-        id: 12,
-        title: "Cyberpunk 2077",
+        id: 3,
+        title: "Alan Wake Remastered",
         price: 399,
         originalPrice: 798,
-        image: "/images/Game Images/Cyberpunk 2077.svg",
+        image: "/images/Game Images/Alan Wake Remastered.svg",
       },
     ],
   },
@@ -440,11 +440,13 @@ export default function VideoCatalogue() {
                   )}
                 </div>
 
-                <div className="absolute bottom-3 right-3">
-                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-black bg-white/90 backdrop-blur-md border border-white/80">
-                    {video.duration}
-                  </span>
-                </div>
+                {video.duration ? (
+                  <div className="absolute bottom-3 right-3">
+                    <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold text-black bg-white/90 backdrop-blur-md border border-white/80">
+                      {video.duration}
+                    </span>
+                  </div>
+                ) : null}
 
                 {/* Center Play Icon on Hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
