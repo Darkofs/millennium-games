@@ -37,7 +37,7 @@ const videosData: VideoItem[] = [
     thumbnail: "/images/Game Images/Black Myth Wukong.svg",
     duration: "",
     views: "",
-    quality: "4K 60FPS Lossless",
+    quality: "PREMIUM",
     videoSrc: "/Game Videos/Black myth Wukong Deluxe Edition.mp4",
     youtubeId: "pnS8t9A7-eQ",
     description: "Experience the mythic journey of the Destined One in Black Myth: Wukong Deluxe Edition with pristine raw high-bitrate visuals.",
