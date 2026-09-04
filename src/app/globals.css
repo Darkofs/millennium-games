@@ -43,9 +43,15 @@
   --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
 }
 
-/* Smooth scroll setup for Lenis */
+/* Smooth scroll setup for Lenis & mobile responsiveness */
 html {
   scroll-padding-top: 5rem;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html.lenis,
@@ -80,8 +86,15 @@ body {
   color: #0f172a;
   font-family: var(--font-sans);
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  touch-action: pan-y;
 }
 
 /* Custom Scrollbar */
