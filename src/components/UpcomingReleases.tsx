@@ -95,7 +95,7 @@ export default function UpcomingReleases() {
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={`grid ${upcomingGames.length === 1 ? "grid-cols-1 max-w-3xl mx-auto" : "grid-cols-1 md:grid-cols-2"} gap-6`}>
           {upcomingGames.map((game, i) => (
             <motion.div
               key={game.id}

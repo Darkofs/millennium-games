@@ -1154,46 +1154,6 @@ export const upcomingGames: UpcomingGame[] = [
     preorderPrice: 399,
     description: "Explore feudal Japan as Yasuke and Naoe.",
     genre: "Action"
-  },
-  {
-    id: 5,
-    title: "Battlefield 6",
-    releaseDate: "2026-11-20",
-    platform: "epic",
-    image: "/images/Game Images/BATTLEFIELD 6.svg",
-    preorderPrice: 399,
-    description: "The next evolution of DICE's all-out war franchise.",
-    genre: "Shooter"
-  },
-  {
-    id: 10,
-    title: "Clair Obscur: Expedition 33",
-    releaseDate: "2025-05-15",
-    platform: "epic",
-    image: "/images/Game Images/Clair Obscur Expedition 33.svg",
-    preorderPrice: 399,
-    description: "Save humanity from the Paintress in this turn-based RPG.",
-    genre: "RPG"
-  },
-  {
-    id: 17,
-    title: "EA SPORTS FC 26",
-    releaseDate: "2025-09-26",
-    platform: "steam",
-    image: "/images/Game Images/FC 26.svg",
-    preorderPrice: 399,
-    description: "Pre-order the next generation of football simulation.",
-    genre: "Sports"
-  },
-  {
-    id: 33,
-    title: "Anno 117: Pax Romana",
-    releaseDate: "2025-12-15",
-    platform: "epic",
-    image: "/images/Game Images/Anno 117.svg",
-    preorderPrice: 399,
-    description: "Build a Roman province in Anno 117: Pax Romana.",
-    genre: "Strategy"
   }
 ];
 
