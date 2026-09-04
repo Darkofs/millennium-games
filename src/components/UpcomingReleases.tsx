@@ -296,7 +296,7 @@ export default function UpcomingReleases() {
                       <div>
                         <span className="text-xs text-slate-500 block">Pre-order Price</span>
                         <span className="text-2xl font-black text-[#0f172a]" style={{ fontFamily: "var(--font-outfit)" }}>
-                          ₹{game.preorderPrice || 399}
+                          ₹{game.preorderPrice || 1}
                         </span>
                       </div>
 
@@ -411,7 +411,7 @@ export default function UpcomingReleases() {
                   }}
                   className="btn-primary text-xs px-6 py-2.5 cursor-pointer shadow-lg"
                 >
-                  ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 399}
+                  ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 1}
                 </button>
               </div>
             </motion.div>

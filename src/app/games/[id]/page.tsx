@@ -232,7 +232,7 @@ export default function GameDetailsPage() {
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Full multiplayer, online co-op enabled. Exclusive personal account access.
                     </p>
-                    <span className="text-sm font-bold text-slate-700 mt-3">₹{Math.round(game.price * 2.5)}</span>
+                    <span className="text-sm font-bold text-slate-700 mt-3">₹{game.price === 1 ? 1 : Math.round(game.price * 2.5)}</span>
                   </button>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export default function GameDetailsPage() {
                   <span className="text-slate-500 text-xs block mb-1 uppercase tracking-widest font-semibold">Store Price</span>
                   <div className="flex items-baseline gap-3">
                     <span className="text-3xl sm:text-4xl font-extrabold text-mint" style={{ fontFamily: "var(--font-outfit)" }}>
-                      ₹{playMode === "online" ? Math.round(game.price * 2.5) : game.price}
+                      ₹{playMode === "online" ? (game.price === 1 ? 1 : Math.round(game.price * 2.5)) : game.price}
                     </span>
                     {game.originalPrice && (
                       <span className="text-base sm:text-lg text-slate-400 line-through">

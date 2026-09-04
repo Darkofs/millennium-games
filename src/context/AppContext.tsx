@@ -58,7 +58,7 @@ export function findGameById(id: number) {
   if (g2) return { ...g2, price: g2.dealPrice, image: g2.image, title: g2.title, platform: g2.platform };
 
   const g3 = upcomingGames.find((g) => g.id === id);
-  if (g3) return { ...g3, price: g3.preorderPrice || 399, image: g3.image, title: g3.title, platform: g3.platform };
+  if (g3) return { ...g3, price: g3.preorderPrice || 1, image: g3.image, title: g3.title, platform: g3.platform };
 
   return null;
 }
@@ -268,7 +268,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (!gameDetails) continue;
 
       const basePrice = gameDetails.price;
-      const finalPrice = item.playMode === "online" ? Math.round(basePrice * 2.5) : basePrice;
+      const finalPrice = basePrice === 1 ? 1 : (item.playMode === "online" ? Math.round(basePrice * 2.5) : basePrice);
 
       for (let i = 0; i < item.quantity; i++) {
         const invAccount = accountsInventory.find((acc) => acc.games.includes(item.gameId));

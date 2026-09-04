@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Magnetic from "@/components/Magnetic";
+import InvoiceModal, { InvoiceData } from "@/components/InvoiceModal";
 
 export default function LibraryPage() {
   const { user } = useApp();
@@ -19,6 +20,8 @@ export default function LibraryPage() {
   const [loading2FA, setLoading2FA] = useState<Record<string, boolean>>({});
   const [codes2FA, setCodes2FA] = useState<Record<string, { code: string; expiresAt: number }>>({});
   const [currentTime, setCurrentTime] = useState(Date.now());
+  const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
+  const [selectedInvoice, setSelectedInvoice] = useState<InvoiceData | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(Date.now()), 1000);
@@ -258,6 +261,41 @@ export default function LibraryPage() {
                             )}
                           </button>
                         )}
+
+                        {/* View Tax Invoice Button */}
+                        <button
+                          onClick={() => {
+                            setSelectedInvoice({
+                              invoiceNumber: `MG-${new Date(record.purchasedAt || Date.now()).getFullYear()}-${record.id.slice(-4).toUpperCase()}`,
+                              invoiceDate: new Date(record.purchasedAt || Date.now()).toLocaleDateString("en-US", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              }),
+                              dueDate: "Paid on Receipt",
+                              customerName: user?.name || "Valued Customer",
+                              customerEmail: user?.email || "customer@example.com",
+                              items: [
+                                {
+                                  id: record.id,
+                                  gameTitle: record.gameTitle,
+                                  platform: record.platform,
+                                  playMode: record.playMode,
+                                  quantity: 1,
+                                  price: record.price,
+                                },
+                              ],
+                              totalAmount: record.price,
+                              transactionId: `RZP-PAY-${record.id}`,
+                              paymentMethod: "Razorpay Verified Payment",
+                            });
+                            setInvoiceModalOpen(true);
+                          }}
+                          className="w-full mt-2 py-1.5 px-3 rounded-xl text-[11px] font-bold text-slate-800 bg-amber-400/25 hover:bg-amber-400/40 border border-amber-400/50 flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                        >
+                          <span>🧾</span>
+                          <span>View Tax Invoice</span>
+                        </button>
                       </div>
                     </div>
                   </motion.div>
@@ -315,6 +353,15 @@ export default function LibraryPage() {
       </div>
 
       <Footer />
+
+      {/* Printable Invoice Modal */}
+      {selectedInvoice && (
+        <InvoiceModal
+          isOpen={invoiceModalOpen}
+          onClose={() => setInvoiceModalOpen(false)}
+          data={selectedInvoice}
+        />
+      )}
     </main>
   );
 }
