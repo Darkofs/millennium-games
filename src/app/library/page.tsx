@@ -74,7 +74,7 @@ export default function LibraryPage() {
       ],
       totalAmount: record.price,
       transactionId: record.utrNumber || `UPI-${record.id.slice(-8)}`,
-      paymentMethod: "Direct UPI Transfer (s-shibu@ptaxis)",
+      paymentMethod: "Direct UPI Transfer (bllalwhdn@ptaxis)",
     };
 
     try {
@@ -430,7 +430,7 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                               ],
                               totalAmount: record.price,
                               transactionId: record.utrNumber || `UPI-${record.id.slice(-8)}`,
-                              paymentMethod: "Direct UPI Transfer (s-shibu@ptaxis)",
+                              paymentMethod: "Direct UPI Transfer (bllalwhdn@ptaxis)",
                             });
                             setInvoiceModalOpen(true);
                           }}
