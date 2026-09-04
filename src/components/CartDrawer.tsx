@@ -44,9 +44,7 @@ export default function CartDrawer() {
       const details = findGameById(item.gameId);
       if (!details) return null;
       const finalPrice =
-        details.price === 1
-          ? 1
-          : item.playMode === "online"
+        item.playMode === "online"
           ? Math.round(details.price * 2.5)
           : details.price;
       return {
