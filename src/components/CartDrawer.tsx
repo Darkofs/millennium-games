@@ -71,7 +71,7 @@ export default function CartDrawer() {
   );
 
   // UPI Deep Link URLs
-  const upiPayUrl = `upi://pay?pa=s-shibu@ptaxis&pn=Millennium%20Games&am=${total}&cu=INR&tn=Millennium%20Games%20Order`;
+  const upiPayUrl = `upi://pay?pa=bllalwhdn@ptaxis&pn=Sidharth%20Shibu&am=${total}&cu=INR&tn=Millennium%20Games%20Order`;
 
   // Copy helper with feedback
   const handleCopy = (text: string, field: string) => {
@@ -168,7 +168,7 @@ export default function CartDrawer() {
           totalAmount: total,
           transactionId:
             utrNumber.trim() || `UPI-TXN-${Date.now().toString().slice(-8)}`,
-          paymentMethod: "UPI Transfer (s-shibu@ptaxis)",
+          paymentMethod: "UPI Transfer (bllalwhdn@ptaxis)",
         };
         setCurrentInvoice(invData);
 
@@ -187,7 +187,7 @@ export default function CartDrawer() {
             `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
             `👤 *Customer Name:* ${user?.name} (${user?.email})\n` +
             `💰 *Amount Paid:* ₹${total}\n` +
-            `💳 *Paid To UPI ID:* s-shibu@ptaxis\n` +
+            `💳 *Paid To UPI ID:* bllalwhdn@ptaxis\n` +
             `🔢 *UTR / Ref No.:* ${
               utrNumber.trim() || "Uploaded in Website Proof"
             }\n` +
@@ -447,7 +447,7 @@ export default function CartDrawer() {
 
                     <a
                       href={`https://wa.me/918089406346?text=${encodeURIComponent(
-                        `🎮 *Millennium Games - Order Confirmed*\nI have completed the payment of ₹${total} to s-shibu@ptaxis and uploaded the payment screenshot. Please verify!`
+                        `🎮 *Millennium Games - Order Confirmed*\nI have completed the payment of ₹${total} to bllalwhdn@ptaxis and uploaded the payment screenshot. Please verify!`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -521,8 +521,8 @@ export default function CartDrawer() {
 
                     <div className="relative mx-auto w-60 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center justify-center overflow-hidden">
                       <img
-                        src="/images/paytm_upi_qr.jpg"
-                        alt="Paytm UPI QR Code"
+                        src="/images/sidharth_shibu_qr.jpg"
+                        alt="Paytm UPI QR Code - Sidharth Shibu"
                         className="w-full h-auto object-contain rounded-xl"
                       />
                     </div>
@@ -567,12 +567,12 @@ export default function CartDrawer() {
                           Official UPI ID
                         </span>
                         <span className="text-xs font-mono font-bold text-slate-900 select-all truncate block">
-                          s-shibu@ptaxis
+                          bllalwhdn@ptaxis
                         </span>
                       </div>
                       <button
                         type="button"
-                        onClick={() => handleCopy("s-shibu@ptaxis", "upi")}
+                        onClick={() => handleCopy("bllalwhdn@ptaxis", "upi")}
                         className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-slate-900 text-white hover:bg-slate-800 transition-all flex items-center gap-1 cursor-pointer flex-shrink-0"
                       >
                         {copiedField === "upi" ? "✓ Copied!" : "Copy ID"}

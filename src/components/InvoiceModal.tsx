@@ -348,7 +348,7 @@ export function generateInvoiceHtml(data: InvoiceData): string {
     </div>
 
     <div class="middle-info">
-      <div>Payment Gateway: <strong>${data.paymentMethod || "UPI Instant Payment (s-shibu@ptaxis)"}</strong></div>
+      <div>Payment Gateway: <strong>${data.paymentMethod || "UPI Instant Payment (bllalwhdn@ptaxis)"}</strong></div>
       <div>Merchant / Account: <strong>Millennium Games</strong></div>
       <div>Transaction Status: <strong>PAID &amp; CONFIRMED (Ref: ${data.transactionId || "UPI-VERIFIED-PAID"})</strong></div>
     </div>
@@ -619,7 +619,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
             {/* Middle Bank & Account Info */}
             <div className="px-8 sm:px-10 py-5 text-xs text-slate-700 space-y-1">
               <p className="font-semibold text-slate-800">
-                Payment Gateway: <span className="font-bold text-slate-950">{data.paymentMethod || "UPI Instant Payment (s-shibu@ptaxis)"}</span>
+                Payment Gateway: <span className="font-bold text-slate-950">{data.paymentMethod || "UPI Instant Payment (bllalwhdn@ptaxis)"}</span>
               </p>
               <p className="font-semibold text-slate-800">
                 Merchant / Account Name: <span className="font-bold text-slate-950">Millennium Games</span>
