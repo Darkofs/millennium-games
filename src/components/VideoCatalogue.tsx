@@ -532,38 +532,38 @@ export default function VideoCatalogue() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-slate-950/85 backdrop-blur-xl overflow-y-auto"
-            onClick={() => setSelectedVideo(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
+            onClick={handleCloseVideo}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              initial={{ scale: 0.92, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 25 }}
-              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/40 shadow-2xl my-auto video-modal-content"
+              exit={{ scale: 0.92, opacity: 0, y: 15 }}
+              transition={{ type: "spring", damping: 28, stiffness: 320 }}
+              className="relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col max-h-[92dvh] my-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/20 bg-slate-950">
-                <div>
-                  <span className="text-xs font-bold text-white/80 uppercase tracking-widest block">
+              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/20 bg-slate-950/90 flex-shrink-0">
+                <div className="min-w-0 pr-3">
+                  <span className="text-[10px] sm:text-xs font-bold text-white/70 uppercase tracking-wider block truncate">
                     {selectedVideo.game} • {selectedVideo.category}
                   </span>
-                  <h3 className="text-base md:text-lg font-bold text-white truncate max-w-xl">
+                  <h3 className="text-xs sm:text-base font-bold text-white truncate max-w-lg">
                     {selectedVideo.title}
                   </h3>
                 </div>
                 <button
-                  onClick={() => setSelectedVideo(null)}
-                  className="w-10 h-10 rounded-full btn-glossy-white flex items-center justify-center text-xl font-bold cursor-pointer"
+                  onClick={handleCloseVideo}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
                   aria-label="Close modal"
                 >
                   ✕
                 </button>
               </div>
 
-              {/* Video Container (Lossless MP4 or YouTube) */}
-              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center">
+              {/* Video Container (playsInline to prevent native fullscreen displacement) */}
+              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
                 {selectedVideo.videoSrc ? (
                   <video
                     key={selectedVideo.videoSrc}
@@ -571,6 +571,7 @@ export default function VideoCatalogue() {
                     controls
                     autoPlay
                     playsInline
+                    webkit-playsinline="true"
                     preload="auto"
                     className="w-full h-full object-contain"
                   >
@@ -578,7 +579,7 @@ export default function VideoCatalogue() {
                   </video>
                 ) : (
                   <iframe
-                    src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
+                    src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&playsinline=1`}
                     title={selectedVideo.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -588,11 +589,11 @@ export default function VideoCatalogue() {
               </div>
 
               {/* Featured Games in Video Purchase Section */}
-              <div className="p-6 bg-slate-950 border-t border-white/10 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm md:text-base font-bold text-white flex items-center gap-2">
-                    <span>🎮 Featured Game{selectedVideo.games.length > 1 ? "s" : ""} in Video</span>
-                    <span className="text-xs font-normal text-white/70">
+              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/10 overflow-y-auto max-h-[30vh] sm:max-h-[35vh] space-y-3 no-scrollbar">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+                    <span>🎮 Included Game{selectedVideo.games.length > 1 ? "s" : ""}</span>
+                    <span className="text-[10px] sm:text-xs font-normal text-white/60">
                       ({selectedVideo.games.length} available)
                     </span>
                   </h4>
@@ -600,51 +601,51 @@ export default function VideoCatalogue() {
                   {selectedVideo.games.length > 1 && (
                     <button
                       onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
-                      className="px-4 py-1.5 rounded-full text-xs font-bold btn-glossy-white shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold btn-primary shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
                     >
-                      📦 Buy All {selectedVideo.games.length} Games (₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)})
+                      📦 Buy All ({selectedVideo.games.length}) - ₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)}
                     </button>
                   )}
                 </div>
 
                 {/* List of Featured Games */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                   {selectedVideo.games.map((g) => (
                     <div
                       key={g.id}
-                      className="flex items-center justify-between p-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md"
+                      className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md gap-2"
                     >
-                      <div className="flex items-center gap-3 min-w-0">
+                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
                         <img
                           src={g.image}
                           alt={g.title}
-                          className="w-12 h-12 object-cover rounded-xl border border-white/30 flex-shrink-0"
+                          className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
                         />
-                        <div className="min-w-0">
-                          <h5 className="text-sm font-bold text-white truncate" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
+                        <div className="min-w-0 flex-1">
+                          <h5 className="text-xs sm:text-sm font-bold text-white truncate" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                             {g.title}
                           </h5>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-white" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>₹{g.price}</span>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="text-xs sm:text-sm font-bold text-emerald-400">₹{g.price}</span>
                             {g.originalPrice && (
-                              <span className="text-xs text-white/60 line-through">₹{g.originalPrice}</span>
+                              <span className="text-[10px] sm:text-xs text-white/50 line-through">₹{g.originalPrice}</span>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
                         <button
                           onClick={(e) => handleAddToCart(e, g.id)}
-                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
+                          className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
                         >
                           🛒 Cart
                         </button>
                         <button
                           onClick={(e) => handleBuyNow(e, g.id)}
-                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
+                          className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold btn-primary transition-all cursor-pointer active:scale-95"
                         >
-                          ⚡ Buy Now
+                          ⚡ Buy
                         </button>
                       </div>
                     </div>

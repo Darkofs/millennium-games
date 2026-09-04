@@ -363,30 +363,30 @@ export default function UpcomingReleases() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-xl"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
             onClick={handleCloseTrailer}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25 }}
-              className="relative w-full max-w-5xl bg-slate-950 rounded-[28px] overflow-hidden border border-white/30 shadow-2xl my-auto"
+              initial={{ scale: 0.92, opacity: 0, y: 15 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 15 }}
+              transition={{ type: "spring", damping: 28, stiffness: 320 }}
+              className="relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950">
-                <div>
-                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest block">
+              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/10 bg-slate-950/90 flex-shrink-0">
+                <div className="min-w-0 pr-3">
+                  <span className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block">
                     Upcoming AAA Game Trailer
                   </span>
-                  <h3 className="text-lg font-bold text-white truncate max-w-xl">
+                  <h3 className="text-xs sm:text-base font-bold text-white truncate max-w-lg">
                     {selectedTrailer.title} - Official Trailer
                   </h3>
                 </div>
                 <button
                   onClick={handleCloseTrailer}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-lg font-bold cursor-pointer transition-colors"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
                   aria-label="Close modal"
                 >
                   ✕
@@ -394,7 +394,7 @@ export default function UpcomingReleases() {
               </div>
 
               {/* Video Player */}
-              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center">
+              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
                 {selectedTrailer.videoSrc && (
                   <video
                     key={selectedTrailer.videoSrc}
@@ -402,6 +402,7 @@ export default function UpcomingReleases() {
                     controls
                     autoPlay
                     playsInline
+                    webkit-playsinline="true"
                     preload="auto"
                     className="w-full h-full object-contain"
                   >
@@ -411,15 +412,15 @@ export default function UpcomingReleases() {
               </div>
 
               {/* Modal Footer with Preorder */}
-              <div className="p-6 bg-slate-950 border-t border-white/10 flex items-center justify-between">
-                <div>
-                  <h4 className="text-sm font-bold text-white">
+              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/10 flex items-center justify-between gap-3 flex-shrink-0">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs sm:text-sm font-bold text-white truncate">
                     {selectedTrailer.title}
                   </h4>
-                  <p className="text-xs text-slate-400">
-                    Expected Release:{" "}
+                  <p className="text-[10px] sm:text-xs text-slate-400 truncate">
+                    Expected:{" "}
                     {new Date(selectedTrailer.releaseDate).toLocaleDateString("en-US", {
-                      month: "long",
+                      month: "short",
                       day: "numeric",
                       year: "numeric",
                     })}
@@ -432,7 +433,7 @@ export default function UpcomingReleases() {
                     handleCloseTrailer();
                     router.push("/cart");
                   }}
-                  className="btn-primary text-xs px-6 py-2.5 cursor-pointer shadow-lg"
+                  className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
                 >
                   ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 399}
                 </button>
