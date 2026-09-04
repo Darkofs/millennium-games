@@ -488,6 +488,15 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
 
       <Footer />
 
+      {/* Printable Invoice Modal */}
+      {selectedInvoice && (
+        <InvoiceModal
+          isOpen={invoiceModalOpen}
+          onClose={() => setInvoiceModalOpen(false)}
+          data={selectedInvoice}
+        />
+      )}
+
       {/* Floating WhatsApp Help & Support Symbol Button */}
       <a
         href="https://wa.me/message/WXU5NCOSMGVRE1"
