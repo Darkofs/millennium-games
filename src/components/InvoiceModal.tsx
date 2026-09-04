@@ -30,6 +30,376 @@ interface InvoiceModalProps {
   data: InvoiceData;
 }
 
+export function generateInvoiceHtml(data: InvoiceData): string {
+  const rowsHtml = data.items
+    .map(
+      (item) => `
+      <tr>
+        <td class="desc">
+          ${item.gameTitle}
+          <small>${(item.platform || "PC").toUpperCase()} • ${
+            item.playMode === "online" ? "Online Multiplayer" : "Offline Campaign Story"
+          } Edition</small>
+        </td>
+        <td class="qty">${item.quantity}</td>
+        <td class="price">₹${item.price.toFixed(2)}</td>
+        <td class="total">₹${(item.price * item.quantity).toFixed(2)}</td>
+      </tr>`
+    )
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax Invoice - ${data.invoiceNumber}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .action-bar {
+    width: 800px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .btn-action {
+    background: #f5a623;
+    color: #0f172a;
+    border: none;
+    padding: 10px 22px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(245, 166, 35, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .invoice-container {
+    width: 800px;
+    max-width: 100%;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .header {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-box {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .divider {
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .brand-title {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: #ffffff;
+  }
+  .brand-sub {
+    color: #f5a623;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-top: 4px;
+  }
+  .customer-details {
+    text-align: right;
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+  .customer-details .label {
+    color: #f5a623;
+    font-weight: 700;
+  }
+  .customer-details .val {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .body-wrap {
+    display: flex;
+    min-height: 380px;
+  }
+  .ribbon {
+    width: 100px;
+    background-color: #f5a623;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ribbon-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .table-area {
+    flex: 1;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    background-color: #f5a623;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 10px 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  th.desc { text-align: left; width: 50%; }
+  th.qty { text-align: center; width: 15%; }
+  th.price { text-align: right; width: 15%; }
+  th.total { text-align: right; width: 20%; }
+  td {
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 12px;
+    color: #1e293b;
+  }
+  td.desc { font-weight: 700; }
+  td.desc small { display: block; font-weight: 500; color: #64748b; font-size: 10.5px; margin-top: 3px; }
+  td.qty { text-align: center; font-weight: 600; }
+  td.price { text-align: right; font-weight: 600; }
+  td.total { text-align: right; font-weight: 800; color: #0f172a; }
+  .total-row {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    padding-right: 14px;
+  }
+  .total-label {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+  .total-val {
+    font-size: 22px;
+    font-weight: 900;
+    color: #0f172a;
+  }
+  .middle-info {
+    padding: 16px 40px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #334155;
+  }
+  .middle-info strong { color: #0f172a; }
+  .bottom-cards {
+    padding: 10px 40px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .invoice-meta-box {
+    background-color: #f5a623;
+    color: #0f172a;
+    padding: 14px 24px;
+    border-radius: 12px;
+    display: flex;
+    gap: 30px;
+    font-size: 12px;
+  }
+  .meta-item span { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0f172a; }
+  .meta-item strong { font-size: 13px; font-weight: 900; }
+  .signatory {
+    text-align: right;
+  }
+  .sig-line {
+    width: 140px;
+    height: 2px;
+    background: #94a3b8;
+    margin-left: auto;
+    margin-bottom: 6px;
+  }
+  .sig-name { font-size: 13px; font-weight: 900; color: #0f172a; }
+  .sig-title { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .footer-bar {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    padding: 16px 40px;
+    font-size: 11.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bar span { display: flex; align-items: center; gap: 6px; }
+  .footer-bar .icon { color: #f5a623; }
+  @media print {
+    body { background: #ffffff; padding: 0; }
+    .action-bar { display: none !important; }
+    .invoice-container { box-shadow: none !important; border-radius: 0 !important; width: 100% !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="action-bar">
+    <button class="btn-action" onclick="window.print()">
+      🖨️ Print / Save PDF
+    </button>
+  </div>
+
+  <div class="invoice-container">
+    <div class="header">
+      <div class="header-left">
+        <div class="logo-box">
+          <img src="/images/logo/logo-mark.png" alt="Millennium Games Logo" />
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="brand-title">WARNER &amp; SPENCER</div>
+          <span class="brand-sub">MILLENNIUM GAMES STORE</span>
+        </div>
+      </div>
+
+      <div class="customer-details">
+        <div><span class="label">To :</span> <span class="val">${data.customerName || "Valued Customer"}</span></div>
+        <div><span class="label">Platform :</span> <span class="val">PC Digital Games Delivery</span></div>
+        <div><span class="label">Mail :</span> <span class="val">${data.customerEmail || "customer@example.com"}</span></div>
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="ribbon">
+        <div class="ribbon-text">INVOICE</div>
+      </div>
+
+      <div class="table-area">
+        <table>
+          <thead>
+            <tr>
+              <th class="desc">DESC</th>
+              <th class="qty">QTY</th>
+              <th class="price">PRICE</th>
+              <th class="total">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+
+        <div class="total-row">
+          <span class="total-label">TOTAL</span>
+          <span class="total-val">₹${data.totalAmount.toFixed(2)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle-info">
+      <div>Payment Gateway: <strong>${data.paymentMethod || "Razorpay Secure Payments"}</strong></div>
+      <div>Merchant / Account: <strong>Millennium Games</strong></div>
+      <div>Transaction Status: <strong>PAID &amp; CONFIRMED (Ref: ${data.transactionId || "RZP-PAY-SUCCESS"})</strong></div>
+    </div>
+
+    <div class="bottom-cards">
+      <div class="invoice-meta-box">
+        <div class="meta-item">
+          <span>Invoice No :</span>
+          <strong>${data.invoiceNumber}</strong>
+        </div>
+        <div class="meta-item">
+          <span>Invoice Date :</span>
+          <strong>${data.invoiceDate}</strong>
+        </div>
+        <div class="meta-item">
+          <span>Due Date :</span>
+          <strong>${data.dueDate || "Paid on Receipt"}</strong>
+        </div>
+      </div>
+
+      <div class="signatory">
+        <div class="sig-line"></div>
+        <div class="sig-name">Chad Gibbons</div>
+        <div class="sig-title">Authorised Signatory</div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span><strong class="icon">📞</strong> +91 8089406346</span>
+      <span><strong class="icon">✉️</strong> millenniumpcgames@gmail.com</span>
+      <span><strong class="icon">📍</strong> Meencut PO Pallivasal, Munnar, Kerala - 685565</span>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+export function downloadInvoice(data: InvoiceData) {
+  if (typeof window === "undefined") return;
+  const htmlContent = generateInvoiceHtml(data);
+  const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `Invoice_${data.invoiceNumber}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
 export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProps) {
   const invoiceRef = useRef<HTMLDivElement>(null);
 
@@ -37,6 +407,10 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownload = () => {
+    downloadInvoice(data);
   };
 
   return (
@@ -62,7 +436,15 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
               <span>Official Tax Invoice</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={handleDownload}
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 flex items-center gap-1.5 transition-all cursor-pointer"
+              >
+                <span>💾</span>
+                <span>Download Invoice</span>
+              </button>
+
               <button
                 onClick={handlePrint}
                 className="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center gap-1.5 shadow transition-all cursor-pointer"
@@ -75,7 +457,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
 
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold cursor-pointer transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold cursor-pointer transition-colors ml-1"
                 aria-label="Close invoice"
               >
                 ✕
