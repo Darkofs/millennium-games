@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
 import { useApp } from "@/context/AppContext";
@@ -230,9 +231,10 @@ const videosData: VideoItem[] = [
 const categories = ["All", "Official Account", "Gameplay 4K", "Cinematics", "Review Spotlights"];
 
 export default function VideoCatalogue() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
-  const { addToCart, setCartOpen } = useApp();
+  const { addToCart } = useApp();
 
   const featuredSpotlight = videosData[0];
 
@@ -244,18 +246,19 @@ export default function VideoCatalogue() {
   const handleAddToCart = (e: React.MouseEvent, gameId: number) => {
     e.stopPropagation();
     addToCart(gameId, "offline");
+    router.push("/cart");
   };
 
   const handleBuyNow = (e: React.MouseEvent, gameId: number) => {
     e.stopPropagation();
     addToCart(gameId, "offline");
-    setCartOpen(true);
+    router.push("/cart?step=upi_payment");
   };
 
   const handleAddBundleToCart = (e: React.MouseEvent, games: FeaturedGameRef[]) => {
     e.stopPropagation();
     games.forEach((g) => addToCart(g.id, "offline"));
-    setCartOpen(true);
+    router.push("/cart");
   };
 
   // Intercept mobile back button when video modal is open

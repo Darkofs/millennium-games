@@ -54,10 +54,11 @@ function CartPageContent() {
         item.playMode === "online"
           ? Math.round(details.price * 2.5)
           : details.price;
-      const originalFinalPrice = details.originalPrice
+      const rawOriginalPrice = "originalPrice" in details ? (details.originalPrice as number | undefined) : undefined;
+      const originalFinalPrice = rawOriginalPrice
         ? item.playMode === "online"
-          ? Math.round(details.originalPrice * 2.5)
-          : details.originalPrice
+          ? Math.round(rawOriginalPrice * 2.5)
+          : rawOriginalPrice
         : undefined;
 
       return {

@@ -430,7 +430,7 @@ export default function UpcomingReleases() {
                   onClick={() => {
                     addToCart(selectedTrailer.id);
                     handleCloseTrailer();
-                    setCartOpen(true);
+                    router.push("/cart");
                   }}
                   className="btn-primary text-xs px-6 py-2.5 cursor-pointer shadow-lg"
                 >
