@@ -316,7 +316,7 @@ export function generateInvoiceHtml(data: InvoiceData): string {
       <div class="customer-details">
         <div><span class="label">To :</span> <span class="val">${data.customerName || "Valued Customer"}</span></div>
         <div><span class="label">Platform :</span> <span class="val">PC Digital Games Delivery</span></div>
-        <div><span class="label">Mail :</span> <span class="val">${data.customerEmail || "customer@example.com"}</span></div>
+        <div><span class="label">Mail :</span> <span class="val">millenniumpcgames@gmail.com</span></div>
       </div>
     </div>
 
@@ -512,7 +512,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
                 </div>
                 <div>
                   <span className="text-amber-400 font-bold">Mail : </span>
-                  <span className="text-slate-200">{data.customerEmail || "customer@example.com"}</span>
+                  <span className="text-slate-200">millenniumpcgames@gmail.com</span>
                 </div>
               </div>
             </div>

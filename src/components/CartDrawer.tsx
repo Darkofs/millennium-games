@@ -125,7 +125,7 @@ export default function CartDrawer() {
               }),
               dueDate: "Paid on Receipt",
               customerName: user?.name || "Valued Customer",
-              customerEmail: user?.email || "customer@example.com",
+              customerEmail: "millenniumpcgames@gmail.com",
               items: checkoutResult.keys.map((k) => ({
                 id: k.id,
                 gameTitle: k.gameTitle,
