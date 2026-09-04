@@ -477,7 +477,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
           >
             {/* Top Dark Header */}
             <div
-              className="px-8 py-8 sm:px-10 sm:py-9 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6"
+              className="px-4 py-6 sm:px-10 sm:py-9 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6"
               style={{ backgroundColor: "#1e293b", color: "#ffffff" }}
             >
               {/* Brand Logo & Name */}
@@ -521,14 +521,14 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
             <div className="relative flex items-stretch">
               {/* Left Amber Ribbon with Vertical INVOICE text */}
               <div
-                className="w-20 sm:w-28 flex-shrink-0 flex items-center justify-center"
+                className="w-14 sm:w-28 flex-shrink-0 flex items-center justify-center"
                 style={{
                   backgroundColor: "#f5a623",
                   minHeight: "380px",
                 }}
               >
                 <span
-                  className="text-white font-black tracking-[0.25em] text-3xl sm:text-4xl uppercase select-none"
+                  className="text-white font-black tracking-[0.25em] text-2xl sm:text-4xl uppercase select-none"
                   style={{
                     writingMode: "vertical-rl",
                     transform: "rotate(180deg)",
@@ -541,7 +541,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
               </div>
 
               {/* Right Table Container */}
-              <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between">
+              <div className="flex-1 p-3 sm:p-8 flex flex-col justify-between overflow-x-auto">
                 <div>
                   {/* Table Header */}
                   <div

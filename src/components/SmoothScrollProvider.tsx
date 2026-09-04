@@ -5,14 +5,22 @@ import Lenis from "lenis";
 
 export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    // Initialize Lenis with optimized settings for fast and buttery-smooth scrolls
+    // On mobile touch screens, use native browser momentum scroll to prevent viewport scale shifts
+    const isTouch =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768);
+
+    if (isTouch) {
+      return;
+    }
+
+    // Initialize Lenis for desktop
     const lenis = new Lenis({
-      duration: 0.9, // Scrolling animation duration (seconds). Slightly faster than default (1.2s) for responsive feel.
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+      duration: 0.9,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
-      wheelMultiplier: 1.0, // Wheel sensitivity
-      touchMultiplier: 2.0, // Touch sensitivity
+      wheelMultiplier: 1.0,
       infinite: false,
     });
 

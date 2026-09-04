@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useApp, findGameById, PurchaseRecord } from "@/context/AppContext";
 import Link from "next/link";
 import Magnetic from "./Magnetic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import InvoiceModal, { InvoiceData, downloadInvoice } from "./InvoiceModal";

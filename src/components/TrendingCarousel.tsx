@@ -92,7 +92,7 @@ export default function TrendingCarousel() {
         onScroll={handleScroll}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        className="flex gap-6 overflow-x-auto no-scrollbar px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] snap-x snap-mandatory"
+        className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar px-4 sm:px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] snap-x snap-mandatory"
       >
         {trendingGames.map((game, i) => (
           <motion.div
@@ -101,7 +101,7 @@ export default function TrendingCarousel() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="flex-shrink-0 w-[320px] sm:w-[400px] lg:w-[480px] snap-start"
+            className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[400px] lg:w-[480px] snap-start"
           >
             <Link href={`/games/${game.id}`} className="block">
               <div

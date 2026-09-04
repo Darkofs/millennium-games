@@ -682,6 +682,20 @@ a:hover h4 {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /* Prevent oversized blur shapes and starbursts from extending mobile viewport */
+  .abstract-shape,
+  .starburst-lg,
+  .starburst-md {
+    display: none !important;
+  }
+
+  /* Prevent mobile browsers from automatically zooming on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 /* Star rating */
