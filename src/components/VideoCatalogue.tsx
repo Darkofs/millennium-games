@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
 import { useApp } from "@/context/AppContext";
@@ -256,6 +256,29 @@ export default function VideoCatalogue() {
     e.stopPropagation();
     games.forEach((g) => addToCart(g.id, "offline"));
     setCartOpen(true);
+  };
+
+  // Intercept mobile back button when video modal is open
+  useEffect(() => {
+    if (!selectedVideo) return;
+
+    window.history.pushState({ modal: "video" }, "");
+
+    const handlePopState = () => {
+      setSelectedVideo(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [selectedVideo]);
+
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
+    if (typeof window !== "undefined" && window.history.state?.modal === "video") {
+      window.history.back();
+    }
   };
 
   return (

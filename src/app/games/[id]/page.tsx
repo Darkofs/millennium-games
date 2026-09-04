@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { featuredGames, accountsInventory } from "@/data/gameData";
@@ -12,9 +12,18 @@ import { useApp } from "@/context/AppContext";
 
 export default function GameDetailsPage() {
   const params = useParams();
+  const router = useRouter();
   const id = parseInt(params.id as string);
   const game = featuredGames.find((g) => g.id === id);
   const invAccounts = game ? accountsInventory.filter((acc) => acc.games.includes(game.id)) : [];
+
+  const handleSafeBack = () => {
+    if (typeof window !== "undefined" && window.history.length > 1 && document.referrer.includes(window.location.host)) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   const [reqTab, setReqTab] = useState<"minimum" | "recommended">("minimum");
   const [playMode, setPlayMode] = useState<"offline" | "online">("offline");
@@ -77,13 +86,22 @@ export default function GameDetailsPage() {
       </div>
 
       <div className="flex-1 container-custom relative z-10 pt-28 pb-24">
-        {/* Breadcrumbs */}
-        <div className="text-sm text-slate-500 mb-8 flex items-center gap-2">
-          <Link href="/" className="hover:text-mint transition-colors">Store</Link>
-          <span>/</span>
-          <span className="capitalize">{game.genre[0] || "Games"}</span>
-          <span>/</span>
-          <span className="text-slate-800 font-bold">{game.title}</span>
+        {/* Breadcrumbs and Back button */}
+        <div className="text-sm text-slate-500 mb-8 flex items-center gap-3">
+          <button
+            onClick={handleSafeBack}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/70 hover:bg-white text-slate-800 font-semibold text-xs border border-white/80 shadow-sm transition-all cursor-pointer active:scale-95"
+            aria-label="Back to store"
+          >
+            ← Back
+          </button>
+          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            <Link href="/" className="hover:text-mint transition-colors">Store</Link>
+            <span>/</span>
+            <span className="capitalize">{game.genre[0] || "Games"}</span>
+            <span>/</span>
+            <span className="text-slate-800 font-bold truncate">{game.title}</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">

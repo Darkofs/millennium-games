@@ -90,6 +90,27 @@ export default function UpcomingReleases() {
   const { addToCart, setCartOpen } = useApp();
   const [selectedTrailer, setSelectedTrailer] = useState<UpcomingGame | null>(null);
 
+  useEffect(() => {
+    if (selectedTrailer) {
+      window.history.pushState({ modal: "trailer" }, "");
+      const handlePopState = () => {
+        setSelectedTrailer(null);
+      };
+      window.addEventListener("popstate", handlePopState);
+      return () => {
+        window.removeEventListener("popstate", handlePopState);
+      };
+    }
+  }, [selectedTrailer]);
+
+  const handleCloseTrailer = () => {
+    if (typeof window !== "undefined" && window.history.state?.modal === "trailer") {
+      window.history.back();
+    } else {
+      setSelectedTrailer(null);
+    }
+  };
+
   return (
     <section id="upcoming" className="relative py-24 overflow-hidden">
       {/* Background */}
@@ -341,7 +362,7 @@ export default function UpcomingReleases() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-xl"
-            onClick={() => setSelectedTrailer(null)}
+            onClick={handleCloseTrailer}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -362,7 +383,7 @@ export default function UpcomingReleases() {
                   </h3>
                 </div>
                 <button
-                  onClick={() => setSelectedTrailer(null)}
+                  onClick={handleCloseTrailer}
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-lg font-bold cursor-pointer transition-colors"
                   aria-label="Close modal"
                 >
@@ -406,7 +427,7 @@ export default function UpcomingReleases() {
                 <button
                   onClick={() => {
                     addToCart(selectedTrailer.id);
-                    setSelectedTrailer(null);
+                    handleCloseTrailer();
                     setCartOpen(true);
                   }}
                   className="btn-primary text-xs px-6 py-2.5 cursor-pointer shadow-lg"

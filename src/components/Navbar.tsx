@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import CartDrawer from "@/components/CartDrawer";
 
@@ -27,11 +28,45 @@ export default function Navbar() {
   const { user, logoutUser, cart, setCartOpen } = useApp();
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Intercept back button when mobile menu is open so it closes menu instead of closing tab
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    window.history.pushState({ modal: "mobileNav" }, "");
+
+    const handlePopState = () => {
+      setMobileOpen(false);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [mobileOpen]);
+
+  const handleCloseMobile = () => {
+    setMobileOpen(false);
+    if (typeof window !== "undefined" && window.history.state?.modal === "mobileNav") {
+      window.history.back();
+    }
+  };
+
+  const handleSafeBack = () => {
+    if (typeof window !== "undefined" && window.history.length > 1 && document.referrer.includes(window.location.host)) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <>
@@ -46,23 +81,38 @@ export default function Navbar() {
         }`}
       >
         <div className="container-custom flex items-center justify-between h-16 lg:h-18">
-          {/* Logo */}
-          <Link href="/#home" className="flex items-center gap-2.5 group" id="nav-logo">
-            <div className="w-9 h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
-              <img
-                src="/images/logo/logo-mark.png"
-                alt="Millennium Games"
-                className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <span
-              className="text-lg font-bold text-[#0f172a] tracking-tight hidden sm:block"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
-              Millennium{" "}
-              <span className="text-mint">Games</span>
-            </span>
-          </Link>
+          {/* Logo & Safe Back Button */}
+          <div className="flex items-center gap-1">
+            {pathname !== "/" && (
+              <button
+                onClick={handleSafeBack}
+                className="p-2 -ml-1.5 rounded-full text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50 transition-all flex items-center justify-center cursor-pointer"
+                aria-label="Go back"
+                title="Go back"
+              >
+                <svg className="w-5 h-5 fill-none stroke-current" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+              </button>
+            )}
+
+            <Link href="/#home" className="flex items-center gap-2.5 group" id="nav-logo">
+              <div className="w-9 h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
+                <img
+                  src="/images/logo/logo-mark.png"
+                  alt="Millennium Games"
+                  className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <span
+                className="text-lg font-bold text-[#0f172a] tracking-tight hidden sm:block"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                Millennium{" "}
+                <span className="text-mint">Games</span>
+              </span>
+            </Link>
+          </div>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
@@ -256,7 +306,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-slate-800/40 backdrop-blur-sm z-40 lg:hidden"
-              onClick={() => setMobileOpen(false)}
+              onClick={handleCloseMobile}
             />
             <motion.div
               initial={{ x: "100%" }}
@@ -276,7 +326,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      onClick={() => setMobileOpen(false)}
+                      onClick={handleCloseMobile}
                       className="block px-4 py-3 text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-2xl transition-all duration-300 font-semibold"
                     >
                       {item.label}
@@ -288,7 +338,7 @@ export default function Navbar() {
                     <>
                       <Link
                         href="/library"
-                        onClick={() => setMobileOpen(false)}
+                        onClick={handleCloseMobile}
                         className="w-full btn-outline text-center block text-xs py-2.5"
                       >
                         🎮 My Library
@@ -296,7 +346,7 @@ export default function Navbar() {
                       <button
                         onClick={() => {
                           logoutUser();
-                          setMobileOpen(false);
+                          handleCloseMobile();
                         }}
                         className="w-full btn-primary text-center bg-red-500/10 text-red-600 border-red-500/20 text-xs py-2.5 cursor-pointer block"
                       >
@@ -306,7 +356,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href="/auth"
-                      onClick={() => setMobileOpen(false)}
+                      onClick={handleCloseMobile}
                       className="w-full btn-primary text-center block text-xs py-2.5"
                     >
                       Sign In

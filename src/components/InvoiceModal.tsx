@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface InvoiceItem {
@@ -348,9 +348,9 @@ export function generateInvoiceHtml(data: InvoiceData): string {
     </div>
 
     <div class="middle-info">
-      <div>Payment Gateway: <strong>${data.paymentMethod || "Razorpay Secure Payments"}</strong></div>
+      <div>Payment Gateway: <strong>${data.paymentMethod || "UPI Instant Payment (s-shibu@ptaxis)"}</strong></div>
       <div>Merchant / Account: <strong>Millennium Games</strong></div>
-      <div>Transaction Status: <strong>PAID &amp; CONFIRMED (Ref: ${data.transactionId || "RZP-PAY-SUCCESS"})</strong></div>
+      <div>Transaction Status: <strong>PAID &amp; CONFIRMED (Ref: ${data.transactionId || "UPI-VERIFIED-PAID"})</strong></div>
     </div>
 
     <div class="bottom-cards">
@@ -403,6 +403,29 @@ export function downloadInvoice(data: InvoiceData) {
 export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProps) {
   const invoiceRef = useRef<HTMLDivElement>(null);
 
+  // Handle mobile hardware/browser back button to close invoice modal instead of closing the tab
+  useEffect(() => {
+    if (!isOpen) return;
+
+    window.history.pushState({ modal: "invoice" }, "");
+
+    const handlePopState = () => {
+      onClose();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isOpen, onClose]);
+
+  const handleSafeClose = () => {
+    onClose();
+    if (typeof window !== "undefined" && window.history.state?.modal === "invoice") {
+      window.history.back();
+    }
+  };
+
   if (!isOpen) return null;
 
   const handlePrint = () => {
@@ -419,7 +442,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
         {/* Backdrop for closing */}
         <div
           className="fixed inset-0 print:hidden cursor-pointer"
-          onClick={onClose}
+          onClick={handleSafeClose}
         />
 
         {/* Modal Container */}
@@ -456,7 +479,7 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
               </button>
 
               <button
-                onClick={onClose}
+                onClick={handleSafeClose}
                 className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold cursor-pointer transition-colors ml-1"
                 aria-label="Close invoice"
               >
@@ -596,13 +619,13 @@ export default function InvoiceModal({ isOpen, onClose, data }: InvoiceModalProp
             {/* Middle Bank & Account Info */}
             <div className="px-8 sm:px-10 py-5 text-xs text-slate-700 space-y-1">
               <p className="font-semibold text-slate-800">
-                Payment Gateway: <span className="font-bold text-slate-950">{data.paymentMethod || "Razorpay Secure Payments"}</span>
+                Payment Gateway: <span className="font-bold text-slate-950">{data.paymentMethod || "UPI Instant Payment (s-shibu@ptaxis)"}</span>
               </p>
               <p className="font-semibold text-slate-800">
                 Merchant / Account Name: <span className="font-bold text-slate-950">Millennium Games</span>
               </p>
               <p className="font-semibold text-slate-800">
-                Transaction Status: <span className="font-bold text-emerald-600">PAID &amp; CONFIRMED (Ref: {data.transactionId || "RZP-PAY-SUCCESS"})</span>
+                Transaction Status: <span className="font-bold text-emerald-600">PAID &amp; CONFIRMED (Ref: {data.transactionId || "UPI-VERIFIED-PAID"})</span>
               </p>
             </div>
 

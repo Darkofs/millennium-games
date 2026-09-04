@@ -17,6 +17,8 @@ export interface PurchaseRecord {
   key: string; // Fallback for backward compatibility
   verificationCode?: string;
   extraDetails?: string;
+  paymentProof?: string;
+  utrNumber?: string;
 }
 
 export interface User {
@@ -44,7 +46,7 @@ interface AppContextType {
   removeFromCart: (gameId: number, playMode: "offline" | "online") => void;
   updateCartQuantity: (gameId: number, quantity: number, playMode: "offline" | "online") => void;
   clearCart: () => void;
-  checkout: () => { success: boolean; keys?: PurchaseRecord[]; error?: string };
+  checkout: (meta?: { paymentProof?: string; utrNumber?: string }) => { success: boolean; keys?: PurchaseRecord[]; error?: string };
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -237,7 +239,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Checkout Operation
-  const checkout = useCallback(() => {
+  const checkout = useCallback((meta?: { paymentProof?: string; utrNumber?: string }) => {
     if (!user) {
       return { success: false, error: "Please sign in to make a purchase." };
     }
@@ -300,6 +302,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           key: `${accountUser}:${accountPass}`, // Keep as fallback to avoid TS issues
           purchasedAt: dateStr,
           extraDetails,
+          paymentProof: meta?.paymentProof,
+          utrNumber: meta?.utrNumber,
         };
         newPurchases.push(purchase);
       }

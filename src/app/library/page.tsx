@@ -73,8 +73,8 @@ export default function LibraryPage() {
         },
       ],
       totalAmount: record.price,
-      transactionId: `RZP-PAY-${record.id}`,
-      paymentMethod: "Razorpay Verified Payment",
+      transactionId: record.utrNumber || `UPI-${record.id.slice(-8)}`,
+      paymentMethod: "Direct UPI Transfer (s-shibu@ptaxis)",
     };
 
     try {
@@ -278,7 +278,16 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                         </h2>
                         <span className="text-[10px] text-slate-500 block">
                           Trans ID: <span className="font-mono text-slate-700">{record.id}</span>
+                          {record.utrNumber && (
+                            <span className="ml-2 text-emerald-600 font-semibold">• UTR: {record.utrNumber}</span>
+                          )}
                         </span>
+                        {record.paymentProof && (
+                          <div className="mt-1 flex items-center gap-1.5 text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 w-fit">
+                            <span>✓</span>
+                            <span>Payment Proof Screenshot Attached</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Account Credentials Box */}
@@ -420,8 +429,8 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                                 },
                               ],
                               totalAmount: record.price,
-                              transactionId: `RZP-PAY-${record.id}`,
-                              paymentMethod: "Razorpay Verified Payment",
+                              transactionId: record.utrNumber || `UPI-${record.id.slice(-8)}`,
+                              paymentMethod: "Direct UPI Transfer (s-shibu@ptaxis)",
                             });
                             setInvoiceModalOpen(true);
                           }}
