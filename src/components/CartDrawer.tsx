@@ -171,6 +171,14 @@ export default function CartDrawer() {
       };
 
       const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        console.error("Razorpay payment failed:", response.error);
+        setErrorMsg(
+          response.error?.description ||
+          "Payment could not be completed. Please ensure your website domain is whitelisted in Razorpay."
+        );
+        setLoading(false);
+      });
       rzp.open();
     } catch (err: any) {
       setErrorMsg(err.message || "An error occurred during payment setup.");
