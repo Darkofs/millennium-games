@@ -6,7 +6,6 @@ import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useApp } from "@/context/AppContext";
-import CartDrawer from "@/components/CartDrawer";
 
 const navItems = [
   { label: "Home", href: "/#home" },
@@ -159,9 +158,9 @@ export default function Navbar() {
 
             {/* Cart */}
             <Magnetic>
-              <button
-                onClick={() => setCartOpen(true)}
-                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 relative"
+              <Link
+                href="/cart"
+                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 relative block"
                 id="nav-cart"
                 aria-label="Cart"
               >
@@ -173,7 +172,7 @@ export default function Navbar() {
                     {cartCount}
                   </span>
                 )}
-              </button>
+              </Link>
             </Magnetic>
 
             {/* Account */}
@@ -334,6 +333,19 @@ export default function Navbar() {
                   </motion.div>
                 ))}
                 <div className="mt-4 pt-4 border-t border-slate-200 space-y-2.5">
+                  <Link
+                    href="/cart"
+                    onClick={handleCloseMobile}
+                    className="w-full btn-primary text-center block text-xs py-2.5 font-bold flex items-center justify-center gap-2"
+                  >
+                    <span>🛒 View Cart</span>
+                    {cartCount > 0 && (
+                      <span className="px-2 py-0.5 rounded-full bg-white text-black font-extrabold text-[10px]">
+                        {cartCount}
+                      </span>
+                    )}
+                  </Link>
+
                   {user ? (
                     <>
                       <Link
@@ -357,7 +369,7 @@ export default function Navbar() {
                     <Link
                       href="/auth"
                       onClick={handleCloseMobile}
-                      className="w-full btn-primary text-center block text-xs py-2.5"
+                      className="w-full btn-secondary text-center block text-xs py-2.5"
                     >
                       Sign In
                     </Link>
@@ -368,9 +380,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-      
-      {/* Slide-over Cart Drawer */}
-      <CartDrawer />
     </>
   );
 }

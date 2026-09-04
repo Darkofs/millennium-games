@@ -217,7 +217,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         return [...prev, { gameId, quantity: 1, playMode }];
       }
     });
-    setCartOpen(true);
   }, []);
 
   const removeFromCart = useCallback((gameId: number, playMode: "offline" | "online") => {

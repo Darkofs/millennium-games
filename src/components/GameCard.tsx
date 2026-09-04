@@ -206,6 +206,7 @@ export default function GameCard({ game }: { game: Game }) {
                     e.preventDefault();
                     e.stopPropagation();
                     addToCart(game.id);
+                    router.push("/cart");
                   }}
                   role="button"
                   className="p-2 sm:p-2.5 rounded-full text-[#0f172a] transition-all duration-300 backdrop-blur-md cursor-pointer flex-shrink-0"

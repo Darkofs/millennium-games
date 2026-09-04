@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { upcomingGames, UpcomingGame } from "@/data/gameData";
@@ -87,7 +88,8 @@ function Countdown({ targetDate }: { targetDate: string }) {
 }
 
 export default function UpcomingReleases() {
-  const { addToCart, setCartOpen } = useApp();
+  const router = useRouter();
+  const { addToCart } = useApp();
   const [selectedTrailer, setSelectedTrailer] = useState<UpcomingGame | null>(null);
 
   useEffect(() => {
@@ -337,7 +339,7 @@ export default function UpcomingReleases() {
                               e.preventDefault();
                               e.stopPropagation();
                               addToCart(game.id);
-                              setCartOpen(true);
+                              router.push("/cart");
                             }}
                             className="btn-primary text-xs px-6 py-2.5 cursor-pointer shadow-lg hover:shadow-xl transition-all"
                           >

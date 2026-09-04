@@ -57,16 +57,15 @@ export default function GameDetailsPage() {
     );
   }
 
-  // Handle adding to cart with animation
+  // Handle adding to cart with page navigation
   const handleAddToCart = () => {
     addToCart(game.id, playMode);
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
+    router.push("/cart");
   };
 
   const handleBuyNow = () => {
     addToCart(game.id, playMode);
-    setCartOpen(true);
+    router.push("/cart?step=upi_payment");
   };
 
   return (
