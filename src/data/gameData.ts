@@ -47,6 +47,7 @@ export interface UpcomingGame {
   releaseDate: string;
   platform: "steam" | "epic" | "ea" | "ubisoft" | "rockstar" | "battlenet";
   image: string;
+  videoSrc?: string;
   preorderPrice?: number;
   description: string;
   genre: string;
@@ -1139,6 +1140,41 @@ export const featuredGames: Game[] = [
       directX: "Version 12",
       storage: "50 GB SSD space"
     }
+  },
+  {
+    id: 34,
+    title: "Phantom Blade Zero",
+    price: 399,
+    originalPrice: 499,
+    discount: 20,
+    rating: 4.9,
+    reviews: 8900,
+    platform: "steam",
+    genre: ["Action", "RPG", "Adventure"],
+    image: "/images/Game Images/Phantom Blade Zero.jpg",
+    trending: true,
+    preorder: true,
+    developer: "S-GAME",
+    publisher: "S-GAME",
+    releaseDate: "2026-10-29",
+    description: "A dark wuxia kungfupunk action RPG set in a phantom world of martial arts and steampunk witchcraft.",
+    longDescription: "In Phantom Blade Zero, you play as Soul, an elite assassin serving an elusive yet powerful organization known simply as 'The Order'. Framed for the murder of The Order's patriarch, Soul is gravely wounded and given a miracle cure that grants him 66 days to live. He must uncover the mastermind behind the conspiracy before his time runs out in this adrenaline-fueled dark wuxia Kungfupunk masterclass.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core i7-8700K or AMD Ryzen 5 3600",
+      memory: "16 GB RAM",
+      graphics: "GeForce RTX 2060 or Radeon RX 5700",
+      directX: "Version 12",
+      storage: "100 GB SSD space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Core i7-12700K or AMD Ryzen 7 7800X3D",
+      memory: "32 GB RAM",
+      graphics: "GeForce RTX 4070 or Radeon RX 7800 XT",
+      directX: "Version 12",
+      storage: "100 GB SSD space"
+    }
   }
 ];
 
@@ -1146,14 +1182,15 @@ export const trendingGames: Game[] = featuredGames.filter((g) => g.trending);
 
 export const upcomingGames: UpcomingGame[] = [
   {
-    id: 4,
-    title: "Assassin's Creed Shadows",
-    releaseDate: "2025-02-14",
-    platform: "epic",
-    image: "/images/Game Images/Assassin's Creed Shadow.svg",
+    id: 34,
+    title: "Phantom Blade Zero",
+    releaseDate: "2026-10-29",
+    platform: "steam",
+    image: "/images/Game Images/Phantom Blade Zero.jpg",
+    videoSrc: "/Game Videos/Phantom Blade Zero.mp4",
     preorderPrice: 399,
-    description: "Explore feudal Japan as Yasuke and Naoe.",
-    genre: "Action"
+    description: "Play as Soul with 66 days to live in a dark wuxia Kungfupunk world. Master lightning-fast martial arts combos and lethal blade strikes.",
+    genre: "Action RPG"
   }
 ];
 
