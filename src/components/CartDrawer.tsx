@@ -521,7 +521,7 @@ export default function CartDrawer() {
 
                     <div className="relative mx-auto w-60 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center justify-center overflow-hidden">
                       <img
-                        src="/images/upi_qr.jpg"
+                        src="/images/paytm_upi_qr.jpg"
                         alt="Paytm UPI QR Code"
                         className="w-full h-auto object-contain rounded-xl"
                       />
