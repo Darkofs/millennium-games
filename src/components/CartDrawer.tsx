@@ -519,11 +519,11 @@ export default function CartDrawer() {
                       Scan to Pay with Any UPI App
                     </div>
 
-                    <div className="relative mx-auto w-56 h-56 p-2 rounded-2xl bg-slate-950 border-2 border-slate-800 shadow-inner flex items-center justify-center overflow-hidden">
+                    <div className="relative mx-auto w-60 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center justify-center overflow-hidden">
                       <img
                         src="/images/upi_qr.jpg"
-                        alt="Millennium Games UPI QR Code"
-                        className="w-full h-full object-contain rounded-xl"
+                        alt="Paytm UPI QR Code"
+                        className="w-full h-auto object-contain rounded-xl"
                       />
                     </div>
 
@@ -576,25 +576,6 @@ export default function CartDrawer() {
                         className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-slate-900 text-white hover:bg-slate-800 transition-all flex items-center gap-1 cursor-pointer flex-shrink-0"
                       >
                         {copiedField === "upi" ? "✓ Copied!" : "Copy ID"}
-                      </button>
-                    </div>
-
-                    {/* Phone Number */}
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
-                      <div className="min-w-0 pr-2">
-                        <span className="text-[9.5px] uppercase font-bold text-slate-400 block tracking-wider">
-                          UPI Mobile Number
-                        </span>
-                        <span className="text-xs font-mono font-bold text-slate-900 select-all truncate block">
-                          +91 80894 06346
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => handleCopy("+918089406346", "phone")}
-                        className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-slate-900 text-white hover:bg-slate-800 transition-all flex items-center gap-1 cursor-pointer flex-shrink-0"
-                      >
-                        {copiedField === "phone" ? "✓ Copied!" : "Copy No."}
                       </button>
                     </div>
                   </div>
