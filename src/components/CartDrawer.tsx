@@ -70,9 +70,6 @@ export default function CartDrawer() {
     0
   );
 
-  // UPI Deep Link URLs
-  const upiPayUrl = `upi://pay?pa=bllalwhdn@ptaxis&pn=Sidharth%20Shibu&am=${total}&cu=INR&tn=Millennium%20Games%20Order`;
-
   // Copy helper with feedback
   const handleCopy = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -315,7 +312,7 @@ export default function CartDrawer() {
                       UPI Payment
                     </h2>
                     <span className="text-[11px] text-slate-500 font-medium">
-                      Scan QR or Pay with UPI App
+                      Scan QR Code to Pay
                     </span>
                   </div>
                 </div>
@@ -528,34 +525,8 @@ export default function CartDrawer() {
                     </div>
 
                     <p className="text-[11px] text-slate-500 font-medium">
-                      Open Google Pay, PhonePe, Paytm, or BHIM &amp; scan this QR
+                      Open Google Pay, PhonePe, Paytm, or BHIM &amp; scan this QR code to pay
                     </p>
-                  </div>
-
-                  {/* Direct Mobile "Pay via UPI App" Button */}
-                  <div className="space-y-2">
-                    <a
-                      href={upiPayUrl}
-                      className="w-full py-3.5 px-4 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:opacity-95 shadow-md flex items-center justify-center gap-2 text-xs tracking-wider uppercase transition-all active:scale-[0.98]"
-                    >
-                      <span>⚡</span>
-                      <span>Open Google Pay / Any UPI App</span>
-                      <span>↗</span>
-                    </a>
-                    <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 font-semibold">
-                        Google Pay
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-slate-100 font-semibold">
-                        PhonePe
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-slate-100 font-semibold">
-                        Paytm
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-slate-100 font-semibold">
-                        BHIM
-                      </span>
-                    </div>
                   </div>
 
                   {/* Copy UPI Details Section */}
