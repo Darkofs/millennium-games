@@ -508,7 +508,14 @@ a:hover h4 {
 .video-modal-content h5,
 .video-modal-content h6,
 .video-modal-content p,
-.video-modal-content span {
+.video-modal-content span,
+.upcoming-card-overlay h3,
+.upcoming-card-overlay h4,
+.upcoming-card-overlay h5,
+.upcoming-card-overlay h6,
+.upcoming-card-overlay p,
+.upcoming-card-overlay span,
+.upcoming-card-overlay div {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }

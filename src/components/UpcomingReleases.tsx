@@ -66,19 +66,24 @@ function Countdown({ targetDate }: { targetDate: string }) {
       {units.map((u) => (
         <div key={u.label} className="text-center">
           <div
-            className="w-13 h-13 min-w-[50px] px-2 py-1.5 rounded-2xl flex items-center justify-center text-lg font-bold text-[#0f172a] backdrop-blur-md transition-all duration-300"
+            className="w-13 h-13 min-w-[50px] px-2 py-1.5 rounded-2xl flex items-center justify-center text-lg font-bold text-white backdrop-blur-md transition-all duration-300"
             style={{
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))",
-              border: "1px solid rgba(255,255,255,0.75)",
+                "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06))",
+              border: "1px solid rgba(255,255,255,0.25)",
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 14px rgba(90,110,125,0.12)",
+                "inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 14px rgba(0,0,0,0.35)",
               fontFamily: "var(--font-outfit)",
+              color: "#ffffff",
+              WebkitTextFillColor: "#ffffff",
             }}
           >
             {String(u.value).padStart(2, "0")}
           </div>
-          <div className="text-[10px] font-semibold text-slate-500 mt-1 uppercase tracking-wider">
+          <div
+            className="text-[10px] font-semibold text-slate-300 mt-1 uppercase tracking-wider"
+            style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+          >
             {u.label}
           </div>
         </div>
@@ -169,7 +174,10 @@ export default function UpcomingReleases() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass-card overflow-hidden group cursor-pointer border border-white/70 shadow-2xl rounded-[28px]"
+              className="upcoming-card-overlay overflow-hidden group cursor-pointer border border-white/20 shadow-2xl rounded-[28px] bg-slate-950/90 backdrop-blur-xl"
+              style={{
+                boxShadow: "0 20px 40px -15px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.15)",
+              }}
             >
               <div className="block">
                 <div className="flex flex-col sm:flex-row items-stretch">
@@ -194,8 +202,8 @@ export default function UpcomingReleases() {
                         loading="lazy"
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/40 hidden sm:block pointer-events-none" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent sm:hidden pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-950/80 hidden sm:block pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent sm:hidden pointer-events-none" />
 
                     {/* Play trailer button */}
                     {game.videoSrc && (
@@ -210,11 +218,11 @@ export default function UpcomingReleases() {
                               setSelectedTrailer(game);
                             }}
                             role="button"
-                            className="w-14 h-14 rounded-full bg-white/80 hover:bg-white text-black backdrop-blur-md border border-white/90 flex items-center justify-center shadow-xl opacity-90 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
+                            className="w-14 h-14 rounded-full btn-glossy-white flex items-center justify-center shadow-xl opacity-90 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
                             aria-label="Play trailer"
                           >
                             <svg
-                              className="w-6 h-6 ml-1 fill-current"
+                              className="w-6 h-6 ml-1 fill-current text-black"
                               viewBox="0 0 24 24"
                             >
                               <path d="M8 5v14l11-7z" />
@@ -232,6 +240,8 @@ export default function UpcomingReleases() {
                           background:
                             "linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1))",
                           border: "1px solid rgba(255,255,255,0.3)",
+                          color: "#ffffff",
+                          WebkitTextFillColor: "#ffffff",
                         }}
                       >
                         {game.genre}
@@ -240,7 +250,10 @@ export default function UpcomingReleases() {
 
                     {/* Live Trailer Badge */}
                     {game.videoSrc && (
-                      <div className="absolute bottom-3.5 left-3.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold text-white bg-red-600/80 backdrop-blur-md shadow">
+                      <div
+                        className="absolute bottom-3.5 left-3.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold text-white bg-red-600/90 backdrop-blur-md shadow"
+                        style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                      >
                         <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                         <span>TRAILER READY</span>
                       </div>
@@ -252,7 +265,10 @@ export default function UpcomingReleases() {
                     <div>
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div>
-                          <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 block mb-1">
+                          <span
+                            className="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-1"
+                            style={{ color: "#34d399", WebkitTextFillColor: "#34d399" }}
+                          >
                             {game.platform === "steam"
                               ? "Steam Official"
                               : game.platform === "epic"
@@ -260,8 +276,12 @@ export default function UpcomingReleases() {
                               : "Multi-Platform"}
                           </span>
                           <h3
-                            className="text-2xl md:text-3xl font-extrabold text-[#0f172a] group-hover:text-emerald-600 transition-colors"
-                            style={{ fontFamily: "var(--font-outfit)" }}
+                            className="text-2xl md:text-3xl font-extrabold text-white group-hover:text-emerald-400 transition-colors"
+                            style={{
+                              fontFamily: "var(--font-outfit)",
+                              color: "#ffffff",
+                              WebkitTextFillColor: "#ffffff",
+                            }}
                           >
                             {game.title}
                           </h3>
@@ -271,7 +291,7 @@ export default function UpcomingReleases() {
                         <Magnetic>
                           <Link
                             href={`/games/${game.id}`}
-                            className="p-2.5 rounded-2xl bg-white/70 hover:bg-white text-slate-600 hover:text-emerald-600 border border-white/80 shadow-sm transition-all"
+                            className="p-2.5 rounded-2xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-sm transition-all"
                             aria-label="View game details"
                           >
                             <svg
@@ -291,19 +311,28 @@ export default function UpcomingReleases() {
                         </Magnetic>
                       </div>
 
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                      <p
+                        className="text-sm text-slate-300 leading-relaxed"
+                        style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+                      >
                         {game.description}
                       </p>
                     </div>
 
                     {/* Countdown Box */}
-                    <div className="p-4 rounded-2xl bg-white/50 border border-white/80 shadow-sm space-y-2">
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md shadow-inner space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span
+                          className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5"
+                          style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
+                        >
+                          <span className="w-2 h-2 rounded-full bg-emerald-400" />
                           Official Launch Countdown
                         </span>
-                        <span className="text-xs font-semibold text-slate-500">
+                        <span
+                          className="text-xs font-semibold text-slate-400"
+                          style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}
+                        >
                           {new Date(game.releaseDate).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
@@ -317,9 +346,21 @@ export default function UpcomingReleases() {
                     {/* Bottom Action Row */}
                     <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
                       <div>
-                        <span className="text-xs text-slate-500 block">Pre-order Price</span>
-                        <span className="text-2xl font-black text-[#0f172a]" style={{ fontFamily: "var(--font-outfit)" }}>
-                          ₹{game.preorderPrice || 1}
+                        <span
+                          className="text-xs text-slate-400 block"
+                          style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}
+                        >
+                          Pre-order Price
+                        </span>
+                        <span
+                          className="text-2xl font-black text-white"
+                          style={{
+                            fontFamily: "var(--font-outfit)",
+                            color: "#ffffff",
+                            WebkitTextFillColor: "#ffffff",
+                          }}
+                        >
+                          ₹{game.preorderPrice || 399}
                         </span>
                       </div>
 
@@ -327,7 +368,8 @@ export default function UpcomingReleases() {
                         {game.videoSrc && (
                           <button
                             onClick={() => setSelectedTrailer(game)}
-                            className="px-4 py-2.5 rounded-full text-xs font-bold bg-white/80 hover:bg-white text-slate-800 border border-white/90 shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
+                            className="px-4 py-2.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-sm transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+                            style={{ color: "#ffffff" }}
                           >
                             <span>▶ Watch Trailer</span>
                           </button>
