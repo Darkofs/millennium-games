@@ -103,7 +103,7 @@ export default function TrendingCarousel() {
             transition={{ duration: 0.5, delay: i * 0.1 }}
             className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[400px] lg:w-[480px] snap-start"
           >
-            <Link href={`/games/${game.id}`} className="block">
+            <Link href={`/games/${game.id}`} prefetch={true} className="block">
               <div
                 className={`relative rounded-2xl overflow-hidden aspect-[16/10] group cursor-pointer transition-all duration-500 ${
                   activeIndex === i ? "ring-2 ring-mint/40 shadow-xl shadow-mint/10" : ""

@@ -201,7 +201,7 @@ export default function Deals() {
                   isEntering ? "opacity-0 scale-0" : ""
                 }`}
               >
-                <Link href={`/games/${deal.id}`} className="block">
+                <Link href={`/games/${deal.id}`} prefetch={true} className="block">
                   {/* Image */}
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img src={deal.image} alt={deal.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />

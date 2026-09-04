@@ -431,18 +431,14 @@ export default function VideoCatalogue() {
         </motion.div>
 
         {/* Video Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredVideos.map((video) => (
             <motion.div
-              layout
               key={video.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.25 }}
               className="glass-card rounded-[24px] overflow-hidden group cursor-pointer flex flex-col justify-between border border-white/60 shadow-xl"
               onClick={() => setSelectedVideo(video)}
             >
@@ -526,7 +522,7 @@ export default function VideoCatalogue() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Video Modal Player with Featured Games Purchase Panel */}

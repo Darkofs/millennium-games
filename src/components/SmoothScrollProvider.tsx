@@ -14,13 +14,13 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
       return;
     }
 
-    // Initialize Lenis for desktop
+    // Initialize Lenis for desktop with butter-smooth momentum lerp
     const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      wheelMultiplier: 1.0,
+      lerp: 0.1, // True fluid momentum
+      smoothWheel: true,
+      syncTouch: false,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.0,
       infinite: false,
     });
 

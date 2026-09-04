@@ -8,10 +8,19 @@ interface MagneticProps {
   strength?: number;
 }
 
-export default function Magnetic({ children, strength = 0.35 }: MagneticProps) {
+export default function Magnetic({ children, strength = 0.25 }: MagneticProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Disable magnetic effect on touch / small mobile devices for instant touch response
+    if (
+      typeof window === "undefined" ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth <= 768
+    ) {
+      return;
+    }
+
     const zone = containerRef.current;
     if (!zone) return;
 
@@ -38,7 +47,7 @@ export default function Magnetic({ children, strength = 0.35 }: MagneticProps) {
       gsap.to(btn, {
         x: x * strength,
         y: y * strength,
-        duration: 0.4,
+        duration: 0.15,
         ease: "power2.out",
         overwrite: "auto",
       });
@@ -48,14 +57,14 @@ export default function Magnetic({ children, strength = 0.35 }: MagneticProps) {
       gsap.to(btn, {
         x: 0,
         y: 0,
-        duration: 0.7,
-        ease: "elastic.out(1, 0.4)",
+        duration: 0.25,
+        ease: "power2.out",
         overwrite: "auto",
       });
     };
 
-    zone.addEventListener("mousemove", handleMouseMove);
-    zone.addEventListener("mouseleave", handleMouseLeave);
+    zone.addEventListener("mousemove", handleMouseMove, { passive: true });
+    zone.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     return () => {
       zone.removeEventListener("mousemove", handleMouseMove);

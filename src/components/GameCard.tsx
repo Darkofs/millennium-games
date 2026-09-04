@@ -100,8 +100,8 @@ export default function GameCard({ game }: { game: Game }) {
       });
     };
 
-    card.addEventListener("mousemove", handleMouseMove);
-    card.addEventListener("mouseleave", handleMouseLeave);
+    card.addEventListener("mousemove", handleMouseMove, { passive: true });
+    card.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     return () => {
       card.removeEventListener("mousemove", handleMouseMove);
@@ -110,27 +110,18 @@ export default function GameCard({ game }: { game: Game }) {
     };
   }, []);
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent navigating if clicking add to cart button
-    if ((e.target as HTMLElement).closest('[aria-label="Add to cart"]')) {
-      return;
-    }
-    e.preventDefault();
-    router.push(`/games/${game.id}`);
-  };
-
   return (
     <motion.div
       ref={cardRef}
       className="card-3d group cursor-pointer"
-      onClick={handleCardClick}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.3 }}
     >
       <Link
         href={`/games/${game.id}`}
+        prefetch={true}
         className="block w-full h-full"
       >
         <div
