@@ -500,42 +500,42 @@ function CartPageContent() {
                 {/* Left Col: QR Code & Payment Info */}
                 <div className="lg:col-span-7 space-y-6">
                   {/* Amount Payable Banner */}
-                  <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl flex items-center justify-between border border-slate-700">
+                  <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-xl flex items-center justify-between border border-slate-700 gap-3">
                     <div>
-                      <span className="text-xs uppercase font-bold text-emerald-400 tracking-wider block">
+                      <span className="text-[10px] sm:text-xs uppercase font-bold text-emerald-400 tracking-wider block">
                         Total Amount Payable
                       </span>
                       <span
-                        className="text-4xl font-black text-white mt-1 block"
+                        className="text-2xl sm:text-4xl font-black text-white mt-0.5 sm:mt-1 block"
                         style={{ fontFamily: "var(--font-outfit)" }}
                       >
                         ₹{total}
                       </span>
-                      <span className="text-xs text-slate-400 mt-1 block">
+                      <span className="text-[11px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 block">
                         {cartDetails.length} {cartDetails.length === 1 ? "game" : "games"} in order
                       </span>
                     </div>
-                    <div className="text-right">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">
+                    <div className="text-right flex-shrink-0">
+                      <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block tracking-wider">
                         Verified Merchant
                       </span>
-                      <span className="text-sm font-bold text-emerald-300">
+                      <span className="text-xs sm:text-sm font-bold text-emerald-300">
                         Millennium Games
                       </span>
-                      <span className="text-[10px] text-slate-400 block mt-1">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 block mt-0.5 sm:mt-1">
                         Instant Delivery Enabled
                       </span>
                     </div>
                   </div>
 
                   {/* QR Code Container */}
-                  <div className="glass-card p-6 text-center space-y-4">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Scan with Google Pay, PhonePe, Paytm or BHIM
+                  <div className="glass-card p-4 sm:p-6 text-center space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] sm:text-xs font-bold max-w-full text-center">
+                      <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+                      <span>Scan with GPay, PhonePe, Paytm or BHIM</span>
                     </div>
 
-                    <div className="relative mx-auto w-64 p-2 rounded-2xl bg-white border-2 border-slate-200 shadow-md flex items-center justify-center overflow-hidden">
+                    <div className="relative mx-auto w-56 sm:w-64 p-2 rounded-2xl bg-white border-2 border-slate-200 shadow-md flex items-center justify-center overflow-hidden">
                       <img
                         src="/images/sidharth_shibu_qr.jpg"
                         alt="Paytm UPI QR Code - Millennium Games"

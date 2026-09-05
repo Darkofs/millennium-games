@@ -297,12 +297,12 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                             Account Username:
                           </span>
                           <div className="flex gap-1.5 items-center">
-                            <div className="flex-1 bg-[#0f172a] text-[#ffffff] font-mono py-1.5 px-2.5 rounded-lg text-xs font-semibold select-all truncate">
+                            <div className="flex-1 min-w-0 bg-[#0f172a] text-[#ffffff] font-mono py-1.5 px-2.5 rounded-lg text-xs font-semibold select-all truncate">
                               {record.accountUser}
                             </div>
                             <button
                               onClick={() => handleCopyField(record.accountUser, record.id + "-user")}
-                              className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border shadow-sm ${
+                              className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border shadow-sm flex-shrink-0 cursor-pointer ${
                                 copiedFieldId === record.id + "-user"
                                   ? "bg-emerald-500 border-emerald-500 text-white"
                                   : "btn-outline border-slate-300/40 bg-white/50 hover:bg-slate-200/50"
@@ -318,18 +318,18 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                             Account Password:
                           </span>
                           <div className="flex gap-1.5 items-center">
-                            <div className="flex-1 bg-[#0f172a] text-[#ffffff] font-mono py-1.5 px-2.5 rounded-lg text-xs font-semibold select-all truncate">
+                            <div className="flex-1 min-w-0 bg-[#0f172a] text-[#ffffff] font-mono py-1.5 px-2.5 rounded-lg text-xs font-semibold select-all truncate">
                               {visiblePasswords[record.id] ? record.accountPass : "••••••••••"}
                             </div>
                             <button
                               onClick={() => togglePasswordVisibility(record.id)}
-                              className="px-2 py-1 text-[10px] font-bold rounded-lg transition-all border border-slate-300/40 bg-white/50 hover:bg-slate-200/50"
+                              className="px-2 py-1 text-[10px] font-bold rounded-lg transition-all border border-slate-300/40 bg-white/50 hover:bg-slate-200/50 flex-shrink-0 cursor-pointer"
                             >
                               {visiblePasswords[record.id] ? "Hide" : "Show"}
                             </button>
                             <button
                               onClick={() => handleCopyField(record.accountPass, record.id + "-pass")}
-                              className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border shadow-sm ${
+                              className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all border shadow-sm flex-shrink-0 cursor-pointer ${
                                 copiedFieldId === record.id + "-pass"
                                   ? "bg-emerald-500 border-emerald-500 text-white"
                                   : "btn-outline border-slate-300/40 bg-white/50 hover:bg-slate-200/50"
@@ -359,7 +359,7 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                             </div>
                             <button
                               onClick={() => handleCopyField(codes2FA[record.id].code, record.id + "-2fa")}
-                              className={`px-2.5 py-1.5 text-[10px] font-bold rounded-xl transition-all border shadow-sm ${
+                              className={`px-2.5 py-1.5 text-[10px] font-bold rounded-xl transition-all border shadow-sm flex-shrink-0 cursor-pointer ${
                                 copiedFieldId === record.id + "-2fa"
                                   ? "bg-emerald-500 border-emerald-500 text-white"
                                   : "btn-outline border-slate-300/40 bg-white/50 hover:bg-slate-200/50"
@@ -367,7 +367,7 @@ Kindly send me the OTP / login verification code so I can start playing. Thank y
                             >
                               {copiedFieldId === record.id + "-2fa" ? "✓" : "Copy"}
                             </button>
-                            <span className="text-[10px] text-slate-400 font-bold min-w-[20px] text-center">
+                            <span className="text-[10px] text-slate-400 font-bold min-w-[20px] text-center flex-shrink-0">
                               {Math.max(0, Math.round((codes2FA[record.id].expiresAt - currentTime) / 1000))}s
                             </span>
                           </div>
