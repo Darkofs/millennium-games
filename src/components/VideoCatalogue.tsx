@@ -249,21 +249,21 @@ export default function VideoCatalogue() {
     return video.category === activeCategory;
   });
 
-  const handleAddToCart = (e: React.MouseEvent, gameId: number) => {
+  const handleAddToCart = (e: React.MouseEvent, gameId: number, mode: "offline" | "online" = "offline") => {
     e.stopPropagation();
-    addToCart(gameId, "offline");
+    addToCart(gameId, mode);
     router.push("/cart");
   };
 
-  const handleBuyNow = (e: React.MouseEvent, gameId: number) => {
+  const handleBuyNow = (e: React.MouseEvent, gameId: number, mode: "offline" | "online" = "offline") => {
     e.stopPropagation();
-    addToCart(gameId, "offline");
+    addToCart(gameId, mode);
     router.push("/cart?step=upi_payment");
   };
 
-  const handleAddBundleToCart = (e: React.MouseEvent, games: FeaturedGameRef[]) => {
+  const handleAddBundleToCart = (e: React.MouseEvent, games: FeaturedGameRef[], mode: "offline" | "online" = "offline") => {
     e.stopPropagation();
-    games.forEach((g) => addToCart(g.id, "offline"));
+    games.forEach((g) => addToCart(g.id, mode));
     router.push("/cart");
   };
 
@@ -394,25 +394,33 @@ export default function VideoCatalogue() {
                 {featuredSpotlight.games.length === 1 ? (
                   <>
                     <button
-                      onClick={(e) => handleAddToCart(e, featuredSpotlight.games[0].id)}
-                      className="px-4 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-md"
+                      onClick={(e) => handleAddToCart(e, featuredSpotlight.games[0].id, "offline")}
+                      className="px-4 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-md active:scale-95"
                     >
                       🛒 Add to Cart (₹{featuredSpotlight.games[0].price})
                     </button>
                     <button
-                      onClick={(e) => handleBuyNow(e, featuredSpotlight.games[0].id)}
-                      className="px-5 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-lg"
+                      onClick={(e) => handleBuyNow(e, featuredSpotlight.games[0].id, "offline")}
+                      className="px-5 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-lg active:scale-95"
                     >
                       ⚡ Buy Now
                     </button>
                   </>
                 ) : (
-                  <button
-                    onClick={(e) => handleAddBundleToCart(e, featuredSpotlight.games)}
-                    className="px-5 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-lg"
-                  >
-                    📦 Buy All {featuredSpotlight.games.length} Games
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={(e) => handleAddBundleToCart(e, featuredSpotlight.games, "offline")}
+                      className="px-4 py-2 rounded-full text-xs font-bold btn-glossy-white flex items-center gap-1.5 transition-all cursor-pointer shadow-md active:scale-95"
+                    >
+                      📦 Offline Bundle (₹{featuredSpotlight.games.reduce((a, g) => a + g.price, 0)})
+                    </button>
+                    <button
+                      onClick={(e) => handleAddBundleToCart(e, featuredSpotlight.games, "online")}
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 border border-blue-400/40 flex items-center gap-1.5 transition-all cursor-pointer shadow-lg active:scale-95"
+                    >
+                      🌐 Online Bundle (₹{featuredSpotlight.games.reduce((a, g) => a + Math.round(g.price * 2.5), 0)})
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
@@ -516,25 +524,37 @@ export default function VideoCatalogue() {
                   {video.games.length === 1 ? (
                     <div className="grid grid-cols-2 gap-2">
                       <button
-                        onClick={(e) => handleAddToCart(e, video.games[0].id)}
-                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
+                        onClick={(e) => handleAddToCart(e, video.games[0].id, "offline")}
+                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer active:scale-95"
                       >
                         🛒 Add
                       </button>
                       <button
-                        onClick={(e) => handleBuyNow(e, video.games[0].id)}
-                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer"
+                        onClick={(e) => handleBuyNow(e, video.games[0].id, "offline")}
+                        className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all cursor-pointer active:scale-95"
                       >
                         ⚡ Buy Now
                       </button>
                     </div>
                   ) : (
-                    <button
-                      onClick={(e) => handleAddBundleToCart(e, video.games)}
-                      className="w-full py-1.5 rounded-xl text-xs font-bold btn-glossy-white transition-all flex items-center justify-center gap-1 cursor-pointer"
-                    >
-                      📦 Add {video.games.length} Games (₹{video.games.reduce((acc, g) => acc + g.price, 0)})
-                    </button>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <button
+                        onClick={(e) => handleAddBundleToCart(e, video.games, "offline")}
+                        className="w-full py-1.5 px-1.5 rounded-xl text-[11px] font-bold btn-glossy-white transition-all flex flex-col items-center justify-center cursor-pointer active:scale-95 shadow-sm"
+                        title="Add bundle in Offline Story Mode"
+                      >
+                        <span className="text-[10px] leading-tight">📦 Offline</span>
+                        <span className="text-emerald-700 font-extrabold text-[11px]">₹{video.games.reduce((acc, g) => acc + g.price, 0)}</span>
+                      </button>
+                      <button
+                        onClick={(e) => handleAddBundleToCart(e, video.games, "online")}
+                        className="w-full py-1.5 px-1.5 rounded-xl text-[11px] font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 border border-blue-400/40 transition-all flex flex-col items-center justify-center cursor-pointer active:scale-95 shadow-md"
+                        title="Add bundle in Online Multiplayer Mode"
+                      >
+                        <span className="text-[10px] leading-tight text-white">🌐 Online</span>
+                        <span className="text-cyan-200 font-extrabold text-[11px]">₹{video.games.reduce((acc, g) => acc + Math.round(g.price * 2.5), 0)}</span>
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -634,71 +654,84 @@ export default function VideoCatalogue() {
                     </h4>
 
                     {selectedVideo.games.length > 1 && (
-                      <button
-                        onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
-                        className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold btn-primary shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
-                      >
-                        📦 Buy All ({selectedVideo.games.length}) - ₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)}
-                      </button>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <button
+                          onClick={(e) => handleAddBundleToCart(e, selectedVideo.games, "offline")}
+                          className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold btn-glossy-white shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                        >
+                          📦 Buy Offline Bundle (₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)})
+                        </button>
+                        <button
+                          onClick={(e) => handleAddBundleToCart(e, selectedVideo.games, "online")}
+                          className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 border border-blue-400/40 shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                        >
+                          🌐 Buy Online Bundle (₹{selectedVideo.games.reduce((a, g) => a + Math.round(g.price * 2.5), 0)})
+                        </button>
+                      </div>
                     )}
                   </div>
 
                   {/* List of Featured Games */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                    {selectedVideo.games.map((g) => (
-                      <div
-                        key={g.id}
-                        className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md gap-2"
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                          <img
-                            src={g.image}
-                            alt={g.title}
-                            className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
-                          />
-                          <div className="min-w-0 flex-1">
-                            <h5
-                              className="text-xs sm:text-sm font-bold text-white truncate"
-                              style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
-                            >
-                              {g.title}
-                            </h5>
-                            <div className="flex items-center gap-1.5 mt-0.5">
-                              <span
-                                className="text-xs sm:text-sm font-bold text-emerald-400"
-                                style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+                    {selectedVideo.games.map((g) => {
+                      const offlinePrice = g.price;
+                      const onlinePrice = Math.round(g.price * 2.5);
+                      return (
+                        <div
+                          key={g.id}
+                          className="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md gap-2"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                            <img
+                              src={g.image}
+                              alt={g.title}
+                              className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <h5
+                                className="text-xs sm:text-sm font-bold text-white truncate"
+                                style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
                               >
-                                ₹{g.price}
-                              </span>
-                              {g.originalPrice && (
+                                {g.title}
+                              </h5>
+                              <div className="flex items-center gap-2 mt-0.5 text-[11px] sm:text-xs">
                                 <span
-                                  className="text-[10px] sm:text-xs text-slate-400 line-through"
-                                  style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8", filter: "none" }}
+                                  className="font-bold text-emerald-400"
+                                  style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
                                 >
-                                  ₹{g.originalPrice}
+                                  Offline: ₹{offlinePrice}
                                 </span>
-                              )}
+                                <span className="text-slate-400">•</span>
+                                <span
+                                  className="font-bold text-blue-400"
+                                  style={{ color: "#60a5fa", WebkitTextFillColor: "#60a5fa", filter: "none" }}
+                                >
+                                  Online: ₹{onlinePrice}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="flex items-center gap-1.5 flex-shrink-0">
-                          <button
-                            onClick={(e) => handleAddToCart(e, g.id)}
-                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
-                            style={{ color: "#ffffff" }}
-                          >
-                            🛒 Cart
-                          </button>
-                          <button
-                            onClick={(e) => handleBuyNow(e, g.id)}
-                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold btn-primary transition-all cursor-pointer active:scale-95"
-                          >
-                            ⚡ Buy
-                          </button>
+                          <div className="flex items-center gap-1.5 flex-wrap sm:flex-nowrap justify-end flex-shrink-0 pt-1 sm:pt-0 border-t sm:border-t-0 border-white/10">
+                            <button
+                              onClick={(e) => handleAddToCart(e, g.id, "offline")}
+                              className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
+                              style={{ color: "#ffffff" }}
+                              title="Add Offline Story Mode to cart"
+                            >
+                              🛒 Offline (₹{offlinePrice})
+                            </button>
+                            <button
+                              onClick={(e) => handleAddToCart(e, g.id, "online")}
+                              className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 border border-blue-400/30 transition-all cursor-pointer active:scale-95"
+                              title="Add Online Multiplayer Mode to cart"
+                            >
+                              🌐 Online (₹{onlinePrice})
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </motion.div>
