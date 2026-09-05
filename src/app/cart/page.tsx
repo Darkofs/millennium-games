@@ -273,9 +273,9 @@ function CartPageContent() {
             />
 
             {/* Step 1 */}
-            <div className="flex flex-col items-center relative z-10">
+            <div className="flex flex-col items-center relative z-10 text-center">
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
                   cartStep === "cart" && !checkoutSuccess
                     ? "bg-slate-900 text-white ring-4 ring-slate-900/20 shadow-md"
                     : "bg-emerald-600 text-white"
@@ -283,15 +283,15 @@ function CartPageContent() {
               >
                 {cartStep === "upi_payment" || checkoutSuccess ? "✓" : "1"}
               </div>
-              <span className="text-[11px] font-bold text-slate-700 mt-2">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 mt-1.5 sm:mt-2 text-center">
                 1. Review Cart
               </span>
             </div>
 
             {/* Step 2 */}
-            <div className="flex flex-col items-center relative z-10">
+            <div className="flex flex-col items-center relative z-10 text-center">
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
                   cartStep === "upi_payment" && !checkoutSuccess
                     ? "bg-slate-900 text-white ring-4 ring-slate-900/20 shadow-md"
                     : checkoutSuccess
@@ -301,15 +301,15 @@ function CartPageContent() {
               >
                 {checkoutSuccess ? "✓" : "2"}
               </div>
-              <span className="text-[11px] font-bold text-slate-700 mt-2">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 mt-1.5 sm:mt-2 text-center">
                 2. UPI Payment
               </span>
             </div>
 
             {/* Step 3 */}
-            <div className="flex flex-col items-center relative z-10">
+            <div className="flex flex-col items-center relative z-10 text-center">
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
                   checkoutSuccess
                     ? "bg-emerald-600 text-white ring-4 ring-emerald-600/20 shadow-md"
                     : "bg-white text-slate-500 border border-slate-300"
@@ -317,7 +317,7 @@ function CartPageContent() {
               >
                 3
               </div>
-              <span className="text-[11px] font-bold text-slate-700 mt-2">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-700 mt-1.5 sm:mt-2 text-center">
                 3. Order Complete
               </span>
             </div>
