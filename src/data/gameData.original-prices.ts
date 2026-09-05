@@ -1244,6 +1244,17 @@ export const reviews: Review[] = [
 
 export const deals: Deal[] = [
   {
+    id: 123,
+    title: "Epic Bundle With 123 Games AAA",
+    originalPrice: 49999,
+    dealPrice: 1200,
+    discount: 97,
+    platform: "epic",
+    image: "/images/Game Images/Black Myth Wukong.svg",
+    endsAt: "2026-09-30T23:59:59",
+    type: "bundle"
+  },
+  {
     id: 24,
     title: "Red Dead Redemption 2",
     originalPrice: 1209,
@@ -1305,6 +1316,13 @@ export interface InventoryAccount {
 }
 
 export const accountsInventory: InventoryAccount[] = [
+  {
+    games: [123],
+    platform: "epic",
+    accountUser: "epic_master_123aaa@millennium.com",
+    accountPass: "EpicAAA@8078#2026",
+    extraDetails: "Epic Games Master Account containing 123 verified AAA blockbuster games with full library access & lifetime warranty."
+  },
   {
     games: [17, 31], // EA SPORTS FC 26
     platform: "steam",
