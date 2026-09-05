@@ -30,7 +30,6 @@ export default function UbisoftBundle() {
   };
 
   const acGames = [
-    "Assassin's Creed Shadows",
     "Assassin's Creed Mirage",
     "Assassin's Creed Valhalla",
     "Assassin's Creed Odyssey",

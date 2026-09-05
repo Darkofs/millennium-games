@@ -10,21 +10,35 @@ const IGNORED_FILES = ['package-lock.json', 'tsconfig.tsbuildinfo', '.DS_Store']
 
 console.log('🚀 Starting Millennium Games Auto-Sync & Dev Server with Enhanced Memory (4GB)...');
 
-// Start Next.js dev server with 4GB heap allocation
-const nodeOptions = process.env.NODE_OPTIONS || '--max-old-space-size=4096';
-const devServer = spawn('npx', ['next', 'dev'], {
-  stdio: 'inherit',
-  shell: true,
-  env: {
-    ...process.env,
-    NODE_OPTIONS: nodeOptions
-  }
-});
+let devServer = null;
+let isShuttingDown = false;
 
-devServer.on('close', (code) => {
-  console.log(`Next.js dev server exited with code ${code}`);
-  process.exit(code || 0);
-});
+function startDevServer() {
+  if (isShuttingDown) return;
+
+  const nodeOptions = process.env.NODE_OPTIONS || '--max-old-space-size=4096';
+  devServer = spawn('npx', ['next', 'dev'], {
+    stdio: 'inherit',
+    shell: true,
+    env: {
+      ...process.env,
+      NODE_OPTIONS: nodeOptions
+    }
+  });
+
+  devServer.on('close', (code) => {
+    if (!isShuttingDown) {
+      console.log(`\n⚠️ Next.js dev server exited (code ${code}). Auto-restarting in 1s for continuous development...`);
+      setTimeout(startDevServer, 1000);
+    }
+  });
+
+  devServer.on('error', (err) => {
+    console.error('❌ Next.js dev server error:', err);
+  });
+}
+
+startDevServer();
 
 // Git pushing logic
 let debounceTimeout = null;
@@ -124,10 +138,12 @@ console.log(`👀 [Auto-Sync] Watching files in ${WATCH_DIR} for auto-push...`);
 
 // Cleanup on exit
 process.on('SIGINT', () => {
-  devServer.kill();
+  isShuttingDown = true;
+  if (devServer) devServer.kill();
   process.exit(0);
 });
 process.on('SIGTERM', () => {
-  devServer.kill();
+  isShuttingDown = true;
+  if (devServer) devServer.kill();
   process.exit(0);
 });
