@@ -26,14 +26,22 @@ export default function GameDetailsPage() {
   };
 
   const [reqTab, setReqTab] = useState<"minimum" | "recommended">("minimum");
-  const isCod = Boolean(
+  const isOnlineOnlyGame = Boolean(
     game?.isOnlineOnly ||
     game?.id === 8 ||
     game?.id === 9 ||
+    game?.id === 1 ||
+    game?.id === 5 ||
+    game?.id === 17 ||
+    game?.id === 31 ||
+    game?.id === 32 ||
     game?.title.toLowerCase().includes("call of duty") ||
+    game?.title.toLowerCase().includes("battlefield") ||
+    game?.title.toLowerCase().includes("arc raider") ||
+    game?.title.toLowerCase().includes("fc 26") ||
     game?.title.toLowerCase().includes("modern warfare")
   );
-  const [playMode, setPlayMode] = useState<"offline" | "online">(isCod ? "online" : "offline");
+  const [playMode, setPlayMode] = useState<"offline" | "online">(isOnlineOnlyGame ? "online" : "offline");
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart, setCartOpen } = useApp();
 

@@ -1054,7 +1054,8 @@ export const featuredGames: Game[] = [
   {
     id: 31,
     title: "FC 26",
-    price: 199,
+    price: 499,
+    isOnlineOnly: true,
     originalPrice: 599,
     rating: 4.3,
     reviews: 5200,
@@ -1086,7 +1087,8 @@ export const featuredGames: Game[] = [
   {
     id: 32,
     title: "BATTLEFIELD 6",
-    price: 199,
+    price: 499,
+    isOnlineOnly: true,
     originalPrice: 599,
     rating: 4.4,
     reviews: 8600,
