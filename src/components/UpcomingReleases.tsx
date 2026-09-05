@@ -385,7 +385,7 @@ export default function UpcomingReleases() {
                             WebkitTextFillColor: "#ffffff",
                           }}
                         >
-                          ₹{game.preorderPrice || 399}
+                          ₹{game.preorderPrice || 299}
                         </span>
                       </div>
 
@@ -519,7 +519,7 @@ export default function UpcomingReleases() {
                     }}
                     className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
                   >
-                    ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 399}
+                    ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 299}
                   </button>
                 </div>
               </motion.div>

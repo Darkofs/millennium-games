@@ -60,7 +60,7 @@ export function findGameById(id: number) {
   if (g2) return { ...g2, price: g2.dealPrice, image: g2.image, title: g2.title, platform: g2.platform };
 
   const g3 = upcomingGames.find((g) => g.id === id);
-  if (g3) return { ...g3, price: g3.preorderPrice || 399, image: g3.image, title: g3.title, platform: g3.platform };
+  if (g3) return { ...g3, price: g3.preorderPrice || 299, image: g3.image, title: g3.title, platform: g3.platform };
 
   return null;
 }
@@ -207,14 +207,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Cart Operations
   const addToCart = useCallback((gameId: number, playMode: "offline" | "online" = "offline") => {
+    const gameDetails = findGameById(gameId);
+    const isCod = Boolean(
+      (gameDetails as any)?.isOnlineOnly ||
+      gameId === 8 ||
+      gameId === 9 ||
+      gameDetails?.title.toLowerCase().includes("call of duty") ||
+      gameDetails?.title.toLowerCase().includes("modern warfare")
+    );
+    const effectiveMode: "offline" | "online" = isCod ? "online" : playMode;
+
     setCart((prev) => {
-      const idx = prev.findIndex((item) => item.gameId === gameId && item.playMode === playMode);
+      const idx = prev.findIndex((item) => item.gameId === gameId && item.playMode === effectiveMode);
       if (idx > -1) {
         const updated = [...prev];
         updated[idx].quantity += 1;
         return updated;
       } else {
-        return [...prev, { gameId, quantity: 1, playMode }];
+        return [...prev, { gameId, quantity: 1, playMode: effectiveMode }];
       }
     });
   }, []);
@@ -268,8 +278,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const gameDetails = findGameById(item.gameId);
       if (!gameDetails) continue;
 
+      const isCod = Boolean(
+        (gameDetails as any)?.isOnlineOnly ||
+        item.gameId === 8 ||
+        item.gameId === 9 ||
+        gameDetails.title.toLowerCase().includes("call of duty") ||
+        gameDetails.title.toLowerCase().includes("modern warfare")
+      );
+      const effectiveMode: "offline" | "online" = isCod ? "online" : item.playMode;
       const basePrice = gameDetails.price;
-      const finalPrice = item.playMode === "online" ? Math.round(basePrice * 2.5) : basePrice;
+      const finalPrice = isCod ? 499 : effectiveMode === "online" ? Math.round(basePrice * 2.5) : basePrice;
 
       for (let i = 0; i < item.quantity; i++) {
         const invAccount = accountsInventory.find((acc) => acc.games.includes(item.gameId));
@@ -283,7 +301,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           accountPass = invAccount.accountPass;
           extraDetails = invAccount.extraDetails || "";
         } else {
-          const generated = generateAccountCredentials(gameDetails.title, gameDetails.platform, item.playMode);
+          const generated = generateAccountCredentials(gameDetails.title, gameDetails.platform, effectiveMode);
           accountUser = generated.accountUser;
           accountPass = generated.accountPass;
         }
@@ -297,7 +315,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           price: finalPrice,
           accountUser,
           accountPass,
-          playMode: item.playMode,
+          playMode: effectiveMode,
           key: `${accountUser}:${accountPass}`, // Keep as fallback to avoid TS issues
           purchasedAt: dateStr,
           extraDetails,

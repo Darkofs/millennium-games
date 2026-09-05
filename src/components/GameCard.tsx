@@ -139,12 +139,16 @@ export default function GameCard({ game }: { game: Game }) {
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-graphite via-transparent to-transparent" />
 
-            {/* Discount badge */}
-            {game.discount && (
+            {/* Discount or Online-only badge */}
+            {game.isOnlineOnly ? (
+              <div className="absolute top-2 sm:top-3 left-2 sm:left-3 px-2 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-emerald-950 bg-emerald-400 border border-emerald-300 shadow-md">
+                ⚡ Online Only
+              </div>
+            ) : game.discount ? (
               <div className="absolute top-2 sm:top-3 left-2 sm:left-3 discount-badge !text-[9px] sm:!text-xs !px-1.5 sm:!px-3 !py-0.5 sm:!py-1">
                 -{game.discount}%
               </div>
-            )}
+            ) : null}
 
             {/* Platform badge */}
             <div className="absolute top-2 sm:top-3 right-2 sm:right-3">

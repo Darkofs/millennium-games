@@ -43,14 +43,24 @@ export default function CartDrawer() {
     .map((item) => {
       const details = findGameById(item.gameId);
       if (!details) return null;
-      const finalPrice =
-        item.playMode === "online"
-          ? Math.round(details.price * 2.5)
-          : details.price;
+      const isCod = Boolean(
+        (details as any)?.isOnlineOnly ||
+        item.gameId === 8 ||
+        item.gameId === 9 ||
+        details.title.toLowerCase().includes("call of duty") ||
+        details.title.toLowerCase().includes("modern warfare")
+      );
+      const effectiveMode: "offline" | "online" = isCod ? "online" : item.playMode;
+      const finalPrice = isCod
+        ? 499
+        : effectiveMode === "online"
+        ? Math.round(details.price * 2.5)
+        : details.price;
       return {
         ...item,
         ...details,
         price: finalPrice,
+        playMode: effectiveMode,
       };
     })
     .filter(Boolean) as Array<{

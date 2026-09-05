@@ -29,6 +29,7 @@ export interface Game {
   minimumRequirements?: SystemRequirement;
   recommendedRequirements?: SystemRequirement;
   preorder?: boolean;
+  isOnlineOnly?: boolean;
 }
 
 export interface Review {
@@ -69,7 +70,7 @@ export const featuredGames: Game[] = [
   {
     id: 1,
     title: "ARC Raiders",
-    price: 399,
+    price: 299,
     originalPrice: 596,
     discount: 33,
     rating: 4.6,
@@ -102,7 +103,7 @@ export const featuredGames: Game[] = [
   {
     id: 2,
     title: "Alan Wake 2",
-    price: 399,
+    price: 299,
     originalPrice: 475,
     discount: 16,
     rating: 4.8,
@@ -136,7 +137,7 @@ export const featuredGames: Game[] = [
   {
     id: 3,
     title: "Alan Wake Remastered",
-    price: 399,
+    price: 299,
     originalPrice: 798,
     discount: 50,
     rating: 4.5,
@@ -169,7 +170,7 @@ export const featuredGames: Game[] = [
   {
     id: 4,
     title: "Assassin's Creed Shadows",
-    price: 399,
+    price: 299,
     rating: 4.7,
     reviews: 3200,
     platform: "epic",
@@ -202,7 +203,7 @@ export const featuredGames: Game[] = [
   {
     id: 5,
     title: "Battlefield 6",
-    price: 399,
+    price: 299,
     rating: 4.4,
     reviews: 1200,
     platform: "epic",
@@ -234,7 +235,7 @@ export const featuredGames: Game[] = [
   {
     id: 6,
     title: "Black Myth: Wukong",
-    price: 399,
+    price: 299,
     rating: 4.9,
     reviews: 14800,
     platform: "epic",
@@ -266,7 +267,7 @@ export const featuredGames: Game[] = [
   {
     id: 7,
     title: "Borderlands 4",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 2900,
     platform: "epic",
@@ -298,7 +299,8 @@ export const featuredGames: Game[] = [
   {
     id: 8,
     title: "Call of Duty: Modern Warfare II",
-    price: 399,
+    price: 499,
+    isOnlineOnly: true,
     originalPrice: 688,
     discount: 42,
     rating: 4.3,
@@ -331,7 +333,8 @@ export const featuredGames: Game[] = [
   {
     id: 9,
     title: "Call of Duty: Modern Warfare III",
-    price: 399,
+    price: 499,
+    isOnlineOnly: true,
     originalPrice: 554,
     discount: 28,
     rating: 4.1,
@@ -364,7 +367,7 @@ export const featuredGames: Game[] = [
   {
     id: 10,
     title: "Clair Obscur: Expedition 33",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 1500,
     platform: "epic",
@@ -396,7 +399,7 @@ export const featuredGames: Game[] = [
   {
     id: 11,
     title: "Crimson Desert",
-    price: 399,
+    price: 299,
     rating: 4.7,
     reviews: 2400,
     platform: "epic",
@@ -428,7 +431,7 @@ export const featuredGames: Game[] = [
   {
     id: 12,
     title: "Cyberpunk 2077",
-    price: 399,
+    price: 299,
     originalPrice: 798,
     discount: 50,
     rating: 4.7,
@@ -462,7 +465,7 @@ export const featuredGames: Game[] = [
   {
     id: 13,
     title: "Death Stranding 2: On The Beach",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 3100,
     platform: "epic",
@@ -494,7 +497,7 @@ export const featuredGames: Game[] = [
   {
     id: 14,
     title: "Elden Ring",
-    price: 399,
+    price: 299,
     originalPrice: 499,
     discount: 20,
     rating: 4.9,
@@ -528,7 +531,7 @@ export const featuredGames: Game[] = [
   {
     id: 15,
     title: "F1 25",
-    price: 399,
+    price: 299,
     rating: 4.5,
     reviews: 1100,
     platform: "epic",
@@ -559,7 +562,7 @@ export const featuredGames: Game[] = [
   {
     id: 16,
     title: "EA SPORTS FC 25",
-    price: 399,
+    price: 299,
     originalPrice: 798,
     discount: 50,
     rating: 4.2,
@@ -592,7 +595,7 @@ export const featuredGames: Game[] = [
   {
     id: 17,
     title: "EA SPORTS FC 26",
-    price: 399,
+    price: 299,
     rating: 4.3,
     reviews: 2100,
     platform: "steam",
@@ -624,7 +627,7 @@ export const featuredGames: Game[] = [
   {
     id: 18,
     title: "Far Cry 6",
-    price: 399,
+    price: 299,
     originalPrice: 1596,
     discount: 75,
     rating: 4.4,
@@ -657,7 +660,7 @@ export const featuredGames: Game[] = [
   {
     id: 19,
     title: "Forza Horizon 5",
-    price: 399,
+    price: 299,
     originalPrice: 798,
     discount: 50,
     rating: 4.8,
@@ -690,7 +693,7 @@ export const featuredGames: Game[] = [
   {
     id: 20,
     title: "Grand Theft Auto V",
-    price: 399,
+    price: 299,
     originalPrice: 798,
     discount: 50,
     rating: 4.8,
@@ -724,7 +727,7 @@ export const featuredGames: Game[] = [
   {
     id: 21,
     title: "Ghost of Tsushima: Director's Cut",
-    price: 399,
+    price: 299,
     originalPrice: 596,
     discount: 33,
     rating: 4.9,
@@ -757,7 +760,7 @@ export const featuredGames: Game[] = [
   {
     id: 22,
     title: "God of War Ragnarök",
-    price: 399,
+    price: 299,
     originalPrice: 475,
     discount: 16,
     rating: 4.8,
@@ -790,7 +793,7 @@ export const featuredGames: Game[] = [
   {
     id: 23,
     title: "Mortal Kombat 1",
-    price: 399,
+    price: 299,
     originalPrice: 928,
     discount: 57,
     rating: 4.4,
@@ -823,7 +826,7 @@ export const featuredGames: Game[] = [
   {
     id: 24,
     title: "Red Dead Redemption 2",
-    price: 399,
+    price: 299,
     originalPrice: 1209,
     discount: 67,
     rating: 4.9,
@@ -856,7 +859,7 @@ export const featuredGames: Game[] = [
   {
     id: 25,
     title: "Resident Evil Requiem",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 1900,
     platform: "epic",
@@ -888,7 +891,7 @@ export const featuredGames: Game[] = [
   {
     id: 26,
     title: "The Last of Us Part I",
-    price: 399,
+    price: 299,
     originalPrice: 596,
     discount: 33,
     rating: 4.7,
@@ -921,7 +924,7 @@ export const featuredGames: Game[] = [
   {
     id: 27,
     title: "The Last of Us Part II Remastered",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 5400,
     platform: "epic",
@@ -952,7 +955,7 @@ export const featuredGames: Game[] = [
   {
     id: 28,
     title: "Warhammer 40,000: Space Marine 2",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 11200,
     platform: "epic",
@@ -984,7 +987,7 @@ export const featuredGames: Game[] = [
   {
     id: 29,
     title: "Black Myth: Wukong",
-    price: 399,
+    price: 299,
     originalPrice: 599,
     rating: 4.9,
     reviews: 24500,
@@ -1016,7 +1019,7 @@ export const featuredGames: Game[] = [
   {
     id: 30,
     title: "GTA 5",
-    price: 399,
+    price: 299,
     originalPrice: 599,
     rating: 4.8,
     reviews: 154000,
@@ -1048,7 +1051,7 @@ export const featuredGames: Game[] = [
   {
     id: 31,
     title: "FC 26",
-    price: 399,
+    price: 299,
     originalPrice: 599,
     rating: 4.3,
     reviews: 5200,
@@ -1080,7 +1083,7 @@ export const featuredGames: Game[] = [
   {
     id: 32,
     title: "BATTLEFIELD 6",
-    price: 399,
+    price: 299,
     originalPrice: 599,
     rating: 4.4,
     reviews: 8600,
@@ -1112,7 +1115,7 @@ export const featuredGames: Game[] = [
   {
     id: 33,
     title: "Anno 117: Pax Romana",
-    price: 399,
+    price: 299,
     rating: 4.8,
     reviews: 1400,
     platform: "epic",
@@ -1144,7 +1147,7 @@ export const featuredGames: Game[] = [
   {
     id: 34,
     title: "Phantom Blade Zero",
-    price: 399,
+    price: 299,
     originalPrice: 499,
     discount: 20,
     rating: 4.9,
@@ -1188,7 +1191,7 @@ export const upcomingGames: UpcomingGame[] = [
     platform: "steam",
     image: "/images/Game Images/Phantom Blade Zero.jpg",
     videoSrc: "/Game Videos/Phantom Blade Zero.mp4",
-    preorderPrice: 399,
+    preorderPrice: 299,
     description: "Play as Soul with 66 days to live in a dark wuxia Kungfupunk world. Master lightning-fast martial arts combos and lethal blade strikes.",
     genre: "Action RPG"
   }
@@ -1269,7 +1272,7 @@ export const deals: Deal[] = [
     id: 24,
     title: "Red Dead Redemption 2",
     originalPrice: 1209,
-    dealPrice: 399,
+    dealPrice: 299,
     discount: 67,
     platform: "epic",
     image: "/images/Game Images/Read Dead Redeemption 2.svg",
@@ -1280,7 +1283,7 @@ export const deals: Deal[] = [
     id: 19,
     title: "Forza Horizon 5",
     originalPrice: 798,
-    dealPrice: 399,
+    dealPrice: 299,
     discount: 50,
     platform: "steam",
     image: "/images/Game Images/Forza Horizon 5.svg",
@@ -1291,7 +1294,7 @@ export const deals: Deal[] = [
     id: 2,
     title: "Alan Wake 2",
     originalPrice: 475,
-    dealPrice: 399,
+    dealPrice: 299,
     discount: 16,
     platform: "epic",
     image: "/images/Game Images/Alan Wake 2.svg",
@@ -1302,7 +1305,7 @@ export const deals: Deal[] = [
     id: 18,
     title: "Far Cry 6",
     originalPrice: 1596,
-    dealPrice: 399,
+    dealPrice: 299,
     discount: 75,
     platform: "epic",
     image: "/images/Game Images/Far Cry 6.svg",

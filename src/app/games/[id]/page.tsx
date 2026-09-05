@@ -26,7 +26,14 @@ export default function GameDetailsPage() {
   };
 
   const [reqTab, setReqTab] = useState<"minimum" | "recommended">("minimum");
-  const [playMode, setPlayMode] = useState<"offline" | "online">("offline");
+  const isCod = Boolean(
+    game?.isOnlineOnly ||
+    game?.id === 8 ||
+    game?.id === 9 ||
+    game?.title.toLowerCase().includes("call of duty") ||
+    game?.title.toLowerCase().includes("modern warfare")
+  );
+  const [playMode, setPlayMode] = useState<"offline" | "online">(isCod ? "online" : "offline");
   const [addedToCart, setAddedToCart] = useState(false);
   const { addToCart, setCartOpen } = useApp();
 
@@ -58,13 +65,15 @@ export default function GameDetailsPage() {
   }
 
   // Handle adding to cart with page navigation
+  const effectivePlayMode = isCod ? "online" : playMode;
+
   const handleAddToCart = () => {
-    addToCart(game.id, playMode);
+    addToCart(game.id, effectivePlayMode);
     router.push("/cart");
   };
 
   const handleBuyNow = () => {
-    addToCart(game.id, playMode);
+    addToCart(game.id, effectivePlayMode);
     router.push("/cart?step=upi_payment");
   };
 
@@ -210,48 +219,68 @@ export default function GameDetailsPage() {
 
               {/* Play Mode Selection */}
               <div className="space-y-2.5 sm:space-y-3">
-                <span className="text-slate-500 text-[11px] sm:text-xs block uppercase tracking-widest font-semibold">Select Play Method</span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <button
-                    onClick={() => setPlayMode("offline")}
-                    className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 backdrop-blur-md flex flex-col justify-between cursor-pointer active:scale-98 ${
-                      playMode === "offline"
-                        ? "border-mint bg-mint/10 shadow-md ring-1 ring-mint/50"
-                        : "border-slate-300/40 bg-white/40 hover:bg-white/60"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="font-bold text-[#0f172a] text-sm">Offline Play</span>
-                      <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${playMode === "offline" ? "border-mint bg-mint" : "border-slate-400"}`}>
-                        {playMode === "offline" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                      Play campaign/story mode offline. Sourced from official shared accounts.
-                    </p>
-                    <span className="text-sm font-bold text-slate-800 mt-3">₹{game.price}</span>
-                  </button>
+                <span className="text-slate-500 text-[11px] sm:text-xs block uppercase tracking-widest font-semibold">
+                  {isCod ? "Play Method (Online Only)" : "Select Play Method"}
+                </span>
 
-                  <button
-                    onClick={() => setPlayMode("online")}
-                    className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 backdrop-blur-md flex flex-col justify-between cursor-pointer active:scale-98 ${
-                      playMode === "online"
-                        ? "border-mint bg-mint/10 shadow-md ring-1 ring-mint/50"
-                        : "border-slate-300/40 bg-white/40 hover:bg-white/60"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="font-bold text-[#0f172a] text-sm">Online Play</span>
-                      <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${playMode === "online" ? "border-mint bg-mint" : "border-slate-400"}`}>
-                        {playMode === "online" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </span>
+                {isCod ? (
+                  <div className="p-4 rounded-xl sm:rounded-2xl border border-emerald-500/40 bg-emerald-500/10 shadow-md ring-1 ring-emerald-500/30 backdrop-blur-md flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-[#0f172a] text-sm">Online Multiplayer Only</span>
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 border border-emerald-200">
+                          Active
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                        Full online multiplayer, Warzone &amp; co-op enabled. Sourced from verified personal accounts.
+                      </p>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                      Full multiplayer, online co-op enabled. Exclusive personal account access.
-                    </p>
-                    <span className="text-sm font-bold text-slate-800 mt-3">₹{game.price === 1 ? 1 : Math.round(game.price * 2.5)}</span>
-                  </button>
-                </div>
+                    <span className="text-base font-black text-slate-900 ml-4">₹499</span>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <button
+                      onClick={() => setPlayMode("offline")}
+                      className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 backdrop-blur-md flex flex-col justify-between cursor-pointer active:scale-98 ${
+                        playMode === "offline"
+                          ? "border-mint bg-mint/10 shadow-md ring-1 ring-mint/50"
+                          : "border-slate-300/40 bg-white/40 hover:bg-white/60"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="font-bold text-[#0f172a] text-sm">Offline Play</span>
+                        <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${playMode === "offline" ? "border-mint bg-mint" : "border-slate-400"}`}>
+                          {playMode === "offline" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                        Play campaign/story mode offline. Sourced from official shared accounts.
+                      </p>
+                      <span className="text-sm font-bold text-slate-800 mt-3">₹{game.price}</span>
+                    </button>
+
+                    <button
+                      onClick={() => setPlayMode("online")}
+                      className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 backdrop-blur-md flex flex-col justify-between cursor-pointer active:scale-98 ${
+                        playMode === "online"
+                          ? "border-mint bg-mint/10 shadow-md ring-1 ring-mint/50"
+                          : "border-slate-300/40 bg-white/40 hover:bg-white/60"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="font-bold text-[#0f172a] text-sm">Online Play</span>
+                        <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${playMode === "online" ? "border-mint bg-mint" : "border-slate-400"}`}>
+                          {playMode === "online" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                        Full multiplayer, online co-op enabled. Exclusive personal account access.
+                      </p>
+                      <span className="text-sm font-bold text-slate-800 mt-3">₹{Math.round(game.price * 2.5)}</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Buy card */}
@@ -260,11 +289,11 @@ export default function GameDetailsPage() {
                   <span className="text-slate-500 text-[10px] sm:text-xs block mb-1 uppercase tracking-widest font-semibold">Store Price</span>
                   <div className="flex items-baseline gap-2.5 sm:gap-3">
                     <span className="text-3xl sm:text-4xl font-extrabold text-mint" style={{ fontFamily: "var(--font-outfit)" }}>
-                      ₹{playMode === "online" ? (game.price === 1 ? 1 : Math.round(game.price * 2.5)) : game.price}
+                      ₹{isCod ? 499 : playMode === "online" ? Math.round(game.price * 2.5) : game.price}
                     </span>
                     {game.originalPrice && (
                       <span className="text-sm sm:text-lg text-slate-400 line-through">
-                        ₹{playMode === "online" ? Math.round(game.originalPrice * 2.5) : game.originalPrice}
+                        ₹{isCod ? Math.round(game.originalPrice * 1.5) : playMode === "online" ? Math.round(game.originalPrice * 2.5) : game.originalPrice}
                       </span>
                     )}
                   </div>

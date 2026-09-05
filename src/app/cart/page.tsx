@@ -50,13 +50,24 @@ function CartPageContent() {
     .map((item) => {
       const details = findGameById(item.gameId);
       if (!details) return null;
-      const finalPrice =
-        item.playMode === "online"
-          ? Math.round(details.price * 2.5)
-          : details.price;
+      const isCod = Boolean(
+        (details as any)?.isOnlineOnly ||
+        item.gameId === 8 ||
+        item.gameId === 9 ||
+        details.title.toLowerCase().includes("call of duty") ||
+        details.title.toLowerCase().includes("modern warfare")
+      );
+      const effectiveMode: "offline" | "online" = isCod ? "online" : item.playMode;
+      const finalPrice = isCod
+        ? 499
+        : effectiveMode === "online"
+        ? Math.round(details.price * 2.5)
+        : details.price;
       const rawOriginalPrice = "originalPrice" in details ? (details.originalPrice as number | undefined) : undefined;
       const originalFinalPrice = rawOriginalPrice
-        ? item.playMode === "online"
+        ? isCod
+          ? Math.round(rawOriginalPrice * 1.5)
+          : effectiveMode === "online"
           ? Math.round(rawOriginalPrice * 2.5)
           : rawOriginalPrice
         : undefined;
@@ -66,6 +77,7 @@ function CartPageContent() {
         ...details,
         price: finalPrice,
         originalPrice: originalFinalPrice,
+        playMode: effectiveMode,
       };
     })
     .filter(Boolean) as Array<{

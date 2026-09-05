@@ -47,7 +47,7 @@ const videosData: VideoItem[] = [
       {
         id: 6,
         title: "Black Myth: Wukong",
-        price: 399,
+        price: 299,
         originalPrice: 499,
         image: "/images/Game Images/Black Myth Wukong.svg",
       },
@@ -69,14 +69,14 @@ const videosData: VideoItem[] = [
       {
         id: 2,
         title: "Alan Wake 2",
-        price: 399,
+        price: 299,
         originalPrice: 475,
         image: "/images/Game Images/Alan Wake 2.svg",
       },
       {
         id: 3,
         title: "Other Games",
-        price: 399,
+        price: 299,
         originalPrice: 798,
         image: "/images/Game Images/Alan Wake Remastered.svg",
       },
@@ -120,14 +120,14 @@ const videosData: VideoItem[] = [
       {
         id: 14,
         title: "RDR 2",
-        price: 399,
+        price: 299,
         originalPrice: 499,
         image: "images/Game Images/Read Dead Redeemption 2.svg",
       },
       {
         id: 6,
         title: "Black Myth: Wukong",
-        price: 399,
+        price: 299,
         originalPrice: 499,
         image: "/images/Game Images/Black Myth Wukong.svg",
       },
@@ -149,7 +149,7 @@ const videosData: VideoItem[] = [
       {
         id: 4,
         title: "Assassin's Creed Shadows",
-        price: 399,
+        price: 299,
         image: "/images/Game Images/Assassin's Creed Shadow.svg",
       },
     ],
@@ -170,14 +170,14 @@ const videosData: VideoItem[] = [
       {
         id: 30,
         title: "GTA 5",
-        price: 399,
+        price: 299,
         originalPrice: 599,
         image: "/images/Game Images/GTA 5.svg",
       },
       {
         id: 24,
         title: "Red Dead Redemption 2",
-        price: 399,
+        price: 299,
         originalPrice: 1209,
         image: "/images/Game Images/Read Dead Redeemption 2.svg",
       },
@@ -199,7 +199,7 @@ const videosData: VideoItem[] = [
       {
         id: 11,
         title: "Crimson Desert",
-        price: 399,
+        price: 299,
         originalPrice: 499,
         image: "/images/Game Images/Crimson Desert.svg",
       },
@@ -221,7 +221,7 @@ const videosData: VideoItem[] = [
       {
         id: 21,
         title: "Ghost of Tsushima: Director's Cut",
-        price: 399,
+        price: 299,
         originalPrice: 596,
         image: "/images/Game Images/Ghost Of Tsushima.svg",
       },
