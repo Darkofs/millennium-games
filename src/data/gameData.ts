@@ -70,7 +70,8 @@ export const featuredGames: Game[] = [
   {
     id: 1,
     title: "ARC Raiders",
-    price: 199,
+    price: 499,
+    isOnlineOnly: true,
     originalPrice: 596,
     discount: 33,
     rating: 4.6,
@@ -179,64 +180,6 @@ export const featuredGames: Game[] = [
     trending: true,
     preorder: true,
     developer: "Ubisoft Quebec",
-    publisher: "Ubisoft",
-    releaseDate: "2025-02-14",
-    description: "Explore feudal Japan as a lethal shinobi assassin and a powerful samurai.",
-    longDescription: "Live the intertwined stories of Naoe, an adept shinobi Assassin from Iga Province, and Yasuke, the powerful African samurai of historical legend. In feudal Japan, carve your own path and combat the corruption of the order.",
-    minimumRequirements: {
-      os: "Windows 10 64-bit",
-      processor: "Intel Core i7-8700K or AMD Ryzen 5 3600",
-      memory: "16 GB RAM",
-      graphics: "GeForce GTX 1070 or Radeon RX 5700",
-      directX: "Version 12",
-      storage: "85 GB SSD space"
-    },
-    recommendedRequirements: {
-      os: "Windows 10/11 64-bit",
-      processor: "Intel Core i7-10700K or AMD Ryzen 7 5800X",
-      memory: "16 GB RAM",
-      graphics: "GeForce RTX 3070 or Radeon RX 6800",
-      directX: "Version 12",
-      storage: "85 GB SSD space"
-    }
-  },
-  {
-    id: 5,
-    title: "Battlefield 6",
-    price: 199,
-    rating: 4.4,
-    reviews: 1200,
-    platform: "epic",
-    genre: ["Action", "Shooter", "Multiplayer"],
-    image: "/images/Game Images/BATTLEFIELD 6.svg",
-    preorder: true,
-    developer: "DICE",
-    publisher: "Electronic Arts",
-    releaseDate: "2026-11-20",
-    description: "The next evolution of all-out warfare on massive scales.",
-    longDescription: "Battlefield 6 returns to the franchise's roots of massive, destructive multiplayer battlefields. Featuring advanced physics, ground-breaking weather simulation, and 128-player battles, this is the ultimate modern military shooter.",
-    minimumRequirements: {
-      os: "Windows 10 64-bit",
-      processor: "Intel Core i5-8400 or AMD Ryzen 5 2600",
-      memory: "12 GB RAM",
-      graphics: "GeForce GTX 1660 or Radeon RX 590",
-      directX: "Version 12",
-      storage: "100 GB SSD space"
-    },
-    recommendedRequirements: {
-      os: "Windows 10/11 64-bit",
-      processor: "Intel Core i7-10700K or AMD Ryzen 7 3800X",
-      memory: "16 GB RAM",
-      graphics: "GeForce RTX 3060 Ti or Radeon RX 6700 XT",
-      directX: "Version 12",
-      storage: "100 GB SSD space"
-    }
-  },
-  {
-    id: 6,
-    title: "Black Myth: Wukong",
-    price: 199,
-    rating: 4.9,
     reviews: 14800,
     platform: "epic",
     genre: ["Action", "RPG"],
