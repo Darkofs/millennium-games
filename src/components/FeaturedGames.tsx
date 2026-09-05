@@ -59,14 +59,14 @@ export default function FeaturedGames() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-2 mb-12"
+          className="flex sm:flex-wrap justify-start sm:justify-center items-center overflow-x-auto no-scrollbar gap-2 mb-8 sm:mb-12 px-1 pb-2"
         >
           {filters.map((filter) => (
             <Magnetic key={filter}>
               <button
                 id={`filter-${filter.toLowerCase().replace(/\s/g, "-")}`}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-md ${
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 backdrop-blur-md flex-shrink-0 cursor-pointer ${
                   activeFilter === filter
                     ? "text-[#0f172a] shadow-lg font-bold"
                     : "text-slate-600 hover:text-[#0f172a]"
@@ -88,7 +88,7 @@ export default function FeaturedGames() {
         </motion.div>
 
         {/* Game Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
           {filteredGames.map((game) => (
             <GameCard key={game.id} game={game} />
           ))}

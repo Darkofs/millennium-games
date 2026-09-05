@@ -184,8 +184,8 @@ export default function Deals() {
 
         {/* Deals Container with dashed border */}
         <div
-          className="flex flex-col sm:flex-row gap-6 p-6 border-2 border-dashed border-slate-300/60 rounded-3xl overflow-hidden items-stretch justify-between bg-white/10 backdrop-blur-md shadow-lg"
-          style={{ minHeight: "380px" }}
+          className="flex flex-row overflow-x-auto sm:overflow-hidden no-scrollbar gap-4 sm:gap-6 p-4 sm:p-6 border-2 border-dashed border-slate-300/60 rounded-3xl items-stretch justify-start sm:justify-between bg-white/10 backdrop-blur-md shadow-lg snap-x snap-mandatory sm:snap-none"
+          style={{ minHeight: "360px" }}
         >
           {displayDeals.map((deal) => {
             const isLeaving = deal.keyId.endsWith("-leaving");
@@ -195,7 +195,7 @@ export default function Deals() {
               <div
                 key={deal.keyId}
                 data-flip-id={deal.id}
-                className={`deal-card-wrapper w-full sm:w-[23%] flex-shrink-0 glass-card overflow-hidden group cursor-pointer block ${
+                className={`deal-card-wrapper w-[80vw] sm:w-[23%] flex-shrink-0 snap-center glass-card overflow-hidden group cursor-pointer block ${
                   isLeaving ? "opacity-0 scale-0 absolute pointer-events-none" : ""
                 } ${
                   isEntering ? "opacity-0 scale-0" : ""

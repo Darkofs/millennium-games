@@ -425,15 +425,16 @@ export default function VideoCatalogue() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-2 mb-12"
+          className="flex sm:flex-wrap justify-start sm:justify-center items-center overflow-x-auto no-scrollbar gap-2 mb-8 sm:mb-12 px-1 pb-2"
         >
           {categories.map((cat) => (
             <Magnetic key={cat}>
               <button
                 id={`cat-filter-${cat.toLowerCase().replace(/\s/g, "-")}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 backdrop-blur-md cursor-pointer ${activeCategory === cat ? "btn-glossy-white border-2 border-black/30 shadow-lg scale-105" : "btn-glossy-white opacity-80 hover:opacity-100"
-                  }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 backdrop-blur-md cursor-pointer flex-shrink-0 ${
+                  activeCategory === cat ? "btn-glossy-white border-2 border-black/30 shadow-lg scale-105" : "btn-glossy-white opacity-80 hover:opacity-100"
+                }`}
               >
                 {cat}
               </button>
