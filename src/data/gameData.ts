@@ -1255,6 +1255,17 @@ export const deals: Deal[] = [
     type: "bundle"
   },
   {
+    id: 124,
+    title: "Ubisoft Bundle (All Assassin's Creed & Far Cry Games)",
+    originalPrice: 34999,
+    dealPrice: 1100,
+    discount: 97,
+    platform: "ubisoft",
+    image: "/images/Game Images/Assassin's Creed Shadow.svg",
+    endsAt: "2026-09-30T23:59:59",
+    type: "bundle"
+  },
+  {
     id: 24,
     title: "Red Dead Redemption 2",
     originalPrice: 1209,

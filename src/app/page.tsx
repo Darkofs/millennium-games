@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import DealOfTheMonth from "@/components/DealOfTheMonth";
+import UbisoftBundle from "@/components/UbisoftBundle";
 import FeaturedGames from "@/components/FeaturedGames";
 import VideoCatalogue from "@/components/VideoCatalogue";
 import TrendingCarousel from "@/components/TrendingCarousel";
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <TrustSection />
       <DealOfTheMonth />
+      <UbisoftBundle />
       <FeaturedGames />
       <VideoCatalogue />
       <TrendingCarousel />
