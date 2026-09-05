@@ -188,7 +188,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight"
+            className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.15] tracking-tight"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
             Your Next <span className="gradient-text">Adventure</span> Starts Here
@@ -198,25 +198,25 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="text-lg leading-relaxed text-slate-700"
+            className="text-sm sm:text-lg leading-relaxed text-slate-700"
           >
-            Buy authentic Steam and Epic Games titles instantly. Fast delivery,
-            secure payments, trusted by thousands of gamers.
+            Buy authentic Steam, Epic & Ubisoft game accounts instantly. Fast delivery,
+            secure UPI payments, trusted by thousands of gamers across India.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
           >
             <Magnetic>
-              <Link href="/#catalog" className="btn-primary text-base px-8 py-3.5" id="hero-explore-btn">
+              <Link href="/#catalog" className="btn-primary text-sm sm:text-base px-8 py-3.5 text-center w-full sm:w-auto block" id="hero-explore-btn">
                 Explore Games
               </Link>
             </Magnetic>
             <Magnetic>
-              <Link href="/#upcoming" className="btn-outline text-base px-8 py-3.5" id="hero-upcoming-btn">
+              <Link href="/#upcoming" className="btn-outline text-sm sm:text-base px-8 py-3.5 text-center w-full sm:w-auto block" id="hero-upcoming-btn">
                 Upcoming Releases
               </Link>
             </Magnetic>
