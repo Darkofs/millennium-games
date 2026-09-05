@@ -439,7 +439,7 @@ export default function VideoCatalogue() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.25 }}
-              className="glass-card rounded-[24px] overflow-hidden group cursor-pointer flex flex-col justify-between border border-white/60 shadow-xl"
+              className="video-grid-card rounded-[24px] overflow-hidden group cursor-pointer flex flex-col justify-between border border-white/20 shadow-xl bg-slate-950/85 backdrop-blur-xl"
               onClick={() => setSelectedVideo(video)}
             >
               {/* Thumbnail Container */}
@@ -450,7 +450,7 @@ export default function VideoCatalogue() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
 
                 {/* Duration & Multi-Game Badges */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
@@ -485,16 +485,22 @@ export default function VideoCatalogue() {
               {/* Card Meta Info */}
               <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block mb-1">
+                  <span
+                    className="text-[11px] font-bold uppercase tracking-wider text-slate-300 block mb-1"
+                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+                  >
                     {video.game}
                   </span>
-                  <h4 className="text-sm font-bold text-[#0f172a] leading-tight line-clamp-2 group-hover:text-black transition-colors">
+                  <h4
+                    className="text-sm font-bold text-white leading-tight line-clamp-2 group-hover:text-emerald-400 transition-colors"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                  >
                     {video.title}
                   </h4>
                 </div>
 
                 {/* Action Buttons for Cart / Buy Now */}
-                <div className="space-y-2 pt-2 border-t border-slate-300/50" onClick={(e) => e.stopPropagation()}>
+                <div className="space-y-2 pt-2 border-t border-white/10" onClick={(e) => e.stopPropagation()}>
                   {video.games.length === 1 ? (
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -540,22 +546,29 @@ export default function VideoCatalogue() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.92, opacity: 0, y: 15 }}
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col max-h-[92dvh] my-auto"
+              className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col max-h-[92dvh] my-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/20 bg-slate-950/90 flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
                 <div className="min-w-0 pr-3">
-                  <span className="text-[10px] sm:text-xs font-bold text-white/70 uppercase tracking-wider block truncate">
+                  <span
+                    className="text-[10px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider block truncate"
+                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none" }}
+                  >
                     {selectedVideo.game} • {selectedVideo.category}
                   </span>
-                  <h3 className="text-xs sm:text-base font-bold text-white truncate max-w-lg">
+                  <h3
+                    className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                  >
                     {selectedVideo.title}
                   </h3>
                 </div>
                 <button
                   onClick={handleCloseVideo}
                   className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
+                  style={{ color: "#ffffff", filter: "none" }}
                   aria-label="Close modal"
                 >
                   ✕
@@ -589,11 +602,17 @@ export default function VideoCatalogue() {
               </div>
 
               {/* Featured Games in Video Purchase Section */}
-              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/10 overflow-y-auto max-h-[30vh] sm:max-h-[35vh] space-y-3 no-scrollbar">
+              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 overflow-y-auto max-h-[30vh] sm:max-h-[35vh] space-y-3 no-scrollbar">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                    <span>🎮 Included Game{selectedVideo.games.length > 1 ? "s" : ""}</span>
-                    <span className="text-[10px] sm:text-xs font-normal text-white/60">
+                  <h4
+                    className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
+                  >
+                    <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>🎮 Included Game{selectedVideo.games.length > 1 ? "s" : ""}</span>
+                    <span
+                      className="text-[10px] sm:text-xs font-normal text-slate-300"
+                      style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none" }}
+                    >
                       ({selectedVideo.games.length} available)
                     </span>
                   </h4>
@@ -622,13 +641,26 @@ export default function VideoCatalogue() {
                           className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
                         />
                         <div className="min-w-0 flex-1">
-                          <h5 className="text-xs sm:text-sm font-bold text-white truncate" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
+                          <h5
+                            className="text-xs sm:text-sm font-bold text-white truncate"
+                            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
+                          >
                             {g.title}
                           </h5>
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-xs sm:text-sm font-bold text-emerald-400">₹{g.price}</span>
+                            <span
+                              className="text-xs sm:text-sm font-bold text-emerald-400"
+                              style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+                            >
+                              ₹{g.price}
+                            </span>
                             {g.originalPrice && (
-                              <span className="text-[10px] sm:text-xs text-white/50 line-through">₹{g.originalPrice}</span>
+                              <span
+                                className="text-[10px] sm:text-xs text-slate-400 line-through"
+                                style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8", filter: "none" }}
+                              >
+                                ₹{g.originalPrice}
+                              </span>
                             )}
                           </div>
                         </div>
@@ -638,6 +670,7 @@ export default function VideoCatalogue() {
                         <button
                           onClick={(e) => handleAddToCart(e, g.id)}
                           className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
+                          style={{ color: "#ffffff" }}
                         >
                           🛒 Cart
                         </button>

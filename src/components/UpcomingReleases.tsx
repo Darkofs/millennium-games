@@ -413,22 +413,29 @@ export default function UpcomingReleases() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.92, opacity: 0, y: 15 }}
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto"
+              className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/10 bg-slate-950/90 flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
                 <div className="min-w-0 pr-3">
-                  <span className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block">
+                  <span
+                    className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block"
+                    style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+                  >
                     Upcoming AAA Game Trailer
                   </span>
-                  <h3 className="text-xs sm:text-base font-bold text-white truncate max-w-lg">
+                  <h3
+                    className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                  >
                     {selectedTrailer.title} - Official Trailer
                   </h3>
                 </div>
                 <button
                   onClick={handleCloseTrailer}
                   className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
+                  style={{ color: "#ffffff", filter: "none" }}
                   aria-label="Close modal"
                 >
                   ✕
@@ -454,12 +461,18 @@ export default function UpcomingReleases() {
               </div>
 
               {/* Modal Footer with Preorder */}
-              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/10 flex items-center justify-between gap-3 flex-shrink-0">
+              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
                 <div className="min-w-0 flex-1">
-                  <h4 className="text-xs sm:text-sm font-bold text-white truncate">
+                  <h4
+                    className="text-xs sm:text-sm font-bold text-white truncate"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                  >
                     {selectedTrailer.title}
                   </h4>
-                  <p className="text-[10px] sm:text-xs text-slate-400 truncate">
+                  <p
+                    className="text-[10px] sm:text-xs text-slate-300 truncate mt-0.5"
+                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none", textShadow: "none" }}
+                  >
                     Expected:{" "}
                     {new Date(selectedTrailer.releaseDate).toLocaleDateString("en-US", {
                       month: "short",
