@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
@@ -234,7 +235,12 @@ export default function VideoCatalogue() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
+  const [mounted, setMounted] = useState(false);
   const { addToCart } = useApp();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const featuredSpotlight = videosData[0];
 
@@ -263,8 +269,12 @@ export default function VideoCatalogue() {
 
   // Intercept mobile back button when video modal is open
   useEffect(() => {
-    if (!selectedVideo) return;
+    if (!selectedVideo) {
+      document.body.style.overflow = "";
+      return;
+    }
 
+    document.body.style.overflow = "hidden";
     window.history.pushState({ modal: "video" }, "");
 
     const handlePopState = () => {
@@ -273,6 +283,7 @@ export default function VideoCatalogue() {
 
     window.addEventListener("popstate", handlePopState);
     return () => {
+      document.body.style.overflow = "";
       window.removeEventListener("popstate", handlePopState);
     };
   }, [selectedVideo]);
@@ -531,164 +542,170 @@ export default function VideoCatalogue() {
         </div>
       </div>
 
-      {/* Video Modal Player with Featured Games Purchase Panel */}
-      <AnimatePresence>
-        {selectedVideo && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
-            onClick={handleCloseVideo}
-          >
+      {/* Video Modal Player with Featured Games Purchase Panel (Portaled to document.body) */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {selectedVideo && (
             <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.92, opacity: 0, y: 15 }}
-              transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col max-h-[92dvh] my-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              data-lenis-prevent
+              className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md overflow-hidden"
+              style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}
+              onClick={handleCloseVideo}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
-                <div className="min-w-0 pr-3">
-                  <span
-                    className="text-[10px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider block truncate"
-                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none" }}
-                  >
-                    {selectedVideo.game} • {selectedVideo.category}
-                  </span>
-                  <h3
-                    className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
-                  >
-                    {selectedVideo.title}
-                  </h3>
-                </div>
-                <button
-                  onClick={handleCloseVideo}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
-                  style={{ color: "#ffffff", filter: "none" }}
-                  aria-label="Close modal"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* Video Container (playsInline to prevent native fullscreen displacement) */}
-              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
-                {selectedVideo.videoSrc ? (
-                  <video
-                    key={selectedVideo.videoSrc}
-                    src={selectedVideo.videoSrc}
-                    controls
-                    autoPlay
-                    playsInline
-                    webkit-playsinline="true"
-                    preload="auto"
-                    className="w-full h-full object-contain"
-                  >
-                    Your browser does not support high-definition video playback.
-                  </video>
-                ) : (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&playsinline=1`}
-                    title={selectedVideo.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full border-0"
-                  />
-                )}
-              </div>
-
-              {/* Featured Games in Video Purchase Section */}
-              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 overflow-y-auto max-h-[30vh] sm:max-h-[35vh] space-y-3 no-scrollbar">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <h4
-                    className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
-                  >
-                    <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>🎮 Included Game{selectedVideo.games.length > 1 ? "s" : ""}</span>
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.92, opacity: 0, y: 15 }}
+                transition={{ type: "spring", damping: 28, stiffness: 320 }}
+                data-lenis-prevent
+                className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl border border-white/30 shadow-2xl flex flex-col max-h-[90vh] my-auto overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
+                  <div className="min-w-0 pr-3">
                     <span
-                      className="text-[10px] sm:text-xs font-normal text-slate-300"
+                      className="text-[10px] sm:text-xs font-bold text-slate-300 uppercase tracking-wider block truncate"
                       style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none" }}
                     >
-                      ({selectedVideo.games.length} available)
+                      {selectedVideo.game} • {selectedVideo.category}
                     </span>
-                  </h4>
-
-                  {selectedVideo.games.length > 1 && (
-                    <button
-                      onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
-                      className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold btn-primary shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                    <h3
+                      className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                     >
-                      📦 Buy All ({selectedVideo.games.length}) - ₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)}
-                    </button>
+                      {selectedVideo.title}
+                    </h3>
+                  </div>
+                  <button
+                    onClick={handleCloseVideo}
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
+                    style={{ color: "#ffffff", filter: "none" }}
+                    aria-label="Close modal"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Video Container (playsInline to prevent native fullscreen displacement) */}
+                <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
+                  {selectedVideo.videoSrc ? (
+                    <video
+                      key={selectedVideo.videoSrc}
+                      src={selectedVideo.videoSrc}
+                      controls
+                      autoPlay
+                      playsInline
+                      webkit-playsinline="true"
+                      preload="auto"
+                      className="w-full h-full object-contain"
+                    >
+                      Your browser does not support high-definition video playback.
+                    </video>
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0&playsinline=1`}
+                      title={selectedVideo.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
                   )}
                 </div>
 
-                {/* List of Featured Games */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                  {selectedVideo.games.map((g) => (
-                    <div
-                      key={g.id}
-                      className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md gap-2"
+                {/* Featured Games in Video Purchase Section */}
+                <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 overflow-y-auto max-h-[30vh] sm:max-h-[35vh] space-y-3 no-scrollbar">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <h4
+                      className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
                     >
-                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                        <img
-                          src={g.image}
-                          alt={g.title}
-                          className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <h5
-                            className="text-xs sm:text-sm font-bold text-white truncate"
-                            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
-                          >
-                            {g.title}
-                          </h5>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span
-                              className="text-xs sm:text-sm font-bold text-emerald-400"
-                              style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+                      <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>🎮 Included Game{selectedVideo.games.length > 1 ? "s" : ""}</span>
+                      <span
+                        className="text-[10px] sm:text-xs font-normal text-slate-300"
+                        style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none" }}
+                      >
+                        ({selectedVideo.games.length} available)
+                      </span>
+                    </h4>
+
+                    {selectedVideo.games.length > 1 && (
+                      <button
+                        onClick={(e) => handleAddBundleToCart(e, selectedVideo.games)}
+                        className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold btn-primary shadow-md transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                      >
+                        📦 Buy All ({selectedVideo.games.length}) - ₹{selectedVideo.games.reduce((a, g) => a + g.price, 0)}
+                      </button>
+                    )}
+                  </div>
+
+                  {/* List of Featured Games */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                    {selectedVideo.games.map((g) => (
+                      <div
+                        key={g.id}
+                        className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md gap-2"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                          <img
+                            src={g.image}
+                            alt={g.title}
+                            className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-white/20 flex-shrink-0"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <h5
+                              className="text-xs sm:text-sm font-bold text-white truncate"
+                              style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none" }}
                             >
-                              ₹{g.price}
-                            </span>
-                            {g.originalPrice && (
+                              {g.title}
+                            </h5>
+                            <div className="flex items-center gap-1.5 mt-0.5">
                               <span
-                                className="text-[10px] sm:text-xs text-slate-400 line-through"
-                                style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8", filter: "none" }}
+                                className="text-xs sm:text-sm font-bold text-emerald-400"
+                                style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
                               >
-                                ₹{g.originalPrice}
+                                ₹{g.price}
                               </span>
-                            )}
+                              {g.originalPrice && (
+                                <span
+                                  className="text-[10px] sm:text-xs text-slate-400 line-through"
+                                  style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8", filter: "none" }}
+                                >
+                                  ₹{g.originalPrice}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex items-center gap-1.5 flex-shrink-0">
-                        <button
-                          onClick={(e) => handleAddToCart(e, g.id)}
-                          className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
-                          style={{ color: "#ffffff" }}
-                        >
-                          🛒 Cart
-                        </button>
-                        <button
-                          onClick={(e) => handleBuyNow(e, g.id)}
-                          className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold btn-primary transition-all cursor-pointer active:scale-95"
-                        >
-                          ⚡ Buy
-                        </button>
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                          <button
+                            onClick={(e) => handleAddToCart(e, g.id)}
+                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white text-white hover:text-black transition-all cursor-pointer active:scale-95"
+                            style={{ color: "#ffffff" }}
+                          >
+                            🛒 Cart
+                          </button>
+                          <button
+                            onClick={(e) => handleBuyNow(e, g.id)}
+                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold btn-primary transition-all cursor-pointer active:scale-95"
+                          >
+                            ⚡ Buy
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

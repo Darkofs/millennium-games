@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -32,18 +33,12 @@ function Countdown({ targetDate }: { targetDate: string }) {
   }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(() => calculateTime());
-  const [prevTargetDate, setPrevTargetDate] = useState(targetDate);
-
-  if (targetDate !== prevTargetDate) {
-    setPrevTargetDate(targetDate);
-    setTimeLeft(calculateTime());
-  }
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev.secs > 0) return { ...prev, secs: prev.secs - 1 };
-        if (prev.mins > 0) return { ...prev, mins: prev.mins - 1, secs: 59 };
+        if (prev.mins > 0) return { ...prev, mins: 59, secs: 59 };
         if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, mins: 59, secs: 59 };
         if (prev.days > 0) return { ...prev, days: prev.days - 1, hours: 23, mins: 59, secs: 59 };
         return calculateTime();
@@ -52,31 +47,52 @@ function Countdown({ targetDate }: { targetDate: string }) {
     return () => clearInterval(interval);
   }, [calculateTime]);
 
-  const displayTime = mounted ? timeLeft : { days: 54, hours: 18, mins: 32, secs: 45 };
-
-  const units = [
-    { label: "Days", value: displayTime.days },
-    { label: "Hours", value: displayTime.hours },
-    { label: "Mins", value: displayTime.mins },
-    { label: "Secs", value: displayTime.secs },
-  ];
+  if (!mounted) {
+    return (
+      <div className="grid grid-cols-4 gap-2 text-center">
+        {[
+          { label: "Days", value: 54 },
+          { label: "Hours", value: 18 },
+          { label: "Mins", value: 32 },
+          { label: "Secs", value: 45 },
+        ].map((u) => (
+          <div
+            key={u.label}
+            className="p-2 sm:p-2.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-sm"
+          >
+            <div
+              className="text-base sm:text-xl font-extrabold text-white"
+              style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+            >
+              {String(u.value).padStart(2, "0")}
+            </div>
+            <div
+              className="text-[10px] font-semibold text-slate-300 mt-1 uppercase tracking-wider"
+              style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+            >
+              {u.label}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex gap-2.5">
-      {units.map((u) => (
-        <div key={u.label} className="text-center">
+    <div className="grid grid-cols-4 gap-2 text-center">
+      {[
+        { label: "Days", value: timeLeft.days },
+        { label: "Hours", value: timeLeft.hours },
+        { label: "Mins", value: timeLeft.mins },
+        { label: "Secs", value: timeLeft.secs },
+      ].map((u) => (
+        <div
+          key={u.label}
+          className="p-2 sm:p-2.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-sm"
+        >
           <div
-            className="w-13 h-13 min-w-[50px] px-2 py-1.5 rounded-2xl flex items-center justify-center text-lg font-bold text-white backdrop-blur-md transition-all duration-300"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06))",
-              border: "1px solid rgba(255,255,255,0.25)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 14px rgba(0,0,0,0.35)",
-              fontFamily: "var(--font-outfit)",
-              color: "#ffffff",
-              WebkitTextFillColor: "#ffffff",
-            }}
+            className="text-base sm:text-xl font-extrabold text-white"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
           >
             {String(u.value).padStart(2, "0")}
           </div>
@@ -96,17 +112,26 @@ export default function UpcomingReleases() {
   const router = useRouter();
   const { addToCart } = useApp();
   const [selectedTrailer, setSelectedTrailer] = useState<UpcomingGame | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (selectedTrailer) {
+      document.body.style.overflow = "hidden";
       window.history.pushState({ modal: "trailer" }, "");
       const handlePopState = () => {
         setSelectedTrailer(null);
       };
       window.addEventListener("popstate", handlePopState);
       return () => {
+        document.body.style.overflow = "";
         window.removeEventListener("popstate", handlePopState);
       };
+    } else {
+      document.body.style.overflow = "";
     }
   }, [selectedTrailer]);
 
@@ -398,105 +423,111 @@ export default function UpcomingReleases() {
         </div>
       </div>
 
-      {/* Video Trailer Modal */}
-      <AnimatePresence>
-        {selectedTrailer && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
-            onClick={handleCloseTrailer}
-          >
+      {/* Video Trailer Modal (Portaled to document.body) */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {selectedTrailer && (
             <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.92, opacity: 0, y: 15 }}
-              transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              data-lenis-prevent
+              className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md overflow-hidden"
+              style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}
+              onClick={handleCloseTrailer}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
-                <div className="min-w-0 pr-3">
-                  <span
-                    className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block"
-                    style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.92, opacity: 0, y: 15 }}
+                transition={{ type: "spring", damping: 28, stiffness: 320 }}
+                data-lenis-prevent
+                className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl border border-white/30 shadow-2xl flex flex-col my-auto max-h-[90vh] overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
+                  <div className="min-w-0 pr-3">
+                    <span
+                      className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block"
+                      style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
+                    >
+                      Upcoming AAA Game Trailer
+                    </span>
+                    <h3
+                      className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                    >
+                      {selectedTrailer.title} - Official Trailer
+                    </h3>
+                  </div>
+                  <button
+                    onClick={handleCloseTrailer}
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
+                    style={{ color: "#ffffff", filter: "none" }}
+                    aria-label="Close modal"
                   >
-                    Upcoming AAA Game Trailer
-                  </span>
-                  <h3
-                    className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
-                  >
-                    {selectedTrailer.title} - Official Trailer
-                  </h3>
-                </div>
-                <button
-                  onClick={handleCloseTrailer}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
-                  style={{ color: "#ffffff", filter: "none" }}
-                  aria-label="Close modal"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* Video Player */}
-              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
-                {selectedTrailer.videoSrc && (
-                  <video
-                    key={selectedTrailer.videoSrc}
-                    src={selectedTrailer.videoSrc}
-                    controls
-                    autoPlay
-                    playsInline
-                    webkit-playsinline="true"
-                    preload="auto"
-                    className="w-full h-full object-contain"
-                  >
-                    Your browser does not support high-definition video playback.
-                  </video>
-                )}
-              </div>
-
-              {/* Modal Footer with Preorder */}
-              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
-                <div className="min-w-0 flex-1">
-                  <h4
-                    className="text-xs sm:text-sm font-bold text-white truncate"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
-                  >
-                    {selectedTrailer.title}
-                  </h4>
-                  <p
-                    className="text-[10px] sm:text-xs text-slate-300 truncate mt-0.5"
-                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none", textShadow: "none" }}
-                  >
-                    Expected:{" "}
-                    {new Date(selectedTrailer.releaseDate).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
+                    ✕
+                  </button>
                 </div>
 
-                <button
-                  onClick={() => {
-                    addToCart(selectedTrailer.id);
-                    handleCloseTrailer();
-                    router.push("/cart");
-                  }}
-                  className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
-                >
-                  ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 399}
-                </button>
-              </div>
+                {/* Video Player */}
+                <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
+                  {selectedTrailer.videoSrc && (
+                    <video
+                      key={selectedTrailer.videoSrc}
+                      src={selectedTrailer.videoSrc}
+                      controls
+                      autoPlay
+                      playsInline
+                      webkit-playsinline="true"
+                      preload="auto"
+                      className="w-full h-full object-contain"
+                    >
+                      Your browser does not support high-definition video playback.
+                    </video>
+                  )}
+                </div>
+
+                {/* Modal Footer with Preorder */}
+                <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
+                  <div className="min-w-0 flex-1">
+                    <h4
+                      className="text-xs sm:text-sm font-bold text-white truncate"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                    >
+                      {selectedTrailer.title}
+                    </h4>
+                    <p
+                      className="text-[10px] sm:text-xs text-slate-300 truncate mt-0.5"
+                      style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none", textShadow: "none" }}
+                    >
+                      Expected:{" "}
+                      {new Date(selectedTrailer.releaseDate).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      addToCart(selectedTrailer.id);
+                      handleCloseTrailer();
+                      router.push("/cart");
+                    }}
+                    className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
+                  >
+                    ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 399}
+                  </button>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
@@ -10,6 +11,11 @@ export default function DealOfTheMonth() {
   const router = useRouter();
   const { addToCart } = useApp();
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const bundleDeal = {
     id: 123,
@@ -25,14 +31,18 @@ export default function DealOfTheMonth() {
 
   useEffect(() => {
     if (isVideoModalOpen) {
+      document.body.style.overflow = "hidden";
       window.history.pushState({ modal: "deal_video" }, "");
       const handlePopState = () => {
         setIsVideoModalOpen(false);
       };
       window.addEventListener("popstate", handlePopState);
       return () => {
+        document.body.style.overflow = "";
         window.removeEventListener("popstate", handlePopState);
       };
+    } else {
+      document.body.style.overflow = "";
     }
   }, [isVideoModalOpen]);
 
@@ -248,96 +258,102 @@ export default function DealOfTheMonth() {
         </motion.div>
       </div>
 
-      {/* Fullscreen Video Modal Showcase */}
-      <AnimatePresence>
-        {isVideoModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
-            onClick={handleCloseModal}
-          >
+      {/* Fullscreen Video Modal Showcase (Portaled to document.body to prevent mobile scrolling displacement) */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {isVideoModalOpen && (
             <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.92, opacity: 0, y: 15 }}
-              transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              data-lenis-prevent
+              className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md overflow-hidden"
+              style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}
+              onClick={handleCloseModal}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
-                <div className="min-w-0 pr-3">
-                  <span
-                    className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block"
-                    style={{ color: "#fbbf24", WebkitTextFillColor: "#fbbf24", filter: "none" }}
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.92, opacity: 0, y: 15 }}
+                transition={{ type: "spring", damping: 28, stiffness: 320 }}
+                data-lenis-prevent
+                className="video-modal-dark video-modal-content relative w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-4xl bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/30 shadow-2xl flex flex-col my-auto max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
+                  <div className="min-w-0 pr-3">
+                    <span
+                      className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider block"
+                      style={{ color: "#fbbf24", WebkitTextFillColor: "#fbbf24", filter: "none" }}
+                    >
+                      Deal of the Month Video Showcase
+                    </span>
+                    <h3
+                      className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                    >
+                      Epic Bundle With 123 Games AAA - Official Showcase
+                    </h3>
+                  </div>
+                  <button
+                    onClick={handleCloseModal}
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
+                    style={{ color: "#ffffff", filter: "none" }}
+                    aria-label="Close modal"
                   >
-                    Deal of the Month Video Showcase
-                  </span>
-                  <h3
-                    className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
-                  >
-                    Epic Bundle With 123 Games AAA - Official Showcase
-                  </h3>
-                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center text-sm sm:text-base font-bold cursor-pointer transition-all flex-shrink-0 active:scale-90"
-                  style={{ color: "#ffffff", filter: "none" }}
-                  aria-label="Close modal"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* Video Player */}
-              <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
-                <video
-                  src={bundleDeal.videoSrc}
-                  controls
-                  autoPlay
-                  playsInline
-                  webkit-playsinline="true"
-                  preload="auto"
-                  className="w-full h-full object-contain"
-                >
-                  Your browser does not support high-definition video playback.
-                </video>
-              </div>
-
-              {/* Modal Footer with Checkout */}
-              <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
-                <div className="min-w-0 flex-1">
-                  <h4
-                    className="text-xs sm:text-sm font-bold text-white truncate"
-                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
-                  >
-                    Epic Bundle (123 AAA Games)
-                  </h4>
-                  <p
-                    className="text-[10px] sm:text-xs text-slate-300 truncate mt-0.5"
-                    style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none", textShadow: "none" }}
-                  >
-                    Deal of the Month: ₹1200 (Instant Full Library Unlock)
-                  </p>
+                    ✕
+                  </button>
                 </div>
 
-                <button
-                  onClick={(e) => {
-                    handleBuyNow(e);
-                    handleCloseModal();
-                  }}
-                  className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
-                >
-                  ⚡ Buy Now ₹1200
-                </button>
-              </div>
+                {/* Video Player */}
+                <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
+                  <video
+                    src={bundleDeal.videoSrc}
+                    controls
+                    autoPlay
+                    playsInline
+                    webkit-playsinline="true"
+                    preload="auto"
+                    className="w-full h-full object-contain"
+                  >
+                    Your browser does not support high-definition video playback.
+                  </video>
+                </div>
+
+                {/* Modal Footer with Checkout */}
+                <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
+                  <div className="min-w-0 flex-1">
+                    <h4
+                      className="text-xs sm:text-sm font-bold text-white truncate"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
+                    >
+                      Epic Bundle (123 AAA Games)
+                    </h4>
+                    <p
+                      className="text-[10px] sm:text-xs text-slate-300 truncate mt-0.5"
+                      style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1", filter: "none", textShadow: "none" }}
+                    >
+                      Deal of the Month: ₹1200 (Instant Full Library Unlock)
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      handleBuyNow(e);
+                      handleCloseModal();
+                    }}
+                    className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
+                  >
+                    ⚡ Buy Now ₹1200
+                  </button>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
