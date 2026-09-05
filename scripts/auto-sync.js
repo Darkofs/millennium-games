@@ -5,15 +5,20 @@ const path = require('path');
 // Configuration
 const DEBOUNCE_MS = 5000; // 5 seconds debounce
 const WATCH_DIR = path.join(__dirname, '..');
-const IGNORED_DIRS = ['.git', '.next', 'node_modules', 'scripts'];
+const IGNORED_DIRS = ['.git', '.next', 'node_modules', 'scripts', '.gemini', '.turbo'];
 const IGNORED_FILES = ['package-lock.json', 'tsconfig.tsbuildinfo', '.DS_Store'];
 
-console.log('🚀 Starting Millennium Games Auto-Sync & Dev Server...');
+console.log('🚀 Starting Millennium Games Auto-Sync & Dev Server with Enhanced Memory (4GB)...');
 
-// Start Next.js dev server
+// Start Next.js dev server with 4GB heap allocation
+const nodeOptions = process.env.NODE_OPTIONS || '--max-old-space-size=4096';
 const devServer = spawn('npx', ['next', 'dev'], {
   stdio: 'inherit',
-  shell: true
+  shell: true,
+  env: {
+    ...process.env,
+    NODE_OPTIONS: nodeOptions
+  }
 });
 
 devServer.on('close', (code) => {

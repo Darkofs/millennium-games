@@ -25,6 +25,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://millennium-games.vercel.app"),
   title: "Millennium Games – Premium Digital Game Store | Steam & Epic Keys",
   description:
     "Buy authentic Steam and Epic Games titles instantly. Fast delivery, secure payments, verified sellers. Your trusted premium digital game marketplace.",
