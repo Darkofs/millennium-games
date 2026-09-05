@@ -73,7 +73,7 @@ export default function GameDetailsPage() {
   }
 
   // Handle adding to cart with page navigation
-  const effectivePlayMode = isCod ? "online" : playMode;
+  const effectivePlayMode = isOnlineOnlyGame ? "online" : playMode;
 
   const handleAddToCart = () => {
     addToCart(game.id, effectivePlayMode);
@@ -297,11 +297,11 @@ export default function GameDetailsPage() {
                   <span className="text-slate-500 text-[10px] sm:text-xs block mb-1 uppercase tracking-widest font-semibold">Store Price</span>
                   <div className="flex items-baseline gap-2.5 sm:gap-3">
                     <span className="text-3xl sm:text-4xl font-extrabold text-mint" style={{ fontFamily: "var(--font-outfit)" }}>
-                      ₹{isCod ? 499 : playMode === "online" ? Math.round(game.price * 2.5) : game.price}
+                      ₹{isOnlineOnlyGame ? 499 : playMode === "online" ? Math.round(game.price * 2.5) : game.price}
                     </span>
                     {game.originalPrice && (
                       <span className="text-sm sm:text-lg text-slate-400 line-through">
-                        ₹{isCod ? Math.round(game.originalPrice * 1.5) : playMode === "online" ? Math.round(game.originalPrice * 2.5) : game.originalPrice}
+                        ₹{isOnlineOnlyGame ? Math.round(game.originalPrice * 1.5) : playMode === "online" ? Math.round(game.originalPrice * 2.5) : game.originalPrice}
                       </span>
                     )}
                   </div>
