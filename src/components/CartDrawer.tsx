@@ -73,10 +73,20 @@ export default function CartDrawer() {
     platform: string;
   }>;
 
-  const total = cartDetails.reduce(
+  const subtotal = cartDetails.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // Buy 2 Get 1 Free Promo for ₹199 offline games:
+  const offline199Count = cartDetails
+    .filter((item) => item.playMode === "offline" && item.price === 199)
+    .reduce((sum, item) => sum + item.quantity, 0);
+
+  const freeGamesCount = Math.floor(offline199Count / 3);
+  const promoDiscount = freeGamesCount * 199;
+
+  const total = Math.max(0, subtotal - promoDiscount);
 
   // Copy helper with feedback
   const handleCopy = (text: string, field: string) => {
@@ -729,16 +739,22 @@ export default function CartDrawer() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[11px] font-black text-emerald-950">
-                          Buy 2 Get 1 Free
+                          {freeGamesCount > 0
+                            ? `🎉 Buy 2 Get 1 Free Applied!`
+                            : "Buy 2 Get 1 Free"}
                         </span>
                         <span className="px-1.5 py-0.2 rounded-full text-[8px] font-black uppercase bg-emerald-600 text-white">
-                          OFFER
+                          {freeGamesCount > 0 ? `${freeGamesCount} FREE GAME` : "OFFER"}
                         </span>
                       </div>
                       <p className="text-[10px] text-emerald-800 leading-tight mt-0.5">
-                        {cartDetails.length >= 2
-                          ? "Eligible for FREE 3rd game! Add any 3rd title to claim."
-                          : "Add 1 more game to unlock a 3rd game completely FREE!"}
+                        {freeGamesCount > 0
+                          ? `₹${promoDiscount} auto-discount applied! 1 game is 100% free.`
+                          : offline199Count === 2
+                          ? "Add 1 more ₹199 game to get it 100% FREE!"
+                          : offline199Count === 1
+                          ? "Add 2 more ₹199 games to get 3rd game FREE!"
+                          : "Buy 2 offline games at ₹199, get 3rd game FREE!"}
                       </p>
                     </div>
                   </div>
@@ -836,14 +852,31 @@ export default function CartDrawer() {
               cartStep === "cart" &&
               cartDetails.length > 0 && (
                 <div className="p-5 border-t border-slate-300/40 bg-white/40 space-y-3.5">
-                  <div className="flex items-center justify-between text-base font-bold text-[#0f172a]">
-                    <span>Total Amount:</span>
-                    <span
-                      className="text-lg text-mint"
-                      style={{ fontFamily: "var(--font-outfit)" }}
-                    >
-                      ₹{total}
-                    </span>
+                  <div className="space-y-1.5 text-xs">
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span>Subtotal:</span>
+                      <span className="font-bold text-slate-900">₹{subtotal}</span>
+                    </div>
+
+                    {promoDiscount > 0 && (
+                      <div className="flex items-center justify-between text-emerald-700 font-bold bg-emerald-500/15 p-1.5 rounded-lg border border-emerald-500/30">
+                        <span className="flex items-center gap-1">
+                          <span>🎁</span>
+                          <span>Buy 2 Get 1 Free ({freeGamesCount} Free):</span>
+                        </span>
+                        <span>- ₹{promoDiscount}</span>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between text-base font-bold text-[#0f172a] pt-1 border-t border-slate-200">
+                      <span>Total Payable:</span>
+                      <span
+                        className="text-lg text-emerald-600"
+                        style={{ fontFamily: "var(--font-outfit)" }}
+                      >
+                        ₹{total}
+                      </span>
+                    </div>
                   </div>
 
                   {errorMsg && (

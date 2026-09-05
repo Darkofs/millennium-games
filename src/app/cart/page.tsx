@@ -91,17 +91,29 @@ function CartPageContent() {
     platform: string;
   }>;
 
-  const total = cartDetails.reduce(
+  const subtotal = cartDetails.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // Buy 2 Get 1 Free Promo for ₹199 offline games:
+  // Count total units of ₹199 offline games in cart
+  const offline199Count = cartDetails
+    .filter((item) => item.playMode === "offline" && item.price === 199)
+    .reduce((sum, item) => sum + item.quantity, 0);
+
+  // For every 3 offline games (or 3+ units), 1 is free (-₹199 per 3 games)
+  const freeGamesCount = Math.floor(offline199Count / 3);
+  const promoDiscount = freeGamesCount * 199;
+
+  const total = Math.max(0, subtotal - promoDiscount);
 
   const totalOriginal = cartDetails.reduce(
     (sum, item) => sum + (item.originalPrice || item.price) * item.quantity,
     0
   );
 
-  const totalSavings = Math.max(0, totalOriginal - total);
+  const totalSavings = Math.max(0, (totalOriginal - subtotal) + promoDiscount);
 
   // Copy helper with feedback
   const handleCopy = (text: string, field: string) => {
@@ -803,20 +815,26 @@ function CartPageContent() {
                         <div>
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <h4 className="text-xs sm:text-sm font-black text-emerald-950">
-                              Buy 2 Get 1 Free Promo Active!
+                              {freeGamesCount > 0
+                                ? `🎉 Buy 2 Get 1 Free Applied! (${freeGamesCount} ${freeGamesCount === 1 ? "Game" : "Games"} FREE)`
+                                : "Buy 2 Get 1 Free Promo Active!"}
                             </h4>
                             <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-600 text-white shadow-xs">
-                              OFFER
+                              {freeGamesCount > 0 ? "FREE GAME UNLOCKED" : "OFFER"}
                             </span>
                           </div>
                           <p className="text-[11px] sm:text-xs text-emerald-800/90 mt-0.5">
-                            {cartDetails.length >= 2
-                              ? "You are eligible for a FREE 3rd game! Add any 3rd game to claim."
-                              : "Add 1 more game to your cart to claim your 3rd game 100% FREE!"}
+                            {freeGamesCount > 0
+                              ? `Congratulations! ₹${promoDiscount} auto-discount applied. Your 3rd game is completely FREE!`
+                              : offline199Count === 2
+                              ? "You have 2 games in your cart! Add 1 more ₹199 offline game to get it 100% FREE!"
+                              : offline199Count === 1
+                              ? "Add 2 more ₹199 offline games to get your 3rd game 100% FREE!"
+                              : "Buy any 2 offline games at ₹199 and get your 3rd game completely FREE!"}
                           </p>
                         </div>
                       </div>
-                      {cartDetails.length < 2 && (
+                      {freeGamesCount === 0 && (
                         <Link
                           href="/#featured"
                           className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-sm flex-shrink-0 hidden sm:inline-block"
@@ -976,13 +994,23 @@ function CartPageContent() {
                       <div className="space-y-3 text-xs">
                         <div className="flex justify-between text-slate-600">
                           <span>Items Subtotal ({cartDetails.reduce((acc, i) => acc + i.quantity, 0)})</span>
-                          <span className="font-bold text-slate-900">₹{totalOriginal || total}</span>
+                          <span className="font-bold text-slate-900">₹{subtotal}</span>
                         </div>
 
-                        {totalSavings > 0 && (
+                        {promoDiscount > 0 && (
+                          <div className="flex justify-between text-emerald-800 font-bold bg-emerald-500/15 p-2 rounded-xl border border-emerald-500/30">
+                            <span className="flex items-center gap-1">
+                              <span>🎁</span>
+                              <span>Buy 2 Get 1 Free ({freeGamesCount} {freeGamesCount === 1 ? "Game" : "Games"} Free)</span>
+                            </span>
+                            <span>- ₹{promoDiscount}</span>
+                          </div>
+                        )}
+
+                        {totalSavings > promoDiscount && (
                           <div className="flex justify-between text-emerald-700 font-semibold">
-                            <span>Discount / Bundle Savings</span>
-                            <span>- ₹{totalSavings}</span>
+                            <span>Catalogue / Special Deals Savings</span>
+                            <span>- ₹{totalSavings - promoDiscount}</span>
                           </div>
                         )}
 
