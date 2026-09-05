@@ -102,8 +102,9 @@ function CartPageContent() {
     .filter((item) => item.playMode === "offline" && item.price === 199)
     .reduce((sum, item) => sum + item.quantity, 0);
 
-  // For every 3 offline games (or 3+ units), 1 is free (-₹199 per 3 games)
-  const freeGamesCount = Math.floor(offline199Count / 3);
+  // Buy 2 Get 1 Free Promo for ₹199 offline games:
+  // If purchasing above 2 games (3 or more), always apply 1 free game discount (-₹199)
+  const freeGamesCount = offline199Count >= 3 ? 1 : 0;
   const promoDiscount = freeGamesCount * 199;
 
   const total = Math.max(0, subtotal - promoDiscount);
