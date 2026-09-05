@@ -129,7 +129,7 @@ export default function PromoModal() {
 
                   {/* Description */}
                   <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed mb-6 font-medium">
-                    Purchase any <span className="text-white font-bold">2 games</span> at our special price (starting at ₹299) and get your <span className="text-emerald-400 font-bold">3rd game completely FREE</span>!
+                    Purchase any <span className="text-white font-bold">2 games</span> at our special price (starting at ₹199) and get your <span className="text-emerald-400 font-bold">3rd game completely FREE</span>!
                   </p>
 
                   {/* 3 Step Process Box */}
@@ -137,7 +137,7 @@ export default function PromoModal() {
                     <div className="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center">
                       <div className="text-lg sm:text-xl mb-1">🎮</div>
                       <div className="text-[10px] sm:text-xs font-bold text-white leading-snug">Pick 2 Games</div>
-                      <div className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5">From ₹299 each</div>
+                      <div className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5">From ₹199 each</div>
                     </div>
                     <div className="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center">
                       <div className="text-lg sm:text-xl mb-1">➕</div>
