@@ -11,12 +11,14 @@ import Reviews from "@/components/Reviews";
 import About from "@/components/About";
 import Deals from "@/components/Deals";
 import SupportSection from "@/components/SupportSection";
+import PromoModal from "@/components/PromoModal";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <main>
+      <PromoModal />
       <Navbar />
       <Hero />
       <TrustSection />

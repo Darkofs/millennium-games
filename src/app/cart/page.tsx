@@ -796,6 +796,36 @@ function CartPageContent() {
                       </span>
                     </div>
 
+                    {/* Buy 2 Get 1 Free Promo Banner */}
+                    <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-emerald-500/15 border border-emerald-500/30 shadow-sm flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5 sm:gap-3">
+                        <span className="text-xl sm:text-2xl flex-shrink-0">🎁</span>
+                        <div>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <h4 className="text-xs sm:text-sm font-black text-emerald-950">
+                              Buy 2 Get 1 Free Promo Active!
+                            </h4>
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-600 text-white shadow-xs">
+                              OFFER
+                            </span>
+                          </div>
+                          <p className="text-[11px] sm:text-xs text-emerald-800/90 mt-0.5">
+                            {cartDetails.length >= 2
+                              ? "You are eligible for a FREE 3rd game! Add any 3rd game to claim."
+                              : "Add 1 more game to your cart to claim your 3rd game 100% FREE!"}
+                          </p>
+                        </div>
+                      </div>
+                      {cartDetails.length < 2 && (
+                        <Link
+                          href="/#featured"
+                          className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-sm flex-shrink-0 hidden sm:inline-block"
+                        >
+                          + Add Game
+                        </Link>
+                      )}
+                    </div>
+
                     <div className="space-y-4">
                       {cartDetails.map((item) => (
                         <div

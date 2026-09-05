@@ -723,6 +723,26 @@ export default function CartDrawer() {
               ) : (
                 /* Cart Items List */
                 <div className="space-y-3.5">
+                  {/* Buy 2 Get 1 Free Promo Notification */}
+                  <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-emerald-500/15 border border-emerald-500/30 shadow-xs flex items-center gap-2.5">
+                    <span className="text-lg flex-shrink-0">🎁</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[11px] font-black text-emerald-950">
+                          Buy 2 Get 1 Free
+                        </span>
+                        <span className="px-1.5 py-0.2 rounded-full text-[8px] font-black uppercase bg-emerald-600 text-white">
+                          OFFER
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-emerald-800 leading-tight mt-0.5">
+                        {cartDetails.length >= 2
+                          ? "Eligible for FREE 3rd game! Add any 3rd title to claim."
+                          : "Add 1 more game to unlock a 3rd game completely FREE!"}
+                      </p>
+                    </div>
+                  </div>
+
                   {cartDetails.map((item) => (
                     <div
                       key={`${item.gameId}-${item.playMode}`}
