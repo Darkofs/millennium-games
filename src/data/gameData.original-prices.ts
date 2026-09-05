@@ -662,7 +662,7 @@ export const featuredGames: Game[] = [
     discount: 50,
     rating: 4.8,
     reviews: 8200,
-    platform: "epic",
+    platform: "steam",
     genre: ["Racing", "Sports", "Multiplayer"],
     image: "/images/Game Images/Forza Horizon 5.svg",
     developer: "Playground Games",
@@ -1260,7 +1260,7 @@ export const deals: Deal[] = [
     originalPrice: 798,
     dealPrice: 399,
     discount: 50,
-    platform: "epic",
+    platform: "steam",
     image: "/images/Game Images/Forza Horizon 5.svg",
     endsAt: "2026-06-22T23:59:59",
     type: "bundle"
