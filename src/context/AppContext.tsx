@@ -208,14 +208,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // Cart Operations
   const addToCart = useCallback((gameId: number, playMode: "offline" | "online" = "offline") => {
     const gameDetails = findGameById(gameId);
-    const isCod = Boolean(
+    const isOnlineOnly = Boolean(
       (gameDetails as any)?.isOnlineOnly ||
       gameId === 8 ||
       gameId === 9 ||
+      gameId === 1 ||
+      gameId === 5 ||
+      gameId === 17 ||
+      gameId === 31 ||
+      gameId === 32 ||
       gameDetails?.title.toLowerCase().includes("call of duty") ||
+      gameDetails?.title.toLowerCase().includes("battlefield") ||
+      gameDetails?.title.toLowerCase().includes("arc raider") ||
+      gameDetails?.title.toLowerCase().includes("fc 26") ||
       gameDetails?.title.toLowerCase().includes("modern warfare")
     );
-    const effectiveMode: "offline" | "online" = isCod ? "online" : playMode;
+    const effectiveMode: "offline" | "online" = isOnlineOnly ? "online" : playMode;
 
     setCart((prev) => {
       const idx = prev.findIndex((item) => item.gameId === gameId && item.playMode === effectiveMode);
@@ -278,16 +286,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const gameDetails = findGameById(item.gameId);
       if (!gameDetails) continue;
 
-      const isCod = Boolean(
+      const isOnlineOnly = Boolean(
         (gameDetails as any)?.isOnlineOnly ||
         item.gameId === 8 ||
         item.gameId === 9 ||
+        item.gameId === 1 ||
+        item.gameId === 5 ||
+        item.gameId === 17 ||
+        item.gameId === 31 ||
+        item.gameId === 32 ||
         gameDetails.title.toLowerCase().includes("call of duty") ||
+        gameDetails.title.toLowerCase().includes("battlefield") ||
+        gameDetails.title.toLowerCase().includes("arc raider") ||
+        gameDetails.title.toLowerCase().includes("fc 26") ||
         gameDetails.title.toLowerCase().includes("modern warfare")
       );
-      const effectiveMode: "offline" | "online" = isCod ? "online" : item.playMode;
+      const effectiveMode: "offline" | "online" = isOnlineOnly ? "online" : item.playMode;
       const basePrice = gameDetails.price;
-      const finalPrice = isCod ? 499 : effectiveMode === "online" ? Math.round(basePrice * 2.5) : basePrice;
+      const finalPrice = isOnlineOnly ? 499 : effectiveMode === "online" ? Math.round(basePrice * 2.5) : basePrice;
 
       for (let i = 0; i < item.quantity; i++) {
         const invAccount = accountsInventory.find((acc) => acc.games.includes(item.gameId));

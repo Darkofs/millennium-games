@@ -228,10 +228,10 @@ export default function GameDetailsPage() {
               {/* Play Mode Selection */}
               <div className="space-y-2.5 sm:space-y-3">
                 <span className="text-slate-500 text-[11px] sm:text-xs block uppercase tracking-widest font-semibold">
-                  {isCod ? "Play Method (Online Only)" : "Select Play Method"}
+                  {isOnlineOnlyGame ? "Play Method (Online Only)" : "Select Play Method"}
                 </span>
 
-                {isCod ? (
+                {isOnlineOnlyGame ? (
                   <div className="p-4 rounded-xl sm:rounded-2xl border border-emerald-500/40 bg-emerald-500/10 shadow-md ring-1 ring-emerald-500/30 backdrop-blur-md flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-2">
