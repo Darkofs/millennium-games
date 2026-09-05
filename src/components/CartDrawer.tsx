@@ -83,7 +83,8 @@ export default function CartDrawer() {
     .filter((item) => item.playMode === "offline" && item.price === 199)
     .reduce((sum, item) => sum + item.quantity, 0);
 
-  const freeGamesCount = Math.floor(offline199Count / 3);
+  // If purchasing above 2 games (3 or more), always apply 1 free game discount (-₹199)
+  const freeGamesCount = offline199Count >= 3 ? 1 : 0;
   const promoDiscount = freeGamesCount * 199;
 
   const total = Math.max(0, subtotal - promoDiscount);
