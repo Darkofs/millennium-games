@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Magnetic from "./Magnetic";
 import { useApp } from "@/context/AppContext";
 
 interface TrailerOption {
@@ -30,7 +29,9 @@ const trailersList: TrailerOption[] = [
   },
 ];
 
-function HeroCountdown({ targetDate }: { targetDate: string }) {
+const TARGET_RELEASE_DATE = "2026-10-29T00:00:00+05:30";
+
+function CountdownBanner({ targetDate }: { targetDate: string }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -42,7 +43,8 @@ function HeroCountdown({ targetDate }: { targetDate: string }) {
     const now = Date.now();
     let diff = target - now;
     if (diff <= 0) {
-      diff = (54 * 24 * 60 * 60 + 18 * 60 * 60 + 32 * 60 + 45) * 1000;
+      // Graceful fallback keeping countdown visually active
+      diff = (14 * 24 * 60 * 60 + 8 * 60 * 60 + 32 * 60 + 15) * 1000;
     }
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -67,39 +69,47 @@ function HeroCountdown({ targetDate }: { targetDate: string }) {
     return () => clearInterval(interval);
   }, [calculateTime]);
 
-  const units = [
-    { label: "Days", value: mounted ? timeLeft.days : 54 },
-    { label: "Hours", value: mounted ? timeLeft.hours : 18 },
-    { label: "Minutes", value: mounted ? timeLeft.mins : 32 },
-    { label: "Seconds", value: mounted ? timeLeft.secs : 45 },
-  ];
+  const daysStr = String(mounted ? timeLeft.days : 14).padStart(2, "0");
+  const hoursStr = String(mounted ? timeLeft.hours : 8).padStart(2, "0");
+  const minsStr = String(mounted ? timeLeft.mins : 32).padStart(2, "0");
+  const secsStr = String(mounted ? timeLeft.secs : 15).padStart(2, "0");
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-xl">
-      {units.map((u) => (
-        <div
-          key={u.label}
-          className="relative px-2 py-3 sm:px-4 sm:py-4 rounded-2xl border border-white/25 bg-slate-950/75 backdrop-blur-xl shadow-2xl text-center overflow-hidden group"
-          style={{
-            boxShadow:
-              "0 20px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.25)",
-          }}
-        >
-          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent" />
-          <div
-            className="text-2xl sm:text-4xl md:text-5xl font-black text-white font-mono tracking-tight drop-shadow-md"
-            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
-          >
-            {String(u.value).padStart(2, "0")}
-          </div>
-          <div
-            className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-widest mt-1"
-            style={{ color: "#34d399", WebkitTextFillColor: "#34d399" }}
-          >
-            {u.label}
-          </div>
-        </div>
-      ))}
+    <div
+      className="relative inline-flex items-center justify-center px-4 py-2 sm:px-8 sm:py-3 bg-black/75 backdrop-blur-md rounded-md sm:rounded-lg border-y border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)] max-w-[96vw] overflow-hidden"
+      style={{
+        boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.15)",
+      }}
+    >
+      {/* Soft feathered ink edges */}
+      <div className="absolute -left-6 inset-y-0 w-12 bg-gradient-to-r from-transparent to-black/80 pointer-events-none hidden sm:block" />
+      <div className="absolute -right-6 inset-y-0 w-12 bg-gradient-to-l from-transparent to-black/80 pointer-events-none hidden sm:block" />
+
+      {/* Countdown numbers matching sample image exact format: DAYS [14] : HOURS [08] : MINUTES [32] : SECONDS [15] */}
+      <div className="flex items-center gap-1.5 sm:gap-3 text-[11px] xs:text-xs sm:text-base md:text-lg font-cinzel text-slate-300 select-none tracking-wider whitespace-nowrap">
+        <span className="text-slate-300 font-semibold">DAYS</span>
+        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
+          [ {daysStr} ]
+        </span>
+        <span className="text-slate-500 font-bold px-0.5">:</span>
+
+        <span className="text-slate-300 font-semibold">HOURS</span>
+        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
+          [ {hoursStr} ]
+        </span>
+        <span className="text-slate-500 font-bold px-0.5">:</span>
+
+        <span className="text-slate-300 font-semibold">MINUTES</span>
+        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
+          [ {minsStr} ]
+        </span>
+        <span className="text-slate-500 font-bold px-0.5">:</span>
+
+        <span className="text-slate-300 font-semibold">SECONDS</span>
+        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
+          [ {secsStr} ]
+        </span>
+      </div>
     </div>
   );
 }
@@ -116,12 +126,9 @@ export default function PhantomBladeHero() {
     price: 349,
     originalPrice: 499,
     discount: 30,
-    releaseDate: "2026-10-29",
-    genre: "Dark Wuxia Kungfupunk Action RPG",
+    releaseDate: TARGET_RELEASE_DATE,
     platform: "Steam Official Account",
     image: "/images/Game Images/phantom blade.png",
-    description:
-      "Soul, an elite assassin wounded and granted 66 days to live, must master lightning-fast martial arts combos and mystical blade strikes to uncover a deadly conspiracy in this adrenaline-fueled dark wuxia Kungfupunk masterclass.",
   };
 
   useEffect(() => {
@@ -164,206 +171,125 @@ export default function PhantomBladeHero() {
     e.preventDefault();
     e.stopPropagation();
     addToCart(phantomGame.id, "offline");
-    router.push("/cart");
   };
 
   return (
     <section
       id="home"
-      className="relative w-full min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-12 overflow-hidden"
+      className="relative w-full h-[100dvh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-black select-none"
     >
       <div id="upcoming" className="absolute top-0 pointer-events-none" />
-      {/* FULL WINDOW BACKGROUND IMAGE */}
+
+      {/* FULL SCREEN BACKGROUND IMAGE: "public/images/Game Images/phantom blade.png" */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         <img
           src="/images/Game Images/phantom blade.png"
-          alt="Phantom Blade Zero Official Wallpaper"
-          className="w-full h-full object-cover object-center scale-105 transform origin-center transition-transform duration-1000"
+          alt="Phantom Blade Zero - The Storm Is Coming"
+          className="w-full h-full object-cover object-center sm:object-center"
           loading="eager"
+          decoding="async"
         />
-        {/* Cinematic gradient vignette overlays for perfect typography contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/30" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-slate-950/30 to-slate-950/80" />
+        {/* Subtle, soft edge vignette at the very bottom to cleanly connect into Section 2 */}
+        <div className="absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
       </div>
 
-      {/* Atmospheric Starbursts & Glows */}
-      <div className="abstract-shape abstract-shape-emerald w-[500px] h-[500px] -top-24 -left-24 opacity-30" />
-      <div className="abstract-shape abstract-shape-mint w-[450px] h-[450px] bottom-10 right-10 opacity-20" />
+      {/* TOP HEADER NAVIGATION LINKS (Matching sample image: HOME | GAME INFO | TRAILERS | NEWS) */}
+      <div className="relative z-20 w-full pt-6 sm:pt-7 px-6 sm:px-12 flex items-center justify-between pointer-events-auto">
+        {/* Hidden spacer on left to balance on desktop */}
+        <div className="w-10 sm:w-24 hidden md:block" />
 
-      {/* Main Hero Content Container */}
-      <div className="container-custom relative z-10 my-auto py-6 sm:py-10">
-        <div className="max-w-3xl space-y-5 sm:space-y-6">
-          {/* Top Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-wrap items-center gap-2 sm:gap-3"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold backdrop-blur-md bg-white/90 text-black border border-white/80 shadow-lg">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-              <span>MILLENNIUM GAMES EXCLUSIVE PREMIERE</span>
-            </div>
-            <span className="px-3 py-1 rounded-full text-xs font-bold text-white bg-slate-900/80 backdrop-blur-md border border-white/25 shadow-sm">
-              🎮 STEAM OFFICIAL ACCOUNT
-            </span>
-          </motion.div>
-
-          {/* Hero Headline */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="space-y-2"
-          >
-            <span
-              className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-emerald-400 block"
-              style={{ color: "#34d399", WebkitTextFillColor: "#34d399" }}
-            >
-              {phantomGame.genre}
-            </span>
-            <h1
-              className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-none drop-shadow-2xl"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
-              Phantom Blade <span className="gradient-text">Zero</span>
-            </h1>
-          </motion.div>
-
-          {/* Subtitle / Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed max-w-2xl drop-shadow"
-            style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
-          >
-            {phantomGame.description}
-          </motion.p>
-
-          {/* THE COUNTDOWN SECTION */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="space-y-3 pt-2"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span
-                className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200"
-                style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
-              >
-                Official Launch Countdown • October 29, 2026
-              </span>
-            </div>
-            <HeroCountdown targetDate={phantomGame.releaseDate} />
-          </motion.div>
-
-          {/* Pricing & Call to Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="pt-3 space-y-4"
-          >
-            {/* Price Badge */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-baseline gap-2">
-                <span
-                  className="text-3xl sm:text-5xl font-black text-white"
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    color: "#ffffff",
-                    WebkitTextFillColor: "#ffffff",
-                  }}
-                >
-                  ₹{phantomGame.price}
-                </span>
-                <span
-                  className="text-base sm:text-lg text-slate-400 line-through"
-                  style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}
-                >
-                  ₹{phantomGame.originalPrice}
-                </span>
-              </div>
-              <span className="px-3 py-1 rounded-full text-xs font-bold text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 shadow-sm">
-                Save ₹{phantomGame.originalPrice - phantomGame.price} ({phantomGame.discount}% OFF)
-              </span>
-              <span className="text-xs text-slate-300">
-                • 2FA Steam Guard & Lifetime Setup Included
-              </span>
-            </div>
-
-            {/* Buttons Row */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
-              <Magnetic>
-                <button
-                  onClick={handlePreorder}
-                  className="px-7 py-3.5 sm:px-9 sm:py-4 rounded-full text-sm sm:text-base font-extrabold btn-primary cursor-pointer shadow-2xl transition-all active:scale-95 flex items-center gap-2"
-                >
-                  <span>⚡ Pre-order Now ₹{phantomGame.price}</span>
-                </button>
-              </Magnetic>
-
-              <button
-                onClick={() => setSelectedTrailer(trailersList[0])}
-                className="px-5 py-3.5 rounded-full text-sm font-bold bg-white/15 hover:bg-white text-white hover:text-black border border-white/30 backdrop-blur-md shadow-lg transition-all cursor-pointer active:scale-95 flex items-center gap-2"
-                style={{ color: "#ffffff" }}
-              >
-                <span>▶ Watch 4K Trailer</span>
-              </button>
-
-              <button
-                onClick={handleAddToCart}
-                className="px-5 py-3.5 rounded-full text-sm font-bold bg-slate-900/80 hover:bg-white text-white hover:text-black border border-white/20 backdrop-blur-md shadow-md transition-all cursor-pointer active:scale-95"
-                style={{ color: "#ffffff" }}
-              >
-                <span>🛒 Add to Cart</span>
-              </button>
-
-              <Link
-                href="/#catalog"
-                className="px-5 py-3.5 rounded-full text-sm font-bold text-slate-300 hover:text-white transition-colors flex items-center gap-1.5"
-              >
-                <span>Explore Full Store</span>
-                <span>↓</span>
-              </Link>
-            </div>
-          </motion.div>
+        {/* Optional small centered sub-tagline for mobile where image top might be covered by browser address bar */}
+        <div className="text-center md:hidden w-full">
+          <span className="font-cinzel text-[10px] uppercase tracking-[0.35em] text-slate-300 drop-shadow">
+            T H E &nbsp; S T O R M &nbsp; I S &nbsp; C O M I N G
+          </span>
         </div>
-      </div>
 
-      {/* Bottom Trust & Feature Bar */}
-      <div className="container-custom relative z-10 border-t border-white/15 pt-5 mt-auto">
-        <div className="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-slate-300">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="flex items-center gap-1.5">
-              <span className="text-emerald-400">⚡</span> Instant Account Access
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="text-emerald-400">🔒</span> 2FA Steam Guard Support
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="text-emerald-400">✓</span> Verified Personal Account
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="text-emerald-400">💬</span> 24/7 WhatsApp Support
-            </span>
-          </div>
-
-          <Link
-            href="/#catalog"
-            className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
-          >
-            <span>Browse 30+ Steam & Epic AAA Games</span>
-            <span>→</span>
+        {/* Top-Right Menu from sample image */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-cinzel text-xs lg:text-sm tracking-[0.25em] text-slate-200 ml-auto">
+          <Link href="/#home" className="hover:text-white transition-colors drop-shadow">
+            HOME
           </Link>
-        </div>
+          <Link href="/#catalog" className="hover:text-white transition-colors drop-shadow">
+            GAME INFO
+          </Link>
+          <button
+            onClick={() => setSelectedTrailer(trailersList[0])}
+            className="hover:text-white transition-colors cursor-pointer uppercase drop-shadow"
+          >
+            TRAILERS
+          </button>
+          <Link href="/#deals" className="hover:text-white transition-colors drop-shadow">
+            NEWS
+          </Link>
+        </nav>
       </div>
 
-      {/* Video Trailer Modal */}
+      {/* CENTER-LOWER AREA: COUNTDOWN & INK-BRUSH PRE-ORDER BUTTON */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-end pb-8 sm:pb-12 px-4 space-y-4 sm:space-y-5 text-center mt-auto">
+        {/* THE COUNTDOWN BANNER */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <CountdownBanner targetDate={phantomGame.releaseDate} />
+        </motion.div>
+
+        {/* PRE-ORDER BUTTON (Exact ink brush white pill styling as in sample image) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="flex flex-col items-center space-y-2.5"
+        >
+          <button
+            onClick={handlePreorder}
+            className="relative group px-10 py-3 sm:px-14 sm:py-3.5 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-xs sm:text-sm md:text-base tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center"
+            style={{
+              color: "#000000",
+              WebkitTextFillColor: "#000000",
+            }}
+          >
+            <span>PRE-ORDER NOW</span>
+          </button>
+
+          {/* Minimal Pricing & Actions Sub-Row */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs text-slate-300 font-cinzel tracking-wider drop-shadow">
+            <span className="font-bold text-white">
+              ₹{phantomGame.price} <span className="line-through text-slate-400 font-normal text-[10px]">₹{phantomGame.originalPrice}</span>
+            </span>
+            <span className="text-emerald-400 font-bold">• 30% OFF</span>
+            <span className="text-slate-400 hidden sm:inline">•</span>
+            <button
+              onClick={() => setSelectedTrailer(trailersList[0])}
+              className="text-slate-200 hover:text-white underline underline-offset-4 cursor-pointer transition-colors"
+            >
+              ▶ Watch 4K Trailer
+            </button>
+            <span className="text-slate-400 hidden sm:inline">•</span>
+            <button
+              onClick={handleAddToCart}
+              className="text-slate-300 hover:text-white transition-colors cursor-pointer"
+            >
+              🛒 Add to Cart
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* BOTTOM-RIGHT 4-POINT SPARKLE STAR (Matching the sample image) */}
+      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 z-20 pointer-events-none select-none">
+        <svg
+          className="w-6 h-6 sm:w-7 sm:h-7 text-white/80 animate-pulse drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+      </div>
+
+      {/* 4K TRAILER MODAL */}
       {mounted &&
         typeof document !== "undefined" &&
         createPortal(
@@ -391,13 +317,13 @@ export default function PhantomBladeHero() {
                   <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
                     <div className="min-w-0 pr-3">
                       <span
-                        className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block"
+                        className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block font-cinzel"
                         style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
                       >
                         Phantom Blade Zero • 4K HDR Official Trailer
                       </span>
                       <h3
-                        className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
+                        className="text-xs sm:text-base font-bold text-white truncate max-w-lg font-cinzel"
                         style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                       >
                         {selectedTrailer.title}
@@ -414,7 +340,7 @@ export default function PhantomBladeHero() {
                   </div>
 
                   {/* Multi-Trailer Switcher Tabs */}
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/10 overflow-x-auto no-scrollbar flex-shrink-0">
+                  <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/10 overflow-x-auto no-scrollbar flex-shrink-0 font-cinzel">
                     <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
                       Select Trailer:
                     </span>
@@ -427,7 +353,7 @@ export default function PhantomBladeHero() {
                             onClick={() => setSelectedTrailer(t)}
                             className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
                               isCurrent
-                                ? "bg-emerald-500 text-black shadow-md font-extrabold"
+                                ? "bg-white text-black shadow-md font-extrabold"
                                 : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
                             }`}
                           >
@@ -459,7 +385,7 @@ export default function PhantomBladeHero() {
                   <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
                     <div className="min-w-0 flex-1">
                       <h4
-                        className="text-xs sm:text-sm font-bold text-white truncate"
+                        className="text-xs sm:text-sm font-bold text-white truncate font-cinzel tracking-wider"
                         style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                       >
                         Phantom Blade Zero (Steam Official Account)
@@ -477,7 +403,7 @@ export default function PhantomBladeHero() {
                         handleCloseModal();
                         handlePreorder(e);
                       }}
-                      className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
+                      className="px-5 py-2 sm:px-7 sm:py-2.5 rounded-full bg-white text-black font-cinzel font-bold text-xs uppercase tracking-wider cursor-pointer shadow-lg active:scale-95 flex-shrink-0 hover:bg-slate-100 transition-all"
                     >
                       ⚡ Pre-order ₹{phantomGame.price}
                     </button>
