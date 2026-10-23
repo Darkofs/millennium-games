@@ -192,9 +192,12 @@ export default function PhantomBladeHero() {
           className="space-y-4 text-left"
         >
           {/* Subtle Tag / Platform Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold font-cinzel tracking-widest text-slate-200 bg-black/40 border border-white/20 backdrop-blur-sm shadow-md">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold font-cinzel tracking-widest text-white bg-black/60 border border-white/30 backdrop-blur-sm shadow-md"
+            style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+          >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>STEAM OFFICIAL PRE-ORDER</span>
+            <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>STEAM OFFICIAL PRE-ORDER</span>
           </div>
 
           {/* 1. Price Details */}
@@ -212,13 +215,17 @@ export default function PhantomBladeHero() {
               >
                 ₹{phantomGame.originalPrice}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-cinzel text-emerald-400 bg-black/40 border border-emerald-500/40 backdrop-blur-sm shadow-md">
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-cinzel text-emerald-400 bg-black/50 border border-emerald-500/40 backdrop-blur-sm shadow-md">
                 30% OFF PRE-ORDER
               </span>
             </div>
             <p
-              className="text-xs sm:text-sm text-slate-200 font-cinzel tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
-              style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
+              className="text-xs sm:text-sm font-cinzel font-bold tracking-wider text-white"
+              style={{
+                color: "#ffffff",
+                WebkitTextFillColor: "#ffffff",
+                textShadow: "0 2px 10px rgba(0,0,0,0.95), 0 0 4px rgba(0,0,0,1)",
+              }}
             >
               ✓ 2FA Steam Guard Security • Lifetime Setup Included
             </p>
@@ -227,10 +234,14 @@ export default function PhantomBladeHero() {
           {/* 2. Countdown directly downside of the price details (Little small, transparent background) */}
           <div className="space-y-1.5 pt-1">
             <div
-              className="text-[10px] font-cinzel tracking-[0.2em] uppercase text-slate-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
-              style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+              className="text-[10px] sm:text-xs font-cinzel font-bold tracking-[0.2em] uppercase text-white"
+              style={{
+                color: "#ffffff",
+                WebkitTextFillColor: "#ffffff",
+                textShadow: "0 2px 8px rgba(0,0,0,0.95), 0 0 4px rgba(0,0,0,1)",
+              }}
             >
-              Official Launch Countdown • October 29, 2026
+              OFFICIAL LAUNCH COUNTDOWN • OCTOBER 29, 2026
             </div>
             <CountdownBanner targetDate={phantomGame.releaseDate} />
           </div>
