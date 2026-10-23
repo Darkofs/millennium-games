@@ -48,6 +48,7 @@ export interface UpcomingGame {
   platform: "steam" | "epic" | "ea" | "ubisoft" | "rockstar" | "battlenet";
   image: string;
   videoSrc?: string;
+  trailers?: { id: string; title: string; videoSrc: string; label: string }[];
   preorderPrice?: number;
   description: string;
   genre: string;
@@ -1187,7 +1188,21 @@ export const upcomingGames: UpcomingGame[] = [
     releaseDate: "2026-10-29",
     platform: "steam",
     image: "/images/Game Images/Phantom Blade Zero.jpg",
-    videoSrc: "/Game Videos/Phantom Blade Zero.mp4",
+    videoSrc: "/Game Videos/phantom blade 2.mp4",
+    trailers: [
+      {
+        id: "t2",
+        title: "Phantom Blade Zero - Combat & Gameplay Showcase 2",
+        videoSrc: "/Game Videos/phantom blade 2.mp4",
+        label: "Gameplay Trailer 2",
+      },
+      {
+        id: "t1",
+        title: "Phantom Blade Zero - Official Cinematic Reveal",
+        videoSrc: "/Game Videos/Phantom Blade Zero.mp4",
+        label: "Cinematic Trailer 1",
+      },
+    ],
     preorderPrice: 399,
     description: "Play as Soul with 66 days to live in a dark wuxia Kungfupunk world. Master lightning-fast martial arts combos and lethal blade strikes.",
     genre: "Action RPG"

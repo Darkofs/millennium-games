@@ -112,6 +112,8 @@ export default function UpcomingReleases() {
   const router = useRouter();
   const { addToCart } = useApp();
   const [selectedTrailer, setSelectedTrailer] = useState<UpcomingGame | null>(null);
+  const [activeVideoSrc, setActiveVideoSrc] = useState<string | null>(null);
+  const [activeTrailerTitle, setActiveTrailerTitle] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -124,6 +126,8 @@ export default function UpcomingReleases() {
       window.history.pushState({ modal: "trailer" }, "");
       const handlePopState = () => {
         setSelectedTrailer(null);
+        setActiveVideoSrc(null);
+        setActiveTrailerTitle(null);
       };
       window.addEventListener("popstate", handlePopState);
       return () => {
@@ -135,11 +139,21 @@ export default function UpcomingReleases() {
     }
   }, [selectedTrailer]);
 
+  const handleOpenTrailer = (game: UpcomingGame, videoSrc?: string, title?: string) => {
+    setSelectedTrailer(game);
+    const chosenSrc = videoSrc || game.videoSrc || game.trailers?.[0]?.videoSrc || null;
+    setActiveVideoSrc(chosenSrc);
+    const matchedTrailer = game.trailers?.find((t) => t.videoSrc === chosenSrc);
+    setActiveTrailerTitle(title || matchedTrailer?.title || `${game.title} - Official Trailer`);
+  };
+
   const handleCloseTrailer = () => {
     if (typeof window !== "undefined" && window.history.state?.modal === "trailer") {
       window.history.back();
     } else {
       setSelectedTrailer(null);
+      setActiveVideoSrc(null);
+      setActiveTrailerTitle(null);
     }
   };
 
@@ -240,7 +254,7 @@ export default function UpcomingReleases() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
-                              setSelectedTrailer(game);
+                              handleOpenTrailer(game);
                             }}
                             role="button"
                             className="w-14 h-14 rounded-full btn-glossy-white flex items-center justify-center shadow-xl opacity-90 group-hover:opacity-100 transition-all duration-300 cursor-pointer"
@@ -280,7 +294,7 @@ export default function UpcomingReleases() {
                         style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
                       >
                         <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                        <span>TRAILER READY</span>
+                        <span>{game.trailers && game.trailers.length > 1 ? "2 TRAILERS READY" : "TRAILER READY"}</span>
                       </div>
                     )}
                   </div>
@@ -389,16 +403,35 @@ export default function UpcomingReleases() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2.5">
-                        {game.videoSrc && (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {game.trailers && game.trailers.length > 1 ? (
+                          <>
+                            <button
+                              onClick={() => handleOpenTrailer(game, game.trailers![0].videoSrc, game.trailers![0].title)}
+                              className="px-3.5 py-2 rounded-full text-xs font-bold btn-glossy-white text-black border border-white/40 shadow-md transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+                              title="Watch Trailer 2 (Gameplay & Combat Showcase)"
+                            >
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                              <span>▶ Watch Trailer 2</span>
+                            </button>
+                            <button
+                              onClick={() => handleOpenTrailer(game, game.trailers![1].videoSrc, game.trailers![1].title)}
+                              className="px-3.5 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-sm transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+                              style={{ color: "#ffffff" }}
+                              title="Watch Trailer 1 (Official Cinematic Reveal)"
+                            >
+                              <span>▶ Trailer 1</span>
+                            </button>
+                          </>
+                        ) : game.videoSrc ? (
                           <button
-                            onClick={() => setSelectedTrailer(game)}
+                            onClick={() => handleOpenTrailer(game)}
                             className="px-4 py-2.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-sm transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
                             style={{ color: "#ffffff" }}
                           >
                             <span>▶ Watch Trailer</span>
                           </button>
-                        )}
+                        ) : null}
 
                         <Magnetic>
                           <button
@@ -458,7 +491,7 @@ export default function UpcomingReleases() {
                       className="text-xs sm:text-base font-bold text-white truncate max-w-lg"
                       style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                     >
-                      {selectedTrailer.title} - Official Trailer
+                      {activeTrailerTitle || `${selectedTrailer.title} - Official Trailer`}
                     </h3>
                   </div>
                   <button
@@ -471,12 +504,43 @@ export default function UpcomingReleases() {
                   </button>
                 </div>
 
+                {/* Multi-Trailer Switcher Bar (if more than 1 trailer) */}
+                {selectedTrailer.trailers && selectedTrailer.trailers.length > 1 && (
+                  <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/10 overflow-x-auto no-scrollbar flex-shrink-0">
+                    <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+                      Select Trailer:
+                    </span>
+                    <div className="flex items-center gap-2">
+                      {selectedTrailer.trailers.map((t) => {
+                        const isCurrent = (activeVideoSrc || selectedTrailer.videoSrc) === t.videoSrc;
+                        return (
+                          <button
+                            key={t.id}
+                            onClick={() => {
+                              setActiveVideoSrc(t.videoSrc);
+                              setActiveTrailerTitle(t.title);
+                            }}
+                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+                              isCurrent
+                                ? "bg-emerald-500 text-black shadow-md font-extrabold"
+                                : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
+                            }`}
+                          >
+                            {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />}
+                            <span>{t.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* Video Player */}
                 <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center flex-shrink-0">
-                  {selectedTrailer.videoSrc && (
+                  {(activeVideoSrc || selectedTrailer.videoSrc) && (
                     <video
-                      key={selectedTrailer.videoSrc}
-                      src={selectedTrailer.videoSrc}
+                      key={activeVideoSrc || selectedTrailer.videoSrc}
+                      src={activeVideoSrc || selectedTrailer.videoSrc}
                       controls
                       autoPlay
                       playsInline
