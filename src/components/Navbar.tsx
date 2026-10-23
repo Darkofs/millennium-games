@@ -158,7 +158,11 @@ export default function Navbar() {
             {/* Wishlist */}
             <Magnetic>
               <button
-                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 hidden sm:block"
+                className={`p-2.5 rounded-full transition-all duration-300 hidden sm:block ${
+                  isDarkHero
+                    ? "text-slate-200 hover:text-white hover:bg-white/10"
+                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
+                }`}
                 id="nav-wishlist"
                 aria-label="Wishlist"
               >
@@ -172,7 +176,11 @@ export default function Navbar() {
             <Magnetic>
               <Link
                 href="/cart"
-                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 relative block"
+                className={`p-2.5 rounded-full transition-all duration-300 relative block ${
+                  isDarkHero
+                    ? "text-slate-200 hover:text-white hover:bg-white/10"
+                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
+                }`}
                 id="nav-cart"
                 aria-label="Cart"
               >
@@ -180,7 +188,9 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
                 </svg>
                 {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 text-[10px] font-bold rounded-full flex items-center justify-center text-[#ffffff] bg-[#000000] shadow-[0_0_8px_rgba(0,0,0,0.3)]">
+                  <span className={`absolute -top-0.5 -right-0.5 w-4.5 h-4.5 text-[10px] font-bold rounded-full flex items-center justify-center shadow-md ${
+                    isDarkHero ? "bg-white text-black" : "text-[#ffffff] bg-[#000000]"
+                  }`}>
                     {cartCount}
                   </span>
                 )}
@@ -263,7 +273,11 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300"
+              className={`lg:hidden p-2.5 rounded-full transition-all duration-300 ${
+                isDarkHero
+                  ? "text-slate-200 hover:text-white hover:bg-white/10"
+                  : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
+              }`}
               id="nav-mobile-menu"
               aria-label="Menu"
             >
