@@ -219,8 +219,9 @@ export default function PhantomBladeHero() {
                 30% OFF PRE-ORDER
               </span>
             </div>
-            <p
-              className="text-xs sm:text-sm font-cinzel font-bold tracking-wider text-white"
+            <div
+              data-pure-white
+              className="hero-pure-white text-xs sm:text-sm font-cinzel font-bold tracking-wider text-white"
               style={{
                 color: "#ffffff",
                 WebkitTextFillColor: "#ffffff",
@@ -228,13 +229,14 @@ export default function PhantomBladeHero() {
               }}
             >
               ✓ 2FA Steam Guard Security • Lifetime Setup Included
-            </p>
+            </div>
           </div>
 
           {/* 2. Countdown directly downside of the price details (Little small, transparent background) */}
           <div className="space-y-1.5 pt-1">
             <div
-              className="text-[10px] sm:text-xs font-cinzel font-bold tracking-[0.2em] uppercase text-white"
+              data-pure-white
+              className="hero-pure-white text-[10px] sm:text-xs font-cinzel font-bold tracking-[0.2em] uppercase text-white"
               style={{
                 color: "#ffffff",
                 WebkitTextFillColor: "#ffffff",
