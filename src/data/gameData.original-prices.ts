@@ -1145,9 +1145,9 @@ export const featuredGames: Game[] = [
   {
     id: 34,
     title: "Phantom Blade Zero",
-    price: 399,
+    price: 349,
     originalPrice: 499,
-    discount: 20,
+    discount: 30,
     rating: 4.9,
     reviews: 8900,
     platform: "steam",
