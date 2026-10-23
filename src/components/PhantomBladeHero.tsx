@@ -77,7 +77,7 @@ function CountdownBanner({ targetDate }: { targetDate: string }) {
   return (
     <div
       data-pure-white
-      className="hero-pure-white inline-flex items-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-xs font-cinzel text-white select-none tracking-wider whitespace-nowrap"
+      className="hero-pure-white inline-flex items-center gap-1 sm:gap-2.5 text-[9.5px] sm:text-xs font-cinzel text-white select-none tracking-wider whitespace-nowrap"
       style={{
         color: "#ffffff",
         WebkitTextFillColor: "#ffffff",
@@ -85,19 +85,19 @@ function CountdownBanner({ targetDate }: { targetDate: string }) {
       }}
     >
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>DAYS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {daysStr} ]</span>
+      <span className="text-white font-bold font-mono text-[11px] sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {daysStr} ]</span>
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>:</span>
 
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>HOURS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {hoursStr} ]</span>
+      <span className="text-white font-bold font-mono text-[11px] sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {hoursStr} ]</span>
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>:</span>
 
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>MINS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {minsStr} ]</span>
+      <span className="text-white font-bold font-mono text-[11px] sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {minsStr} ]</span>
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>:</span>
 
       <span className="text-white font-bold" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>SECS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {secsStr} ]</span>
+      <span className="text-white font-bold font-mono text-[11px] sm:text-sm tracking-tight whitespace-nowrap" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>[ {secsStr} ]</span>
     </div>
   );
 }
