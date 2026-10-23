@@ -30,8 +30,6 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isDarkHero = pathname === "/" && !scrolled;
-
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -106,13 +104,11 @@ export default function Navbar() {
                 />
               </div>
               <span
-                className={`text-lg font-bold tracking-tight hidden sm:block ${
-                  isDarkHero ? "text-white" : "text-[#0f172a]"
-                }`}
+                className="text-lg font-bold text-[#0f172a] tracking-tight hidden sm:block"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Millennium{" "}
-                <span className={isDarkHero ? "text-emerald-400" : "text-mint"}>Games</span>
+                <span className="text-mint">Games</span>
               </span>
             </Link>
           </div>
@@ -124,11 +120,7 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 id={`nav-${item.label.toLowerCase().replace(/\s/g, "-")}`}
-                className={`px-3 py-2 text-sm rounded-full transition-all duration-300 font-semibold ${
-                  isDarkHero
-                    ? "text-slate-200 hover:text-white hover:bg-white/10"
-                    : "text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50"
-                }`}
+                className="px-3 py-2 text-sm text-slate-700 hover:text-[#0f172a] rounded-full hover:bg-slate-200/50 transition-all duration-300 font-semibold"
               >
                 {item.label}
               </Link>
@@ -141,11 +133,7 @@ export default function Navbar() {
             <Magnetic>
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className={`p-2.5 rounded-full transition-all duration-300 ${
-                  isDarkHero
-                    ? "text-slate-200 hover:text-white hover:bg-white/10"
-                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
-                }`}
+                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300"
                 id="nav-search"
                 aria-label="Search"
               >
@@ -158,11 +146,7 @@ export default function Navbar() {
             {/* Wishlist */}
             <Magnetic>
               <button
-                className={`p-2.5 rounded-full transition-all duration-300 hidden sm:block ${
-                  isDarkHero
-                    ? "text-slate-200 hover:text-white hover:bg-white/10"
-                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
-                }`}
+                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 hidden sm:block"
                 id="nav-wishlist"
                 aria-label="Wishlist"
               >
@@ -176,11 +160,7 @@ export default function Navbar() {
             <Magnetic>
               <Link
                 href="/cart"
-                className={`p-2.5 rounded-full transition-all duration-300 relative block ${
-                  isDarkHero
-                    ? "text-slate-200 hover:text-white hover:bg-white/10"
-                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
-                }`}
+                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300 relative block"
                 id="nav-cart"
                 aria-label="Cart"
               >
@@ -188,9 +168,7 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
                 </svg>
                 {cartCount > 0 && (
-                  <span className={`absolute -top-0.5 -right-0.5 w-4.5 h-4.5 text-[10px] font-bold rounded-full flex items-center justify-center shadow-md ${
-                    isDarkHero ? "bg-white text-black" : "text-[#ffffff] bg-[#000000]"
-                  }`}>
+                  <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 text-[10px] font-bold rounded-full flex items-center justify-center text-[#ffffff] bg-[#000000] shadow-[0_0_8px_rgba(0,0,0,0.3)]">
                     {cartCount}
                   </span>
                 )}
@@ -273,11 +251,7 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2.5 rounded-full transition-all duration-300 ${
-                isDarkHero
-                  ? "text-slate-200 hover:text-white hover:bg-white/10"
-                  : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
-              }`}
+              className="lg:hidden p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300"
               id="nav-mobile-menu"
               aria-label="Menu"
             >
