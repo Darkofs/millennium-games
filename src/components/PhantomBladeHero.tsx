@@ -280,16 +280,7 @@ export default function PhantomBladeHero() {
         </motion.div>
       </div>
 
-      {/* BOTTOM-RIGHT 4-POINT SPARKLE STAR (Matching the sample image) */}
-      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 z-20 pointer-events-none select-none">
-        <svg
-          className="w-6 h-6 sm:w-7 sm:h-7 text-white/80 animate-pulse drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-        </svg>
-      </div>
+
 
       {/* 4K TRAILER MODAL */}
       {mounted &&
