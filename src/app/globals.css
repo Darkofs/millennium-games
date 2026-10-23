@@ -434,7 +434,6 @@ nav h1, nav h2,
 section p, section li, section h3, section h4, section h5, section h6,
 #home p, #home li, #home h3, #home h4, #home h5, #home h6,
 footer p, footer li, footer h3, footer h4,
-nav p, nav li, nav h3, nav h4,
 .section-subheading,
 .trust-check span:not(.text-mint),
 .glass-card p,
@@ -459,11 +458,34 @@ nav p, nav li, nav h3, nav h4,
   opacity: 1 !important;
 }
 
+/* Glossy Pure White Navbar Links, Buttons & Text */
+nav a, 
+nav button, 
+nav .nav-glossy-link,
+#nav-logo span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.9), 
+    0 0 15px rgba(255, 255, 255, 0.45),
+    0 0 2px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s ease-out !important;
+}
+
+nav a:hover, 
+nav button:hover,
+nav .nav-glossy-link:hover {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 0 18px rgba(255, 255, 255, 0.9), 
+    0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
 /* Interactive elements: links and buttons */
-section a, section button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-#home a, #home button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-footer a, footer button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-nav a, nav button:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
+section a, section button:not(.btn-dark):not(.btn-theme-dark):not(.text-white):not(.nav-glossy-link),
+#home a, #home button:not(.btn-dark):not(.btn-theme-dark):not(.text-white):not(.nav-glossy-link),
+footer a, footer button:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
   color: #000000;
   text-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.8), 
@@ -472,10 +494,9 @@ nav a, nav button:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
   touch-action: manipulation;
 }
 
-section a:hover, section button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-#home a:hover, #home button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-footer a:hover, footer button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
-nav a:hover, nav button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
+section a:hover, section button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white):not(.nav-glossy-link),
+#home a:hover, #home button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white):not(.nav-glossy-link),
+footer a:hover, footer button:hover:not(.btn-dark):not(.btn-theme-dark):not(.text-white) {
   color: #000000 !important;
   -webkit-text-fill-color: #000000 !important;
   text-shadow: 
