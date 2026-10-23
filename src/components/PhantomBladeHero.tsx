@@ -176,9 +176,8 @@ export default function PhantomBladeHero() {
       {/* Breathing space at top for fixed Navbar */}
       <div className="h-16 sm:h-20 w-full pointer-events-none" />
 
-      {/* LEFT-SIDE COCKPIT PANEL: PRE-ORDER, PRICE & COUNTDOWN */}
       {/* LEFT-SIDE FLOATING CTA: PRICE, SMALL COUNTDOWN, & PRE-ORDER (COMPLETELY TRANSPARENT, NO BOX/COLUMN) */}
-      <div className="absolute left-6 sm:left-12 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-[90vw] max-w-sm sm:max-w-md pointer-events-auto">
+      <div className="absolute left-6 sm:left-12 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-[90vw] max-w-md sm:max-w-xl pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
