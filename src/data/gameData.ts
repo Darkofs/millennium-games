@@ -1153,9 +1153,9 @@ export const featuredGames: Game[] = [
   {
     id: 34,
     title: "Phantom Blade Zero",
-    price: 299,
+    price: 349,
     originalPrice: 499,
-    discount: 20,
+    discount: 30,
     rating: 4.9,
     reviews: 8900,
     platform: "steam",
@@ -1211,7 +1211,7 @@ export const upcomingGames: UpcomingGame[] = [
         label: "Cinematic Trailer 1",
       },
     ],
-    preorderPrice: 299,
+    preorderPrice: 349,
     description: "Play as Soul with 66 days to live in a dark wuxia Kungfupunk world. Master lightning-fast martial arts combos and lethal blade strikes.",
     genre: "Action RPG"
   }
