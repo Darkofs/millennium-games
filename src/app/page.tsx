@@ -21,8 +21,7 @@ export default function Home() {
     <main>
       <PromoModal />
       <Navbar />
-      <Hero />
-      <PhantomBladeShowcase />
+      <PhantomBladeHero />
       <TrustSection />
       <DealOfTheMonth />
       <UbisoftBundle />
