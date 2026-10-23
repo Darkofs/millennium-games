@@ -525,7 +525,7 @@ export default function GameDetailsPage() {
       </div>
 
       {/* Mobile Sticky Floating Buy Dock (Visible only on mobile screens < md) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 bg-slate-950/95 backdrop-blur-xl border-t border-white/20 shadow-2xl flex items-center justify-between gap-2.5">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-3.5 pt-3 pb-[max(0.85rem,env(safe-area-inset-bottom))] bg-slate-950/95 backdrop-blur-xl border-t border-white/20 shadow-2xl flex items-center justify-between gap-2.5">
         <div className="min-w-0 flex-1">
           <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider truncate" style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}>
             {playMode === "online" ? "Online Multiplayer" : "Offline Campaign"}
