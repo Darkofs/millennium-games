@@ -250,10 +250,10 @@ export default function PhantomBladeHero() {
           </div>
 
           {/* 3. Pre-Order & Actions */}
-          <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full max-w-lg">
             <button
               onClick={handlePreorder}
-              className="px-9 py-3.5 sm:px-11 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-sm sm:text-base tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 sm:px-11 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-xs sm:text-base tracking-[0.2em] sm:tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
               style={{
                 color: "#000000",
                 WebkitTextFillColor: "#000000",
@@ -262,20 +262,22 @@ export default function PhantomBladeHero() {
               <span>⚡ PRE-ORDER NOW</span>
             </button>
 
-            <button
-              onClick={() => setSelectedTrailer(trailersList[0])}
-              className="px-5 py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/30 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 drop-shadow"
-            >
-              <span>▶ Watch 4K Trailer</span>
-            </button>
+            <div className="flex items-center gap-2.5 w-full sm:w-auto">
+              <button
+                onClick={() => setSelectedTrailer(trailersList[0])}
+                className="flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/30 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2 drop-shadow"
+              >
+                <span>▶ Watch 4K Trailer</span>
+              </button>
 
-            <button
-              onClick={handleAddToCart}
-              className="px-4 py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/25 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer drop-shadow"
-              title="Add to Cart"
-            >
-              <span>🛒 Add to Cart</span>
-            </button>
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 sm:flex-initial px-4 py-3 sm:px-4 sm:py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/25 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 drop-shadow"
+                title="Add to Cart"
+              >
+                <span>🛒 Add to Cart</span>
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>
