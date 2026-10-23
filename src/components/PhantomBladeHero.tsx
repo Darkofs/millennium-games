@@ -76,7 +76,8 @@ function CountdownBanner({ targetDate }: { targetDate: string }) {
 
   return (
     <div
-      className="inline-flex items-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-xs font-cinzel text-white select-none tracking-wider whitespace-nowrap"
+      data-pure-white
+      className="hero-pure-white inline-flex items-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-xs font-cinzel text-white select-none tracking-wider whitespace-nowrap"
       style={{
         color: "#ffffff",
         WebkitTextFillColor: "#ffffff",
