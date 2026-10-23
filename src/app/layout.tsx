@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Cinzel } from "next/font/google";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import { AppProvider } from "@/context/AppContext";
 import "./globals.css";
@@ -22,6 +22,13 @@ const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "600", "700", "900"],
 });
 
 export const metadata: Metadata = {
