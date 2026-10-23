@@ -1160,7 +1160,7 @@ export const featuredGames: Game[] = [
     reviews: 8900,
     platform: "steam",
     genre: ["Action", "RPG", "Adventure"],
-    image: "/images/Game Images/Phantom Blade Zero.jpg",
+    image: "/images/Game Images/phantom blade.png",
     trending: true,
     preorder: true,
     developer: "S-GAME",
