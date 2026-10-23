@@ -447,6 +447,18 @@ nav p, nav li, nav h3, nav h4,
     drop-shadow(0 -0.5px 0.5px rgba(0, 0, 0, 0.22)) !important;
 }
 
+/* Ensure pure white elements in dark hero are never overridden by black liquid-glass text */
+.hero-pure-white,
+#home .hero-pure-white,
+#home [data-pure-white],
+#home [data-pure-white] * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.95)) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 4px rgba(0, 0, 0, 1) !important;
+  opacity: 1 !important;
+}
+
 /* Interactive elements: links and buttons */
 section a, section button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
 #home a, #home button:not(.btn-dark):not(.btn-theme-dark):not(.text-white),
