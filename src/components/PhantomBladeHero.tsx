@@ -75,21 +75,21 @@ function CountdownBanner({ targetDate }: { targetDate: string }) {
   const secsStr = String(mounted ? timeLeft.secs : 15).padStart(2, "0");
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-xs font-cinzel text-slate-200 select-none tracking-wider drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+    <div className="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-cinzel text-slate-200 select-none tracking-wider drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] whitespace-nowrap">
       <span className="text-slate-300 font-semibold">DAYS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow">[ {daysStr} ]</span>
+      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow whitespace-nowrap">[ {daysStr} ]</span>
       <span className="text-slate-400 font-bold">:</span>
 
       <span className="text-slate-300 font-semibold">HOURS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow">[ {hoursStr} ]</span>
+      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow whitespace-nowrap">[ {hoursStr} ]</span>
       <span className="text-slate-400 font-bold">:</span>
 
-      <span className="text-slate-300 font-semibold">MINUTES</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow">[ {minsStr} ]</span>
+      <span className="text-slate-300 font-semibold">MINS</span>
+      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow whitespace-nowrap">[ {minsStr} ]</span>
       <span className="text-slate-400 font-bold">:</span>
 
-      <span className="text-slate-300 font-semibold">SECONDS</span>
-      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow">[ {secsStr} ]</span>
+      <span className="text-slate-300 font-semibold">SECS</span>
+      <span className="text-white font-bold font-mono text-xs sm:text-sm tracking-tight drop-shadow whitespace-nowrap">[ {secsStr} ]</span>
     </div>
   );
 }
