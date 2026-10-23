@@ -177,59 +177,63 @@ export default function PhantomBladeHero() {
       <div className="h-16 sm:h-20 w-full pointer-events-none" />
 
       {/* LEFT-SIDE COCKPIT PANEL: PRE-ORDER, PRICE & COUNTDOWN */}
-      <div className="absolute left-4 sm:left-8 lg:left-12 xl:left-16 top-1/2 -translate-y-1/2 z-20 w-[92vw] max-w-[360px] sm:max-w-[400px] pointer-events-auto">
+      {/* LEFT-SIDE FLOATING CTA: PRICE, SMALL COUNTDOWN, & PRE-ORDER (COMPLETELY TRANSPARENT, NO BOX/COLUMN) */}
+      <div className="absolute left-6 sm:left-12 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-[90vw] max-w-sm sm:max-w-md pointer-events-auto">
         <motion.div
-          initial={{ opacity: 0, x: -35 }}
+          initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-black/80 backdrop-blur-xl border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.15)] space-y-4 text-left"
+          className="space-y-4 text-left"
         >
-          {/* Platform Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold font-cinzel tracking-widest text-slate-200 bg-white/10 border border-white/15">
+          {/* Subtle Tag / Platform Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold font-cinzel tracking-widest text-slate-200 bg-black/40 border border-white/20 backdrop-blur-sm shadow-md">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span>STEAM OFFICIAL PRE-ORDER</span>
           </div>
 
-          {/* Price Details */}
+          {/* 1. Price Details */}
           <div className="space-y-1">
-            <div className="flex items-baseline gap-3 flex-wrap">
+            <div className="flex items-baseline gap-3 sm:gap-4 flex-wrap">
               <span
-                className="text-4xl sm:text-5xl font-black font-cinzel text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]"
+                className="text-4xl sm:text-6xl font-black font-cinzel text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
                 style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
               >
                 ₹{phantomGame.price}
               </span>
               <span
-                className="text-lg sm:text-xl font-cinzel text-slate-400 line-through"
+                className="text-xl sm:text-2xl font-cinzel text-slate-400 line-through drop-shadow"
                 style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}
               >
                 ₹{phantomGame.originalPrice}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold font-cinzel text-emerald-300 bg-emerald-950/80 border border-emerald-500/40">
-                30% OFF
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-cinzel text-emerald-400 bg-black/40 border border-emerald-500/40 backdrop-blur-sm shadow-md">
+                30% OFF PRE-ORDER
               </span>
             </div>
             <p
-              className="text-[11px] sm:text-xs text-slate-300 font-cinzel tracking-wider"
-              style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+              className="text-xs sm:text-sm text-slate-200 font-cinzel tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+              style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
             >
-              ✓ 2FA Steam Guard • Lifetime Setup Included
+              ✓ 2FA Steam Guard Security • Lifetime Setup Included
             </p>
           </div>
 
-          {/* Launch Countdown Box */}
-          <div className="pt-1 pb-1">
-            <div className="text-[10px] font-cinzel tracking-[0.2em] uppercase text-slate-400 mb-1.5">
-              Official Launch Countdown
+          {/* 2. Countdown directly downside of the price details (Little small, transparent background) */}
+          <div className="space-y-1.5 pt-1">
+            <div
+              className="text-[10px] font-cinzel tracking-[0.2em] uppercase text-slate-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
+              style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
+            >
+              Official Launch Countdown • October 29, 2026
             </div>
             <CountdownBanner targetDate={phantomGame.releaseDate} />
           </div>
 
-          {/* Pre-Order Button */}
-          <div className="pt-1">
+          {/* 3. Pre-Order & Actions */}
+          <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
             <button
               onClick={handlePreorder}
-              className="w-full py-3.5 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-sm tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+              className="px-9 py-3.5 sm:px-11 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-sm sm:text-base tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
               style={{
                 color: "#000000",
                 WebkitTextFillColor: "#000000",
@@ -237,20 +241,18 @@ export default function PhantomBladeHero() {
             >
               <span>⚡ PRE-ORDER NOW</span>
             </button>
-          </div>
 
-          {/* Quick Action Links: Watch 4K Trailer & Add to Cart */}
-          <div className="flex items-center justify-between text-xs text-slate-300 font-cinzel tracking-wider pt-1 border-t border-white/10">
             <button
               onClick={() => setSelectedTrailer(trailersList[0])}
-              className="text-slate-200 hover:text-white underline underline-offset-4 cursor-pointer transition-colors flex items-center gap-1.5"
+              className="px-5 py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/30 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 drop-shadow"
             >
-              <span>▶ 4K Trailer</span>
+              <span>▶ Watch 4K Trailer</span>
             </button>
-            <span className="text-slate-500">•</span>
+
             <button
               onClick={handleAddToCart}
-              className="text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-4 py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/25 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer drop-shadow"
+              title="Add to Cart"
             >
               <span>🛒 Add to Cart</span>
             </button>
