@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PhantomBladeShowcase from "@/components/PhantomBladeShowcase";
 import DealOfTheMonth from "@/components/DealOfTheMonth";
 import UbisoftBundle from "@/components/UbisoftBundle";
 import FeaturedGames from "@/components/FeaturedGames";
@@ -21,6 +22,7 @@ export default function Home() {
       <PromoModal />
       <Navbar />
       <Hero />
+      <PhantomBladeShowcase />
       <TrustSection />
       <DealOfTheMonth />
       <UbisoftBundle />
