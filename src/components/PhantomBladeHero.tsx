@@ -76,39 +76,29 @@ function CountdownBanner({ targetDate }: { targetDate: string }) {
 
   return (
     <div
-      className="relative inline-flex items-center justify-center px-4 py-2 sm:px-8 sm:py-3 bg-black/75 backdrop-blur-md rounded-md sm:rounded-lg border-y border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)] max-w-[96vw] overflow-hidden"
-      style={{
-        boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.15)",
-      }}
+      className="w-full flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 bg-black/60 backdrop-blur-md rounded-xl border border-white/10 shadow-inner"
     >
-      {/* Soft feathered ink edges */}
-      <div className="absolute -left-6 inset-y-0 w-12 bg-gradient-to-r from-transparent to-black/80 pointer-events-none hidden sm:block" />
-      <div className="absolute -right-6 inset-y-0 w-12 bg-gradient-to-l from-transparent to-black/80 pointer-events-none hidden sm:block" />
+      <div className="flex items-center gap-1 text-[10px] sm:text-xs font-cinzel">
+        <span className="text-slate-400 font-medium">DAYS</span>
+        <span className="text-white font-bold font-mono text-xs sm:text-sm drop-shadow">[ {daysStr} ]</span>
+      </div>
+      <span className="text-slate-600 font-bold">:</span>
 
-      {/* Countdown numbers matching sample image exact format: DAYS [14] : HOURS [08] : MINUTES [32] : SECONDS [15] */}
-      <div className="flex items-center gap-1.5 sm:gap-3 text-[11px] xs:text-xs sm:text-base md:text-lg font-cinzel text-slate-300 select-none tracking-wider whitespace-nowrap">
-        <span className="text-slate-300 font-semibold">DAYS</span>
-        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
-          [ {daysStr} ]
-        </span>
-        <span className="text-slate-500 font-bold px-0.5">:</span>
+      <div className="flex items-center gap-1 text-[10px] sm:text-xs font-cinzel">
+        <span className="text-slate-400 font-medium">HRS</span>
+        <span className="text-white font-bold font-mono text-xs sm:text-sm drop-shadow">[ {hoursStr} ]</span>
+      </div>
+      <span className="text-slate-600 font-bold">:</span>
 
-        <span className="text-slate-300 font-semibold">HOURS</span>
-        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
-          [ {hoursStr} ]
-        </span>
-        <span className="text-slate-500 font-bold px-0.5">:</span>
+      <div className="flex items-center gap-1 text-[10px] sm:text-xs font-cinzel">
+        <span className="text-slate-400 font-medium">MIN</span>
+        <span className="text-white font-bold font-mono text-xs sm:text-sm drop-shadow">[ {minsStr} ]</span>
+      </div>
+      <span className="text-slate-600 font-bold">:</span>
 
-        <span className="text-slate-300 font-semibold">MINUTES</span>
-        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
-          [ {minsStr} ]
-        </span>
-        <span className="text-slate-500 font-bold px-0.5">:</span>
-
-        <span className="text-slate-300 font-semibold">SECONDS</span>
-        <span className="text-white font-bold font-mono tracking-tight text-xs sm:text-lg md:text-xl drop-shadow">
-          [ {secsStr} ]
-        </span>
+      <div className="flex items-center gap-1 text-[10px] sm:text-xs font-cinzel">
+        <span className="text-slate-400 font-medium">SEC</span>
+        <span className="text-white font-bold font-mono text-xs sm:text-sm drop-shadow">[ {secsStr} ]</span>
       </div>
     </div>
   );
