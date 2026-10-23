@@ -60,7 +60,7 @@ export function findGameById(id: number) {
   if (g2) return { ...g2, price: g2.dealPrice, image: g2.image, title: g2.title, platform: g2.platform };
 
   const g3 = upcomingGames.find((g) => g.id === id);
-  if (g3) return { ...g3, price: g3.preorderPrice || 299, image: g3.image, title: g3.title, platform: g3.platform };
+  if (g3) return { ...g3, price: g3.preorderPrice || 349, image: g3.image, title: g3.title, platform: g3.platform };
 
   return null;
 }
