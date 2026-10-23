@@ -158,7 +158,7 @@ export default function UpcomingReleases() {
   };
 
   return (
-    <section id="upcoming" className="relative py-24 overflow-hidden">
+    <section id="upcoming-releases" className="relative py-24 overflow-hidden">
       {/* Background */}
       <div className="abstract-shape abstract-shape-emerald w-[600px] h-[600px] bottom-0 right-0" />
       <div
