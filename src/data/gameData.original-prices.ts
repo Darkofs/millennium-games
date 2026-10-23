@@ -1203,7 +1203,7 @@ export const upcomingGames: UpcomingGame[] = [
         label: "Cinematic Trailer 1",
       },
     ],
-    preorderPrice: 399,
+    preorderPrice: 349,
     description: "Play as Soul with 66 days to live in a dark wuxia Kungfupunk world. Master lightning-fast martial arts combos and lethal blade strikes.",
     genre: "Action RPG"
   }
