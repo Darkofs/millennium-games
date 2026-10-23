@@ -399,7 +399,7 @@ export default function UpcomingReleases() {
                             WebkitTextFillColor: "#ffffff",
                           }}
                         >
-                          ₹{game.preorderPrice || 299}
+                          ₹{game.preorderPrice || 349}
                         </span>
                       </div>
 
