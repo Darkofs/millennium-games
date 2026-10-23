@@ -172,6 +172,7 @@ export default function PhantomBladeHero() {
       id="home"
       className="relative w-full min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-12 overflow-hidden"
     >
+      <div id="upcoming" className="absolute top-0 pointer-events-none" />
       {/* FULL WINDOW BACKGROUND IMAGE */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         <img
