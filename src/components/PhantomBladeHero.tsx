@@ -193,37 +193,8 @@ export default function PhantomBladeHero() {
         <div className="absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
       </div>
 
-      {/* TOP HEADER NAVIGATION LINKS (Matching sample image: HOME | GAME INFO | TRAILERS | NEWS) */}
-      <div className="relative z-20 w-full pt-6 sm:pt-7 px-6 sm:px-12 flex items-center justify-between pointer-events-auto">
-        {/* Hidden spacer on left to balance on desktop */}
-        <div className="w-10 sm:w-24 hidden md:block" />
-
-        {/* Optional small centered sub-tagline for mobile where image top might be covered by browser address bar */}
-        <div className="text-center md:hidden w-full">
-          <span className="font-cinzel text-[10px] uppercase tracking-[0.35em] text-slate-300 drop-shadow">
-            T H E &nbsp; S T O R M &nbsp; I S &nbsp; C O M I N G
-          </span>
-        </div>
-
-        {/* Top-Right Menu from sample image */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-cinzel text-xs lg:text-sm tracking-[0.25em] text-slate-200 ml-auto">
-          <Link href="/#home" className="hover:text-white transition-colors drop-shadow">
-            HOME
-          </Link>
-          <Link href="/#catalog" className="hover:text-white transition-colors drop-shadow">
-            GAME INFO
-          </Link>
-          <button
-            onClick={() => setSelectedTrailer(trailersList[0])}
-            className="hover:text-white transition-colors cursor-pointer uppercase drop-shadow"
-          >
-            TRAILERS
-          </button>
-          <Link href="/#deals" className="hover:text-white transition-colors drop-shadow">
-            NEWS
-          </Link>
-        </nav>
-      </div>
+      {/* Breathing space at top for fixed Navbar */}
+      <div className="h-16 sm:h-20 w-full pointer-events-none" />
 
       {/* CENTER-LOWER AREA: COUNTDOWN & INK-BRUSH PRE-ORDER BUTTON */}
       <div className="relative z-20 w-full flex flex-col items-center justify-end pb-8 sm:pb-12 px-4 space-y-4 sm:space-y-5 text-center mt-auto">
