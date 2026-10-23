@@ -407,7 +407,10 @@ export default function Navbar() {
                 >
                   <span>🛒 View Cart</span>
                   {cartCount > 0 && (
-                    <span className="px-2 py-0.5 rounded-full bg-black text-white font-black text-[10px]">
+                    <span
+                      className="px-2 py-0.5 rounded-full bg-black text-white font-black text-[10px]"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                    >
                       {cartCount}
                     </span>
                   )}
