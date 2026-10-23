@@ -75,7 +75,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "glass shadow-lg shadow-black/20"
+            ? "bg-slate-950/85 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
             : "bg-transparent"
         }`}
       >
@@ -85,7 +85,7 @@ export default function Navbar() {
             {pathname !== "/" && (
               <button
                 onClick={handleSafeBack}
-                className="p-2 -ml-1.5 rounded-full text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50 transition-all flex items-center justify-center cursor-pointer"
+                className="p-2 -ml-1.5 rounded-full text-white/90 hover:text-white hover:bg-white/15 transition-all flex items-center justify-center cursor-pointer"
                 aria-label="Go back"
                 title="Go back"
               >
@@ -95,8 +95,8 @@ export default function Navbar() {
               </button>
             )}
 
-            <Link href="/#home" className="flex items-center gap-2.5 group" id="nav-logo">
-              <div className="w-9 h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
+            <Link href="/#home" className="flex items-center gap-2 group" id="nav-logo">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden relative flex items-center justify-center backdrop-blur-md shadow-sm" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.45))', border: '1px solid rgba(255,255,255,0.8)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.06)' }}>
                 <img
                   src="/images/logo/logo-mark.png"
                   alt="Millennium Games"
@@ -104,7 +104,7 @@ export default function Navbar() {
                 />
               </div>
               <span
-                className="text-lg font-bold text-white tracking-tight hidden sm:block"
+                className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-1"
                 style={{
                   fontFamily: "var(--font-outfit)",
                   color: "#ffffff",
