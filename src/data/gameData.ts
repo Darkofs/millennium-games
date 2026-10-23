@@ -1195,7 +1195,7 @@ export const upcomingGames: UpcomingGame[] = [
     title: "Phantom Blade Zero",
     releaseDate: "2026-10-29",
     platform: "steam",
-    image: "/images/Game Images/Phantom Blade Zero.jpg",
+    image: "/images/Game Images/phantom blade.png",
     videoSrc: "/Game Videos/phantom blade 2.mp4",
     trailers: [
       {
