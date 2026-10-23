@@ -209,7 +209,7 @@ export default function UbisoftBundle() {
 
                 {/* Game Franchise Quick Filter Pills */}
                 <div className="space-y-2.5 pt-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                     <button
                       type="button"
                       onClick={() => setActiveTab("all")}
