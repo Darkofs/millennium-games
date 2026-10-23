@@ -78,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable} antialiased`}
+      className={`${inter.variable} ${outfit.variable} ${cinzel.variable} antialiased`}
     >
       <body
         className="min-h-screen"
