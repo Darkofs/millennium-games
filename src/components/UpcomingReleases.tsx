@@ -583,7 +583,7 @@ export default function UpcomingReleases() {
                     }}
                     className="btn-primary text-xs px-4 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-lg active:scale-95 flex-shrink-0"
                   >
-                    ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 299}
+                    ⚡ Pre-order ₹{selectedTrailer.preorderPrice || 349}
                   </button>
                 </div>
               </motion.div>
