@@ -183,7 +183,7 @@ export default function PhantomBladeShowcase() {
   };
 
   return (
-    <section id="phantom-blade-spotlight" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+    <section id="upcoming" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
       {/* Background Ambience */}
       <div className="abstract-shape abstract-shape-emerald w-[600px] h-[600px] -top-32 -right-32 opacity-25" />
       <div className="abstract-shape abstract-shape-mint w-[500px] h-[500px] -bottom-24 -left-24 opacity-20" />
