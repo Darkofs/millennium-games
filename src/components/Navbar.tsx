@@ -30,6 +30,8 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const isDarkHero = pathname === "/" && !scrolled;
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -104,11 +106,13 @@ export default function Navbar() {
                 />
               </div>
               <span
-                className="text-lg font-bold text-[#0f172a] tracking-tight hidden sm:block"
+                className={`text-lg font-bold tracking-tight hidden sm:block ${
+                  isDarkHero ? "text-white" : "text-[#0f172a]"
+                }`}
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Millennium{" "}
-                <span className="text-mint">Games</span>
+                <span className={isDarkHero ? "text-emerald-400" : "text-mint"}>Games</span>
               </span>
             </Link>
           </div>
@@ -120,7 +124,11 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 id={`nav-${item.label.toLowerCase().replace(/\s/g, "-")}`}
-                className="px-3 py-2 text-sm text-slate-700 hover:text-[#0f172a] rounded-full hover:bg-slate-200/50 transition-all duration-300 font-semibold"
+                className={`px-3 py-2 text-sm rounded-full transition-all duration-300 font-semibold ${
+                  isDarkHero
+                    ? "text-slate-200 hover:text-white hover:bg-white/10"
+                    : "text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50"
+                }`}
               >
                 {item.label}
               </Link>
@@ -133,7 +141,11 @@ export default function Navbar() {
             <Magnetic>
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-full transition-all duration-300"
+                className={`p-2.5 rounded-full transition-all duration-300 ${
+                  isDarkHero
+                    ? "text-slate-200 hover:text-white hover:bg-white/10"
+                    : "text-slate-600 hover:text-[#0f172a] hover:bg-slate-200/50"
+                }`}
                 id="nav-search"
                 aria-label="Search"
               >
