@@ -7,7 +7,6 @@ import FeaturedGames from "@/components/FeaturedGames";
 import VideoCatalogue from "@/components/VideoCatalogue";
 import TrendingCarousel from "@/components/TrendingCarousel";
 import UpcomingReleases from "@/components/UpcomingReleases";
-import TrustSection from "@/components/TrustSection";
 import Reviews from "@/components/Reviews";
 import About from "@/components/About";
 import Deals from "@/components/Deals";
