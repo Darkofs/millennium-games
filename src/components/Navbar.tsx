@@ -326,77 +326,132 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-800/40 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/75 backdrop-blur-md z-40 lg:hidden"
               onClick={handleCloseMobile}
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-72 z-50 lg:hidden p-6 pt-20"
-              style={{ background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.55))', backdropFilter: 'blur(40px) saturate(160%)', borderLeft: '1px solid rgba(255,255,255,0.6)', boxShadow: '-8px 0 32px rgba(90,110,125,0.18)' }}
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              className="fixed top-0 right-0 bottom-0 w-[84vw] max-w-[340px] z-50 lg:hidden flex flex-col bg-slate-950/95 backdrop-blur-2xl border-l border-white/20 shadow-[-15px_0_40px_rgba(0,0,0,0.85)]"
+              style={{
+                boxShadow: "-15px 0 50px rgba(0,0,0,0.8), inset 1px 0 0 rgba(255,255,255,0.15)",
+              }}
             >
-              <div className="flex flex-col gap-1">
+              {/* Drawer Header with Brand & Close Button */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/15 bg-slate-950/80 flex-shrink-0">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full overflow-hidden relative flex items-center justify-center p-0.5 bg-white/10 border border-white/30">
+                    <img
+                      src="/images/logo/logo-mark.png"
+                      alt="Millennium Games"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <span
+                    className="text-base font-bold text-white tracking-tight"
+                    style={{ fontFamily: "var(--font-outfit)", color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                  >
+                    Millennium <span className="text-emerald-400 font-extrabold" style={{ color: "#34d399", WebkitTextFillColor: "#34d399" }}>Games</span>
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleCloseMobile}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 flex items-center justify-center transition-all cursor-pointer active:scale-90"
+                  aria-label="Close menu"
+                  style={{ color: "#ffffff" }}
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable Nav Items */}
+              <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1.5 no-scrollbar">
                 {navItems.map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ x: 30, opacity: 0 }}
+                    initial={{ x: 25, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.04 }}
                   >
                     <Link
                       href={item.href}
                       onClick={handleCloseMobile}
-                      className="block px-4 py-3 text-slate-700 hover:text-[#0f172a] hover:bg-slate-200/50 rounded-2xl transition-all duration-300 font-semibold"
+                      className="nav-glossy-link flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-white hover:bg-white/15 transition-all duration-200 border border-transparent hover:border-white/15"
+                      style={{
+                        color: "#ffffff",
+                        WebkitTextFillColor: "#ffffff",
+                        textShadow: "0 1px 3px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.4)",
+                      }}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      <svg className="w-4 h-4 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
                   </motion.div>
                 ))}
-                <div className="mt-4 pt-4 border-t border-slate-200 space-y-2.5">
-                  <Link
-                    href="/cart"
-                    onClick={handleCloseMobile}
-                    className="w-full btn-primary text-center block text-xs py-2.5 font-bold flex items-center justify-center gap-2"
-                  >
-                    <span>🛒 View Cart</span>
-                    {cartCount > 0 && (
-                      <span className="px-2 py-0.5 rounded-full bg-white text-black font-extrabold text-[10px]">
-                        {cartCount}
-                      </span>
-                    )}
-                  </Link>
+              </div>
 
-                  {user ? (
-                    <>
-                      <Link
-                        href="/library"
-                        onClick={handleCloseMobile}
-                        className="w-full btn-outline text-center block text-xs py-2.5"
-                      >
-                        🎮 My Library
-                      </Link>
-                      <button
-                        onClick={() => {
-                          logoutUser();
-                          handleCloseMobile();
-                        }}
-                        className="w-full btn-primary text-center bg-red-500/10 text-red-600 border-red-500/20 text-xs py-2.5 cursor-pointer block"
-                      >
-                        🚪 Sign Out ({user.name})
-                      </button>
-                    </>
-                  ) : (
-                    <Link
-                      href="/auth"
-                      onClick={handleCloseMobile}
-                      className="w-full btn-secondary text-center block text-xs py-2.5"
-                    >
-                      Sign In
-                    </Link>
+              {/* Bottom Actions Drawer Footer */}
+              <div className="p-4 border-t border-white/15 bg-slate-950/90 space-y-2.5 flex-shrink-0 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+                <Link
+                  href="/cart"
+                  onClick={handleCloseMobile}
+                  className="w-full py-3 px-4 rounded-xl font-bold text-black bg-white hover:bg-slate-100 flex items-center justify-center gap-2 text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-all"
+                  style={{ color: "#000000", WebkitTextFillColor: "#000000" }}
+                >
+                  <span>🛒 View Cart</span>
+                  {cartCount > 0 && (
+                    <span className="px-2 py-0.5 rounded-full bg-black text-white font-black text-[10px]">
+                      {cartCount}
+                    </span>
                   )}
-                </div>
+                </Link>
+
+                {user ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      href="/library"
+                      onClick={handleCloseMobile}
+                      className="py-2.5 px-3 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 text-center text-xs flex items-center justify-center gap-1.5 transition-all"
+                      style={{ color: "#ffffff" }}
+                    >
+                      <span>🎮 Library</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logoutUser();
+                        handleCloseMobile();
+                      }}
+                      className="py-2.5 px-3 rounded-xl font-bold text-red-400 bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-center text-xs cursor-pointer transition-all"
+                    >
+                      🚪 Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/auth"
+                    onClick={handleCloseMobile}
+                    className="w-full py-2.5 px-4 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 text-center text-xs block transition-all"
+                    style={{ color: "#ffffff" }}
+                  >
+                    🔑 Sign In to Millennium
+                  </Link>
+                )}
+
+                <a
+                  href="https://wa.me/918089406346"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl font-semibold text-[#25D366] bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-center text-[11px] flex items-center justify-center gap-1.5 transition-all"
+                >
+                  <span>💬 WhatsApp Support (+91 80894 06346)</span>
+                </a>
               </div>
             </motion.div>
           </>
