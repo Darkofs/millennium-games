@@ -52,11 +52,15 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  const handleCloseMobile = () => {
+  const handleDismissMobile = () => {
     setMobileOpen(false);
     if (typeof window !== "undefined" && window.history.state?.modal === "mobileNav") {
       window.history.back();
     }
+  };
+
+  const handleNavClick = () => {
+    setMobileOpen(false);
   };
 
   const handleSafeBack = () => {
