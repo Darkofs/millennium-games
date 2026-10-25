@@ -185,7 +185,7 @@ export default function PhantomBladeHero() {
       <div className="h-16 sm:h-20 w-full pointer-events-none" />
 
       {/* LEFT-SIDE FLOATING CTA: PRICE, SMALL COUNTDOWN, & PRE-ORDER (COMPLETELY TRANSPARENT, NO BOX/COLUMN) */}
-      <div className="absolute left-6 sm:left-12 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-[90vw] max-w-md sm:max-w-xl pointer-events-auto">
+      <div className="absolute left-5 sm:left-10 lg:left-16 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-[92vw] max-w-xl sm:max-w-2xl pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -194,35 +194,35 @@ export default function PhantomBladeHero() {
         >
           {/* Subtle Tag / Platform Badge */}
           <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold font-cinzel tracking-widest text-white bg-black/60 border border-white/30 backdrop-blur-sm shadow-md"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold font-sans tracking-wide text-white bg-black/60 border border-white/25 backdrop-blur-md shadow-md uppercase"
             style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>STEAM OFFICIAL PRE-ORDER</span>
           </div>
 
           {/* 1. Price Details */}
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <div className="flex items-baseline gap-3 sm:gap-4 flex-wrap">
               <span
-                className="text-4xl sm:text-6xl font-black font-cinzel text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
+                className="text-5xl sm:text-6xl lg:text-7xl font-black font-sans text-white tracking-tight leading-none drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
                 style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
               >
                 ₹{phantomGame.price}
               </span>
               <span
-                className="text-xl sm:text-2xl font-cinzel text-slate-400 line-through drop-shadow"
+                className="text-xl sm:text-2xl font-bold font-sans text-slate-400 line-through drop-shadow"
                 style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}
               >
                 ₹{phantomGame.originalPrice}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-cinzel text-emerald-400 bg-black/50 border border-emerald-500/40 backdrop-blur-sm shadow-md">
+              <span className="px-3 py-1 rounded-full text-xs font-extrabold font-sans text-emerald-400 bg-black/60 border border-emerald-500/50 backdrop-blur-sm shadow-md uppercase tracking-wide">
                 30% OFF PRE-ORDER
               </span>
             </div>
             <div
               data-pure-white
-              className="hero-pure-white text-xs sm:text-sm font-cinzel font-bold tracking-wider text-white"
+              className="hero-pure-white text-xs sm:text-sm font-sans font-bold tracking-normal text-white pt-0.5"
               style={{
                 color: "#ffffff",
                 WebkitTextFillColor: "#ffffff",
@@ -237,7 +237,7 @@ export default function PhantomBladeHero() {
           <div className="space-y-1.5 pt-1">
             <div
               data-pure-white
-              className="hero-pure-white text-[10px] sm:text-xs font-cinzel font-bold tracking-[0.2em] uppercase text-white"
+              className="hero-pure-white text-[11px] sm:text-xs font-sans font-bold tracking-wider uppercase text-white"
               style={{
                 color: "#ffffff",
                 WebkitTextFillColor: "#ffffff",
@@ -250,32 +250,35 @@ export default function PhantomBladeHero() {
           </div>
 
           {/* 3. Pre-Order & Actions */}
-          <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full max-w-lg">
+          <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-3 sm:gap-3.5 w-full">
             <button
               onClick={handlePreorder}
-              className="w-full sm:w-auto px-8 py-3.5 sm:px-11 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-cinzel font-black text-xs sm:text-base tracking-[0.2em] sm:tracking-[0.25em] uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-white hover:bg-slate-100 text-black font-sans font-black text-sm sm:text-base tracking-wide uppercase shadow-[0_10px_35px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.7)] transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
               style={{
                 color: "#000000",
                 WebkitTextFillColor: "#000000",
               }}
             >
-              <span>⚡ PRE-ORDER NOW</span>
+              <span className="text-amber-500 text-base leading-none">⚡</span>
+              <span>PRE-ORDER NOW</span>
             </button>
 
-            <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
               <button
                 onClick={() => setSelectedTrailer(trailersList[0])}
-                className="flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/30 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2 drop-shadow"
+                className="flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-black/60 hover:bg-white text-white hover:text-black font-sans font-bold text-xs sm:text-sm tracking-wide uppercase border border-white/30 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap shadow-lg group"
               >
-                <span>▶ Watch 4K Trailer</span>
+                <span className="text-white group-hover:text-black transition-colors">▶</span>
+                <span>WATCH 4K TRAILER</span>
               </button>
 
               <button
                 onClick={handleAddToCart}
-                className="flex-1 sm:flex-initial px-4 py-3 sm:px-4 sm:py-3.5 rounded-full bg-black/40 hover:bg-white text-white hover:text-black font-cinzel font-bold text-xs sm:text-sm tracking-wider uppercase border border-white/25 backdrop-blur-sm transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 drop-shadow"
+                className="flex-1 sm:flex-initial px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-black/60 hover:bg-white text-white hover:text-black font-sans font-bold text-xs sm:text-sm tracking-wide uppercase border border-white/30 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap shadow-lg group"
                 title="Add to Cart"
               >
-                <span>🛒 Add to Cart</span>
+                <span>🛒</span>
+                <span>ADD TO CART</span>
               </button>
             </div>
           </div>
