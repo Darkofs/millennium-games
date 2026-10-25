@@ -315,13 +315,13 @@ export default function PhantomBladeHero() {
                   <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/15 bg-slate-950/95 flex-shrink-0">
                     <div className="min-w-0 pr-3">
                       <span
-                        className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block font-cinzel"
+                        className="text-[10px] sm:text-xs font-bold text-emerald-400 uppercase tracking-wider block font-sans"
                         style={{ color: "#34d399", WebkitTextFillColor: "#34d399", filter: "none" }}
                       >
                         Phantom Blade Zero • 4K HDR Official Trailer
                       </span>
                       <h3
-                        className="text-xs sm:text-base font-bold text-white truncate max-w-lg font-cinzel"
+                        className="text-xs sm:text-base font-bold text-white truncate max-w-lg font-sans"
                         style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                       >
                         {selectedTrailer.title}
@@ -338,7 +338,7 @@ export default function PhantomBladeHero() {
                   </div>
 
                   {/* Multi-Trailer Switcher Tabs */}
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/10 overflow-x-auto no-scrollbar flex-shrink-0 font-cinzel">
+                  <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/10 overflow-x-auto no-scrollbar flex-shrink-0 font-sans">
                     <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
                       Select Trailer:
                     </span>
@@ -380,10 +380,10 @@ export default function PhantomBladeHero() {
                   </div>
 
                   {/* Modal Footer with Preorder */}
-                  <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0">
+                  <div className="p-3 sm:p-5 bg-slate-950 border-t border-white/15 flex items-center justify-between gap-3 flex-shrink-0 font-sans">
                     <div className="min-w-0 flex-1">
                       <h4
-                        className="text-xs sm:text-sm font-bold text-white truncate font-cinzel tracking-wider"
+                        className="text-xs sm:text-sm font-bold text-white truncate font-sans tracking-wide"
                         style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", filter: "none", textShadow: "none" }}
                       >
                         Phantom Blade Zero (Steam Official Account)
@@ -401,7 +401,7 @@ export default function PhantomBladeHero() {
                         handleCloseModal();
                         handlePreorder(e);
                       }}
-                      className="px-5 py-2 sm:px-7 sm:py-2.5 rounded-full bg-white text-black font-cinzel font-bold text-xs uppercase tracking-wider cursor-pointer shadow-lg active:scale-95 flex-shrink-0 hover:bg-slate-100 transition-all"
+                      className="px-5 py-2 sm:px-7 sm:py-2.5 rounded-full bg-white text-black font-sans font-bold text-xs uppercase tracking-wide cursor-pointer shadow-lg active:scale-95 flex-shrink-0 hover:bg-slate-100 transition-all whitespace-nowrap"
                     >
                       ⚡ Pre-order ₹{phantomGame.price}
                     </button>
