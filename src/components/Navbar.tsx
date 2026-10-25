@@ -203,6 +203,31 @@ export default function Navbar() {
 
             {/* Account */}
             <div className="relative">
+              {/* Mobile Account / Sign In Icon Button (< sm) */}
+              {user ? (
+                <button
+                  onClick={() => setAccountMenuOpen(!accountMenuOpen)}
+                  className="sm:hidden w-9 h-9 rounded-full flex items-center justify-center text-black text-xs font-black bg-white uppercase active:scale-95 transition-all shadow-md"
+                  aria-label="Account Menu"
+                  id="nav-account-mobile"
+                >
+                  {user.name.slice(0, 2)}
+                </button>
+              ) : (
+                <Link
+                  href="/auth"
+                  className="sm:hidden w-9 h-9 rounded-full flex items-center justify-center bg-white/15 hover:bg-white/25 text-white border border-white/30 active:scale-95 transition-all shadow-[0_2px_10px_rgba(0,0,0,0.3)]"
+                  title="Sign In"
+                  aria-label="Sign In"
+                  id="nav-account-mobile"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </Link>
+              )}
+
+              {/* Desktop Account Button (>= sm) */}
               <Magnetic>
                 {user ? (
                   <button
