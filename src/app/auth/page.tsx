@@ -257,36 +257,45 @@ function AuthForm() {
               )}
 
               {/* Submit button */}
-              <div className="pt-2">
-                <Magnetic>
+              <div className="pt-2 space-y-2.5">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full btn-primary py-3.5 font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 transition-all"
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-[#0f172a]" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Loading...
+                    </>
+                  ) : mode === "signin" ? (
+                    "Sign In"
+                  ) : (
+                    "Create Account"
+                  )}
+                </button>
+
+                {mode === "signin" && (
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleDemoLogin}
                     disabled={loading}
-                    className="w-full btn-primary py-3.5 font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-slate-800 bg-white/70 hover:bg-white border border-white/80 shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer"
                   >
-                    {loading ? (
-                      <>
-                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-[#0f172a]" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        Loading...
-                      </>
-                    ) : mode === "signin" ? (
-                      "Sign In"
-                    ) : (
-                      "Create Account"
-                    )}
+                    <span>⚡ Quick 1-Tap Demo Sign In</span>
                   </button>
-                </Magnetic>
+                )}
               </div>
             </form>
 
             {/* Quick Demo Credentials Help */}
             {mode === "signin" && (
               <div className="bg-slate-200/40 p-3.5 rounded-xl border border-slate-300/40 text-[10px] text-slate-600 leading-relaxed">
-                <span className="font-bold text-[#0f172a] block mb-0.5">💡 Account Persistence:</span>
-                Accounts created on Sign Up are stored locally. If you already created an account, log back in. If not, toggle to <b>Sign Up</b> to create one instantly!
+                <span className="font-bold text-[#0f172a] block mb-0.5">💡 Instant Mobile Access:</span>
+                Tap <b>&ldquo;Quick 1-Tap Demo Sign In&rdquo;</b> above for instant access, or enter your email &amp; password. If you don&apos;t have an account yet, switch to <b>Sign Up</b> to create one!
               </div>
             )}
 
