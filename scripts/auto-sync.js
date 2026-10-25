@@ -18,6 +18,7 @@ function startDevServer() {
 
   const nodeOptions = process.env.NODE_OPTIONS || '--max-old-space-size=4096';
   devServer = spawn('npx', ['next', 'dev'], {
+    cwd: WATCH_DIR,
     stdio: 'inherit',
     shell: true,
     env: {
