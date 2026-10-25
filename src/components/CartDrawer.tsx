@@ -894,8 +894,8 @@ export default function CartDrawer() {
                       <span className="flex-1">{errorMsg}</span>
                       {!user && (
                         <Link
-                          href="/auth"
-                          onClick={handleClose}
+                          href="/auth?redirect=/cart?step=upi_payment"
+                          onClick={() => setCartOpen(false)}
                           className="underline font-bold text-slate-800 hover:text-black ml-2"
                         >
                           Sign In
