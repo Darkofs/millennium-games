@@ -356,7 +356,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/75 backdrop-blur-md z-40 lg:hidden"
-              onClick={handleCloseMobile}
+              onClick={handleDismissMobile}
             />
             <motion.div
               initial={{ x: "100%" }}
@@ -387,7 +387,7 @@ export default function Navbar() {
                 </div>
 
                 <button
-                  onClick={handleCloseMobile}
+                  onClick={handleDismissMobile}
                   className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 flex items-center justify-center transition-all cursor-pointer active:scale-90"
                   aria-label="Close menu"
                   style={{ color: "#ffffff" }}
@@ -409,7 +409,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      onClick={handleCloseMobile}
+                      onClick={handleNavClick}
                       className="nav-glossy-link flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-white hover:bg-white/15 transition-all duration-200 border border-transparent hover:border-white/15"
                       style={{
                         color: "#ffffff",
@@ -430,7 +430,7 @@ export default function Navbar() {
               <div className="p-4 border-t border-white/15 bg-slate-950/90 space-y-2.5 flex-shrink-0 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                 <Link
                   href="/cart"
-                  onClick={handleCloseMobile}
+                  onClick={handleNavClick}
                   className="w-full py-3 px-4 rounded-xl font-bold text-black bg-white hover:bg-slate-100 flex items-center justify-center gap-2 text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-all"
                   style={{ color: "#000000", WebkitTextFillColor: "#000000" }}
                 >
@@ -449,7 +449,7 @@ export default function Navbar() {
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       href="/library"
-                      onClick={handleCloseMobile}
+                      onClick={handleNavClick}
                       className="py-2.5 px-3 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 text-center text-xs flex items-center justify-center gap-1.5 transition-all"
                       style={{ color: "#ffffff" }}
                     >
@@ -458,7 +458,7 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         logoutUser();
-                        handleCloseMobile();
+                        handleNavClick();
                       }}
                       className="py-2.5 px-3 rounded-xl font-bold text-red-400 bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-center text-xs cursor-pointer transition-all"
                     >
@@ -468,11 +468,12 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href="/auth"
-                    onClick={handleCloseMobile}
-                    className="w-full py-2.5 px-4 rounded-xl font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 text-center text-xs block transition-all"
-                    style={{ color: "#ffffff" }}
+                    onClick={handleNavClick}
+                    className="w-full py-3 px-4 rounded-xl font-extrabold text-white bg-emerald-500/25 hover:bg-emerald-500/35 border border-emerald-400/50 text-center text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
                   >
-                    🔑 Sign In to Millennium
+                    <span>🔑</span>
+                    <span>Sign In to Millennium</span>
                   </Link>
                 )}
 
