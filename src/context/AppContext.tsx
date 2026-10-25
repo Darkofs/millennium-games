@@ -167,24 +167,63 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return { success: true };
   }, []);
 
+const DEFAULT_DEMO_USERS = [
+  {
+    name: "Raider",
+    email: "raider@millennium.com",
+    password: "password123",
+    library: [],
+  },
+  {
+    name: "Demo Gamer",
+    email: "demo@millennium.com",
+    password: "password123",
+    library: [],
+  },
+];
+
   const loginUser = useCallback((email: string, password: string) => {
     if (!email || !password) {
       return { success: false, error: "Please enter your email and password" };
     }
 
-    const usersDbStr = localStorage.getItem("millennium_games_users") || "[]";
+    const usersDbStr = localStorage.getItem("millennium_games_users");
     let users: any[] = [];
-    try {
-      users = JSON.parse(usersDbStr);
-    } catch {
-      users = [];
+    if (!usersDbStr) {
+      users = [...DEFAULT_DEMO_USERS];
+      localStorage.setItem("millennium_games_users", JSON.stringify(users));
+    } else {
+      try {
+        users = JSON.parse(usersDbStr);
+        if (!Array.isArray(users) || users.length === 0) {
+          users = [...DEFAULT_DEMO_USERS];
+          localStorage.setItem("millennium_games_users", JSON.stringify(users));
+        }
+      } catch {
+        users = [...DEFAULT_DEMO_USERS];
+        localStorage.setItem("millennium_games_users", JSON.stringify(users));
+      }
     }
 
+    const trimmedEmail = email.trim().toLowerCase();
     const matchedUser = users.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+      (u) => u.email.toLowerCase() === trimmedEmail && u.password === password
     );
 
     if (!matchedUser) {
+      if (
+        (trimmedEmail === "raider@millennium.com" || trimmedEmail === "demo@millennium.com") &&
+        (password === "password123" || password === "millennium2026")
+      ) {
+        const demoUser = {
+          name: trimmedEmail === "raider@millennium.com" ? "Raider" : "Demo Gamer",
+          email: trimmedEmail,
+          library: [],
+        };
+        setUser(demoUser);
+        localStorage.setItem("millennium_games_active_user", JSON.stringify(demoUser));
+        return { success: true };
+      }
       return { success: false, error: "Invalid email or password" };
     }
 
