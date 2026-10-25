@@ -1,17 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "@/context/AppContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Magnetic from "@/components/Magnetic";
 
-export default function AuthPage() {
+function AuthForm() {
   const { user, loginUser, registerUser } = useApp();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -21,12 +23,12 @@ export default function AuthPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // If user is already logged in, redirect to home
+  // If user is already logged in, redirect
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push(redirectUrl);
     }
-  }, [user, router]);
+  }, [user, router, redirectUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ export default function AuthPage() {
     if (mode === "signin") {
       const res = loginUser(email, password);
       if (res.success) {
-        router.push("/");
+        router.push(redirectUrl);
       } else {
         setErrorMsg(res.error || "Failed to sign in.");
         setLoading(false);
@@ -52,7 +54,7 @@ export default function AuthPage() {
       }
       const res = registerUser(name, email, password);
       if (res.success) {
-        router.push("/");
+        router.push(redirectUrl);
       } else {
         setErrorMsg(res.error || "Failed to create account.");
         setLoading(false);
