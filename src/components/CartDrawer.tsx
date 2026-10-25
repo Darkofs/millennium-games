@@ -126,7 +126,7 @@ export default function CartDrawer() {
     setErrorMsg("");
     if (!user) {
       setCartOpen(false);
-      router.push("/auth");
+      router.push("/auth?redirect=/cart?step=upi_payment");
       return;
     }
     if (typeof window !== "undefined") {
