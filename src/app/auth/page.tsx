@@ -281,3 +281,17 @@ function AuthForm() {
     </main>
   );
 }
+
+export default function AuthPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-transparent flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-slate-900 border-t-transparent animate-spin" />
+        </main>
+      }
+    >
+      <AuthForm />
+    </Suspense>
+  );
+}
