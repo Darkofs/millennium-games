@@ -30,20 +30,37 @@ function AuthForm() {
     }
   }, [user, router, redirectUrl]);
 
+  const handleDemoLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+    setEmail("raider@millennium.com");
+    setPassword("password123");
+    setTimeout(() => {
+      const res = loginUser("raider@millennium.com", "password123");
+      if (res.success) {
+        router.push(redirectUrl);
+      } else {
+        registerUser("Raider", "raider@millennium.com", "password123");
+        router.push(redirectUrl);
+      }
+    }, 400);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     setLoading(true);
 
     // Minor delay for high premium UX feel
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (mode === "signin") {
       const res = loginUser(email, password);
       if (res.success) {
         router.push(redirectUrl);
       } else {
-        setErrorMsg(res.error || "Failed to sign in.");
+        setErrorMsg(res.error || "Failed to sign in. If you don't have an account yet, tap Sign Up above!");
         setLoading(false);
       }
     } else {
