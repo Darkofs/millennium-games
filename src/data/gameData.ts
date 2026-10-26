@@ -1459,6 +1459,17 @@ export const deals: Deal[] = [
     type: "bundle"
   },
   {
+    id: 125,
+    title: "Steam Bundle — Need for Speed Complete Collection (5 Games)",
+    originalPrice: 8495,
+    dealPrice: 899,
+    discount: 89,
+    platform: "steam",
+    image: "/images/Game Images/Need for Speed Unbound.png",
+    endsAt: "2026-12-31T23:59:59",
+    type: "bundle"
+  },
+  {
     id: 24,
     title: "Red Dead Redemption 2",
     originalPrice: 1209,
