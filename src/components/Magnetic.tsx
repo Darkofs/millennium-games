@@ -6,9 +6,10 @@ import gsap from "gsap";
 interface MagneticProps {
   children: React.ReactElement;
   strength?: number;
+  className?: string;
 }
 
-export default function Magnetic({ children, strength = 0.25 }: MagneticProps) {
+export default function Magnetic({ children, strength = 0.25, className = "" }: MagneticProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
