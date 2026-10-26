@@ -1539,6 +1539,13 @@ export const accountsInventory: InventoryAccount[] = [
     extraDetails: "Epic Games Master Account containing 123 verified AAA blockbuster games with full library access & lifetime warranty."
   },
   {
+    games: [125, 35, 36, 37, 38, 39], // Steam Need for Speed Complete Bundle (Unbound, Heat, Payback, Rivals, Hot Pursuit Remastered)
+    platform: "steam",
+    accountUser: "steam_nfs_anthology@millennium.com",
+    accountPass: "SpeedMaster@8078#2026",
+    extraDetails: "Steam Master Account containing Need for Speed: Unbound, Heat, Payback, Rivals, and Hot Pursuit Remastered with full library access & lifetime warranty."
+  },
+  {
     games: [17, 31], // EA SPORTS FC 26
     platform: "steam",
     accountUser: "fc26darkoffline",
