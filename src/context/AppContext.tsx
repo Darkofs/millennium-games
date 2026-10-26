@@ -66,7 +66,7 @@ export function findGameById(id: number) {
 }
 
 // Generate random login credentials
-function generateAccountCredentials(gameTitle: string, platform: string, playMode: "offline" | "online") {
+export function generateAccountCredentials(gameTitle: string, platform: string, playMode: "offline" | "online") {
   const cleanTitle = gameTitle.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 10);
   const randomSuffix = Math.floor(100 + Math.random() * 900);
   const accountUser = `raider_${platform}_${cleanTitle}_${randomSuffix}`;
