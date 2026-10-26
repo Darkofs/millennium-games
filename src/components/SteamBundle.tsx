@@ -151,7 +151,7 @@ export default function SteamBundle() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             {/* Left/Top: Dynamic Cover Showcase & Interactive Gallery */}
-            <div className="lg:col-span-7 relative min-h-[360px] sm:min-h-[460px] lg:min-h-[580px] bg-[#0e141b] overflow-hidden flex flex-col justify-between p-4 sm:p-6 lg:p-8">
+            <div className="lg:col-span-7 relative min-h-[360px] sm:min-h-[460px] lg:min-h-[580px] bg-[#0e141b] overflow-hidden flex flex-col justify-between p-4 sm:p-6 lg:p-8 video-card-overlay">
               {/* Dynamic Background Image with Smooth Cross-fade */}
               <AnimatePresence mode="wait">
                 <motion.div
@@ -202,10 +202,16 @@ export default function SteamBundle() {
                       Released {currentGame.year} • ★ {currentGame.rating}
                     </span>
                   </div>
-                  <h4 className="text-xl sm:text-2xl lg:text-3xl font-black text-white bundle-glossy-title">
+                  <h4
+                    className="text-xl sm:text-2xl lg:text-3xl font-black text-white bundle-glossy-title"
+                    style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", textShadow: "0 1px 3px rgba(0,0,0,0.95), 0 0 20px rgba(255,255,255,0.4)" }}
+                  >
                     {currentGame.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-200 max-w-xl bundle-subtext">
+                  <p
+                    className="text-xs sm:text-sm text-slate-200 max-w-xl bundle-subtext"
+                    style={{ color: "#e2e8f0", WebkitTextFillColor: "#e2e8f0" }}
+                  >
                     {currentGame.tagline}
                   </p>
                 </div>
