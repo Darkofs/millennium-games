@@ -222,21 +222,58 @@ function CartPageContent() {
 
         setCurrentInvoice(invData);
 
-        // Auto download invoice
-        setTimeout(() => {
-          try {
-            downloadInvoice(invData);
-          } catch (err) {
-            console.error("Auto invoice download error:", err);
-          }
-        }, 1200);
+        // 1. Immediately auto-generate and download official Tax Invoice (PDF/HTML)
+        try {
+          downloadInvoice(invData);
+        } catch (err) {
+          console.error("Auto invoice download error:", err);
+        }
 
-        // Auto open WhatsApp verification
+        // 2. Format detailed order summary for WhatsApp verification
+        const itemsList = cartDetails
+          .map(
+            (item) =>
+              `• ${item.title} [${item.platform.toUpperCase()} - ${
+                item.playMode === "online" ? "Online Play" : "Offline Campaign"
+              }] (₹${item.price})`
+          )
+          .join("\n");
+
+        const waMsg =
+          `🎮 *MILLENNIUM GAMES — PAYMENT VERIFICATION & INVOICE*\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
+          `👤 *Customer Name:* ${user?.name || "Valued Customer"}\n` +
+          `📧 *Email:* ${user?.email || "customer@example.com"}\n` +
+          `💰 *Total Amount Paid:* ₹${total}\n` +
+          `💳 *Paid to UPI ID:* bllalwhdn@ptaxis (Millennium Games)\n` +
+          `🔢 *UTR / Transaction Ref:* ${
+            utrNumber.trim() ? utrNumber.trim() : "Attached in Website Proof"
+          }\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `📦 *Games & Bundles Ordered:*\n${itemsList}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `✅ *Payment screenshot proof has been submitted on the website.*\n` +
+          `Tax invoice has been downloaded. Please verify my payment and approve my game account credentials & Steam Guard 2FA!`;
+
+        const waUrl = `https://wa.me/918089406346?text=${encodeURIComponent(waMsg)}`;
+        setOrderWhatsAppUrl(waUrl);
+
+        // 3. Seamlessly redirect customer to WhatsApp
         setTimeout(() => {
-          const waMsg = `🎮 *Millennium Games - Order Confirmed*\n\nHello Support! I have paid ₹${total} via UPI for Order *${invoiceNumber}*.\nName: ${user?.name || "Customer"}\n${utrNumber ? `UTR: ${utrNumber}\n` : ""}I have attached my screenshot in the store portal. Please verify my accounts!`;
-          const waUrl = `https://wa.me/918089406346?text=${encodeURIComponent(waMsg)}`;
-          window.open(waUrl, "_blank", "noopener,noreferrer");
-        }, 2200);
+          const isMobile =
+            typeof window !== "undefined" &&
+            (window.innerWidth < 768 ||
+              /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+          if (isMobile) {
+            window.location.href = waUrl;
+          } else {
+            const opened = window.open(waUrl, "_blank", "noopener,noreferrer");
+            if (!opened || opened.closed || typeof opened.closed === "undefined") {
+              window.location.href = waUrl;
+            }
+          }
+        }, 600);
       } else {
         setErrorMsg(
           checkoutResult.error || "Payment verification failed. Please try again."
