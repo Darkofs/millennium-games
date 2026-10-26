@@ -466,7 +466,7 @@ footer p, footer li, footer h3, footer h4,
 
 /* Glossy Pure White Navbar Links, Buttons & Text */
 nav a, 
-nav button, 
+nav button:not(#nav-account-mobile), 
 nav .nav-glossy-link,
 #nav-logo span {
   color: #ffffff !important;
@@ -476,6 +476,35 @@ nav .nav-glossy-link,
     0 0 15px rgba(255, 255, 255, 0.45),
     0 0 2px rgba(255, 255, 255, 0.9) !important;
   transition: all 0.2s ease-out !important;
+}
+
+/* Mobile Profile Button Vertical Alignment & Styling */
+#nav-account-mobile {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 41.6px !important;
+  height: 41.6px !important;
+  min-width: 41.6px !important;
+  min-height: 41.6px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+}
+
+#nav-account-mobile,
+#nav-account-mobile span {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+#nav-account-mobile:hover,
+#nav-account-mobile:hover span {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
 }
 
 nav a:hover, 
