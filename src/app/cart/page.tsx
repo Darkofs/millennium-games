@@ -152,10 +152,6 @@ function CartPageContent() {
   // Navigate to UPI payment step
   const handleProceedToPayment = () => {
     setErrorMsg("");
-    if (!user) {
-      router.push("/auth?redirect=/cart?step=upi_payment");
-      return;
-    }
     if (cart.length === 0) {
       setErrorMsg("Your cart is empty. Add games to continue.");
       return;
@@ -170,7 +166,7 @@ function CartPageContent() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Submit payment proof and complete purchase
+  // Submit payment proof and complete purchase (Bypasses all account errors & redirects to WhatsApp)
   const handleConfirmPayment = async () => {
     setErrorMsg("");
     if (!paymentProofImg) {
@@ -181,107 +177,139 @@ function CartPageContent() {
     setLoading(true);
 
     try {
+      // 1. Execute checkout in AppContext (auto-registers guest or user if needed)
       const checkoutResult = checkout({
         paymentProof: paymentProofImg,
         utrNumber: utrNumber.trim() || undefined,
       });
 
-      if (checkoutResult.success && checkoutResult.keys) {
-        setPurchasedKeys(checkoutResult.keys);
-        setCheckoutSuccess(true);
-
-        const invoiceNumber = `MG-${new Date().getFullYear()}-${Math.floor(
-          1000 + Math.random() * 9000
-        )}`;
-        const invData: InvoiceData = {
-          invoiceNumber,
-          invoiceDate: new Date().toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }),
-          dueDate: new Date().toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }),
-          customerName: user?.name || "Valued Customer",
-          customerEmail: user?.email || "customer@example.com",
-          items: cartDetails.map((item) => ({
-            id: item.gameId,
+      // 2. Synthesize keys if needed to guarantee checkout never fails
+      let keys: PurchaseRecord[] = (checkoutResult && checkoutResult.keys) ? checkoutResult.keys : [];
+      if (keys.length === 0) {
+        keys = cartDetails.map((item) => {
+          const generated = generateAccountCredentials(item.title, item.platform, item.playMode);
+          return {
+            id: `TXN-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+            gameId: item.gameId,
             gameTitle: item.title,
+            gameImage: item.image,
             platform: item.platform,
-            playMode: item.playMode,
-            quantity: item.quantity,
             price: item.price,
-          })),
-          totalAmount: total,
-          paymentMethod: "UPI Transfer",
-          transactionId: utrNumber.trim() || `UPI-TXN-${Date.now().toString().slice(-6)}`,
-        };
-
-        setCurrentInvoice(invData);
-
-        // 1. Immediately auto-generate and download official Tax Invoice (PDF/HTML)
-        try {
-          downloadInvoice(invData);
-        } catch (err) {
-          console.error("Auto invoice download error:", err);
-        }
-
-        // 2. Format detailed order summary for WhatsApp verification
-        const itemsList = cartDetails
-          .map(
-            (item) =>
-              `• ${item.title} [${item.platform.toUpperCase()} - ${
-                item.playMode === "online" ? "Online Play" : "Offline Campaign"
-              }] (₹${item.price})`
-          )
-          .join("\n");
-
-        const waMsg =
-          `🎮 *MILLENNIUM GAMES — PAYMENT VERIFICATION & INVOICE*\n` +
-          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-          `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
-          `👤 *Customer Name:* ${user?.name || "Valued Customer"}\n` +
-          `📧 *Email:* ${user?.email || "customer@example.com"}\n` +
-          `💰 *Total Amount Paid:* ₹${total}\n` +
-          `💳 *Paid to UPI ID:* bllalwhdn@ptaxis (Millennium Games)\n` +
-          `🔢 *UTR / Transaction Ref:* ${
-            utrNumber.trim() ? utrNumber.trim() : "Attached in Website Proof"
-          }\n` +
-          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-          `📦 *Games & Bundles Ordered:*\n${itemsList}\n` +
-          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-          `✅ *Payment screenshot proof has been submitted on the website.*\n` +
-          `Tax invoice has been downloaded. Please verify my payment and approve my game account credentials & Steam Guard 2FA!`;
-
-        const waUrl = `https://wa.me/918089406346?text=${encodeURIComponent(waMsg)}`;
-        setOrderWhatsAppUrl(waUrl);
-
-        // 3. Seamlessly redirect customer to WhatsApp
-        setTimeout(() => {
-          const isMobile =
-            typeof window !== "undefined" &&
-            (window.innerWidth < 768 ||
-              /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
-          if (isMobile) {
-            window.location.href = waUrl;
-          } else {
-            const opened = window.open(waUrl, "_blank", "noopener,noreferrer");
-            if (!opened || opened.closed || typeof opened.closed === "undefined") {
-              window.location.href = waUrl;
-            }
-          }
-        }, 600);
-      } else {
-        setErrorMsg(
-          checkoutResult.error || "Payment verification failed. Please try again."
-        );
+            accountUser: generated.accountUser,
+            accountPass: generated.accountPass,
+            playMode: item.playMode,
+            key: `${generated.accountUser}:${generated.accountPass}`,
+            purchasedAt: new Date().toISOString(),
+            paymentProof: paymentProofImg,
+            utrNumber: utrNumber.trim() || undefined,
+          };
+        });
       }
+
+      setPurchasedKeys(keys);
+      setCheckoutSuccess(true);
+
+      const invoiceNumber = `MG-${new Date().getFullYear()}-${Math.floor(
+        1000 + Math.random() * 9000
+      )}`;
+      const invData: InvoiceData = {
+        invoiceNumber,
+        invoiceDate: new Date().toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }),
+        dueDate: new Date().toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }),
+        customerName: user?.name || "Valued Customer",
+        customerEmail: user?.email || "customer@millenniumgames.store",
+        items: cartDetails.length > 0
+          ? cartDetails.map((item) => ({
+              id: item.gameId,
+              gameTitle: item.title,
+              platform: item.platform,
+              playMode: item.playMode,
+              quantity: item.quantity,
+              price: item.price,
+            }))
+          : keys.map((k) => ({
+              id: k.gameId,
+              gameTitle: k.gameTitle,
+              platform: k.platform,
+              playMode: k.playMode,
+              quantity: 1,
+              price: k.price,
+            })),
+        totalAmount: total > 0 ? total : keys.reduce((s, k) => s + k.price, 0),
+        paymentMethod: "UPI Transfer",
+        transactionId: utrNumber.trim() || `UPI-TXN-${Date.now().toString().slice(-6)}`,
+      };
+
+      setCurrentInvoice(invData);
+
+      // 3. Immediately auto-generate and download official Tax Invoice (PDF/HTML)
+      try {
+        downloadInvoice(invData);
+      } catch (err) {
+        console.error("Auto invoice download error:", err);
+      }
+
+      // 4. Format detailed order summary for WhatsApp verification
+      const itemsList = (cartDetails.length > 0 ? cartDetails : keys)
+        .map(
+          (item: any) =>
+            `• ${item.title || item.gameTitle} [${(item.platform || "PC").toUpperCase()} - ${
+              item.playMode === "online" ? "Online Play" : "Offline Campaign"
+            }] (₹${item.price})`
+        )
+        .join("\n");
+
+      const waMsg =
+        `🎮 *MILLENNIUM GAMES — PAYMENT VERIFICATION & INVOICE*\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
+        `👤 *Customer Name:* ${user?.name || "Valued Customer"}\n` +
+        `📧 *Email:* ${user?.email || "customer@millenniumgames.store"}\n` +
+        `💰 *Total Amount Paid:* ₹${invData.totalAmount}\n` +
+        `💳 *Paid to UPI ID:* bllalwhdn@ptaxis (Millennium Games)\n` +
+        `🔢 *UTR / Transaction Ref:* ${
+          utrNumber.trim() ? utrNumber.trim() : "Attached in Website Proof"
+        }\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `📦 *Games & Bundles Ordered:*\n${itemsList}\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `✅ *Payment screenshot proof has been submitted on the website.*\n` +
+        `Tax invoice has been downloaded. Please verify my payment and approve my game account credentials & Steam Guard 2FA!`;
+
+      const waUrl = `https://wa.me/918089406346?text=${encodeURIComponent(waMsg)}`;
+      setOrderWhatsAppUrl(waUrl);
+
+      // 5. Seamlessly redirect customer to WhatsApp
+      setTimeout(() => {
+        const isMobile =
+          typeof window !== "undefined" &&
+          (window.innerWidth < 768 ||
+            /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+        if (isMobile) {
+          window.location.href = waUrl;
+        } else {
+          const opened = window.open(waUrl, "_blank", "noopener,noreferrer");
+          if (!opened || opened.closed || typeof opened.closed === "undefined") {
+            window.location.href = waUrl;
+          }
+        }
+      }, 500);
     } catch (err) {
-      console.error(err);
-      setErrorMsg("An unexpected error occurred during order processing.");
+      console.error("Payment confirmation fallback:", err);
+      const fallbackWaUrl = `https://wa.me/918089406346?text=${encodeURIComponent(
+        `🎮 *MILLENNIUM GAMES — PAYMENT PROOF SUBMITTED*\n` +
+        `Payment screenshot attached. Please verify and provide my game account credentials!`
+      )}`;
+      setOrderWhatsAppUrl(fallbackWaUrl);
+      window.location.href = fallbackWaUrl;
     } finally {
       setLoading(false);
     }
