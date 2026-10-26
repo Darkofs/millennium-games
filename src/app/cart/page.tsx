@@ -31,6 +31,7 @@ function CartPageContent() {
   const [loading, setLoading] = useState(false);
   const [invoiceOpen, setInvoiceOpen] = useState(false);
   const [currentInvoice, setCurrentInvoice] = useState<InvoiceData | null>(null);
+  const [orderWhatsAppUrl, setOrderWhatsAppUrl] = useState<string>("");
 
   // UPI payment & proof upload state
   const [paymentProofImg, setPaymentProofImg] = useState<string | null>(null);
