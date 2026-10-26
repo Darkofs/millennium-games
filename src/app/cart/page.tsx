@@ -532,9 +532,12 @@ function CartPageContent() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <a
-                      href={`https://wa.me/918089406346?text=${encodeURIComponent(
-                        `🎮 *Millennium Games - Order Confirmed*\nI have completed the payment of ₹${total} and uploaded the payment screenshot. Please verify!`
-                      )}`}
+                      href={
+                        orderWhatsAppUrl ||
+                        `https://wa.me/918089406346?text=${encodeURIComponent(
+                          `🎮 *Millennium Games - Order Confirmed*\nI have completed the payment of ₹${total} and uploaded the payment screenshot. Please verify!`
+                        )}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="py-3 px-4 rounded-xl font-bold text-white bg-[#25D366] hover:bg-[#20bd5a] flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider"
