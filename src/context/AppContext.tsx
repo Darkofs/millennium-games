@@ -419,7 +419,8 @@ const DEFAULT_DEMO_USERS = [
 
     // Update session user state
     const updatedUser: User = {
-      ...user,
+      name: users[userIdx].name || user?.name || "Valued Customer",
+      email: users[userIdx].email || user?.email || "customer@millenniumgames.store",
       library: users[userIdx].library,
     };
     setUser(updatedUser);
