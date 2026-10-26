@@ -3,6 +3,7 @@ import PhantomBladeHero from "@/components/PhantomBladeHero";
 import TrustSection from "@/components/TrustSection";
 import DealOfTheMonth from "@/components/DealOfTheMonth";
 import UbisoftBundle from "@/components/UbisoftBundle";
+import SteamBundle from "@/components/SteamBundle";
 import FeaturedGames from "@/components/FeaturedGames";
 import VideoCatalogue from "@/components/VideoCatalogue";
 import TrendingCarousel from "@/components/TrendingCarousel";
@@ -24,6 +25,7 @@ export default function Home() {
       <TrustSection />
       <DealOfTheMonth />
       <UbisoftBundle />
+      <SteamBundle />
       <FeaturedGames />
       <VideoCatalogue />
       <TrendingCarousel />
