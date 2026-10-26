@@ -75,7 +75,7 @@ export default function Magnetic({ children, strength = 0.25, className = "" }: 
   }, [strength]);
 
   return (
-    <div ref={containerRef} className="inline-block">
+    <div ref={containerRef} className={`inline-block ${className}`.trim()}>
       {children}
     </div>
   );
