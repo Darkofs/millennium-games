@@ -378,11 +378,12 @@ button:active {
 }
 
 /* Heavy liquid glass glossy black text effect for main headings and titles (large text) */
-section h1, section h2,
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h1, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h2,
 #home h1, #home h2,
 footer h1, footer h2,
 nav h1, nav h2,
-.section-heading,
+.section-heading:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *),
 .glass-text {
   font-family: var(--font-heading);
   background: linear-gradient(
@@ -407,7 +408,7 @@ nav h1, nav h2,
 }
 
 /* Glossy black-and-slate shimmery gradient for highlighted text */
-.gradient-text {
+.gradient-text:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *) {
   font-family: var(--font-heading);
   background: linear-gradient(
     90deg,
@@ -431,10 +432,15 @@ nav h1, nav h2,
 }
 
 /* Subtle liquid glass text styling for body paragraphs, small headings, lists, and descriptions */
-section p, section li, section h3, section h4, section h5, section h6,
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) p, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) li, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h3, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h4, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h5, 
+section:not(#steam-bundle):not(#ubisoft-bundle):not(.bundle-pure-white):not(.video-card-overlay) h6,
 #home p, #home li, #home h3, #home h4, #home h5, #home h6,
 footer p, footer li, footer h3, footer h4,
-.section-subheading,
+.section-subheading:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *),
 .trust-check span:not(.text-mint),
 .glass-card p,
 .reviews-text {
