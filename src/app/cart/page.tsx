@@ -7,8 +7,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Magnetic from "@/components/Magnetic";
-import InvoiceModal, { InvoiceData, downloadInvoice } from "@/components/InvoiceModal";
-import { useApp, findGameById, PurchaseRecord } from "@/context/AppContext";
+import { useApp, findGameById, PurchaseRecord, generateAccountCredentials } from "@/context/AppContext";
 
 function CartPageContent() {
   const router = useRouter();
