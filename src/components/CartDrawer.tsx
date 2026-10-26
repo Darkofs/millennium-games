@@ -204,25 +204,40 @@ export default function CartDrawer() {
         }
 
         // 3. Format WhatsApp message with details and redirect
-        const gameTitles = checkoutResult.keys.map((k) => k.gameTitle).join(", ");
-        const waMsg = encodeURIComponent(
-          `🎮 *Millennium Games - Payment Proof Submitted*\n` +
-            `----------------------------------\n` +
-            `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
-            `👤 *Customer Name:* ${user?.name} (${user?.email})\n` +
-            `💰 *Amount Paid:* ₹${total}\n` +
-            `💳 *Paid To UPI ID:* bllalwhdn@ptaxis\n` +
-            `🔢 *UTR / Ref No.:* ${
-              utrNumber.trim() || "Uploaded in Website Proof"
-            }\n` +
-            `🎮 *Games Ordered:* ${gameTitles}\n` +
-            `----------------------------------\n` +
-            `I have completed the UPI payment and uploaded the screenshot on the website. Kindly verify my payment proof and approve my game account credentials / 2FA!`
-        );
+        const gameTitles = checkoutResult.keys.map((k) => `• ${k.gameTitle} (${k.platform.toUpperCase()} - ${k.playMode === "online" ? "Online Play" : "Offline Campaign"})`).join("\n");
+        const waMsg =
+          `🎮 *MILLENNIUM GAMES — PAYMENT VERIFICATION & INVOICE*\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `📋 *Invoice / Order ID:* ${invoiceNumber}\n` +
+          `👤 *Customer Name:* ${user?.name || "Valued Customer"}\n` +
+          `📧 *Email:* ${user?.email || "customer@example.com"}\n` +
+          `💰 *Total Amount Paid:* ₹${total}\n` +
+          `💳 *Paid to UPI ID:* bllalwhdn@ptaxis (Millennium Games)\n` +
+          `🔢 *UTR / Transaction Ref:* ${
+            utrNumber.trim() ? utrNumber.trim() : "Attached in Website Proof"
+          }\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `📦 *Games & Bundles Ordered:*\n${gameTitles}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `✅ *Payment screenshot proof has been submitted on the website.*\n` +
+          `Tax invoice has been downloaded. Please verify my payment and approve my game account credentials & Steam Guard 2FA!`;
+
+        const waUrl = `https://wa.me/918089406346?text=${encodeURIComponent(waMsg)}`;
 
         setTimeout(() => {
-          window.open(`https://wa.me/918089406346?text=${waMsg}`, "_blank");
-        }, 800);
+          const isMobile =
+            typeof window !== "undefined" &&
+            (window.innerWidth < 768 ||
+              /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+          if (isMobile) {
+            window.location.href = waUrl;
+          } else {
+            const opened = window.open(waUrl, "_blank", "noopener,noreferrer");
+            if (!opened || opened.closed || typeof opened.closed === "undefined") {
+              window.location.href = waUrl;
+            }
+          }
+        }, 600);
       } else {
         setErrorMsg(
           checkoutResult.error ||
