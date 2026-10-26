@@ -576,6 +576,205 @@ a:hover h4 {
   filter: none !important;
 }
 
+/* ==========================================================================
+   BUNDLE SHOWCASE (STEAM & UBISOFT BUNDLES) — GLOSSY PURE WHITE TYPOGRAPHY
+   ========================================================================== */
+
+/* Prevent black liquid glass text bleed in all bundle elements */
+#steam-bundle,
+#ubisoft-bundle,
+.bundle-showcase,
+.bundle-pure-white {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#steam-bundle *,
+#ubisoft-bundle *,
+.bundle-pure-white * {
+  filter: none !important;
+}
+
+/* Master Section Headings & Gradient in Bundles */
+#steam-bundle .section-heading,
+#ubisoft-bundle .section-heading {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.9), 
+    0 0 25px rgba(255, 255, 255, 0.5),
+    0 0 2px #ffffff !important;
+  filter: none !important;
+}
+
+#steam-bundle .gradient-text,
+#ubisoft-bundle .gradient-text,
+.bundle-pure-white .gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 30%,
+    #7dd3fc 50%,
+    #ffffff 70%,
+    #ffffff 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textGlossShine 5s ease-in-out infinite !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) !important;
+}
+
+/* All Bundle Titles (H2, H3, H4, H5) Pure White & Glossy */
+#steam-bundle h2,
+#steam-bundle h3,
+#steam-bundle h4,
+#steam-bundle h5,
+#ubisoft-bundle h2,
+#ubisoft-bundle h3,
+#ubisoft-bundle h4,
+#ubisoft-bundle h5,
+.bundle-pure-white h2,
+.bundle-pure-white h3,
+.bundle-pure-white h4,
+.bundle-pure-white h5,
+.bundle-glossy-title,
+.bundle-game-title {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.95), 
+    0 0 20px rgba(255, 255, 255, 0.4),
+    0 0 2px #ffffff !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Ensure Group Hover inside bundle NEVER turns titles black */
+#steam-bundle .group:hover h3,
+#steam-bundle .group:hover h4,
+#steam-bundle .group:hover h5,
+#steam-bundle a:hover h3,
+#steam-bundle a:hover h4,
+#steam-bundle a:hover h5,
+#ubisoft-bundle .group:hover h3,
+#ubisoft-bundle .group:hover h4,
+#ubisoft-bundle .group:hover h5,
+#ubisoft-bundle a:hover h3,
+#ubisoft-bundle a:hover h4,
+#ubisoft-bundle a:hover h5,
+.bundle-pure-white .group:hover h3,
+.bundle-pure-white .group:hover h4,
+.bundle-pure-white .group:hover h5,
+.bundle-pure-white a:hover h3,
+.bundle-pure-white a:hover h4,
+.bundle-pure-white a:hover h5 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.8),
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 0 3px #ffffff !important;
+}
+
+/* Paragraphs, Subheadings, Descriptions in Bundles */
+#steam-bundle p,
+#ubisoft-bundle p,
+#steam-bundle .section-subheading,
+#ubisoft-bundle .section-subheading,
+.bundle-pure-white p,
+.bundle-subtext {
+  color: #f1f5f9 !important;
+  -webkit-text-fill-color: #f1f5f9 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Checklist items, descriptions, labels */
+#steam-bundle span:not(.text-black):not(.bg-amber-400):not(.bg-[#66c0f4]):not(.text-amber-400):not(.text-emerald-400):not(.text-red-500):not(.text-[#66c0f4]):not(.text-cyan-400),
+#ubisoft-bundle span:not(.text-black):not(.bg-cyan-400):not(.bg-amber-400):not(.text-amber-400):not(.text-emerald-400):not(.text-cyan-400),
+.bundle-pure-white span:not(.text-black) {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85) !important;
+  filter: none !important;
+}
+
+/* Secondary/muted metadata in bundles (years, engine, specs) */
+#steam-bundle .text-slate-400,
+#steam-bundle .text-slate-300,
+#ubisoft-bundle .text-slate-400,
+#ubisoft-bundle .text-slate-300,
+.bundle-pure-white .text-slate-400,
+.bundle-pure-white .text-slate-300 {
+  color: #cbd5e1 !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  filter: none !important;
+}
+
+/* Main Bundle Price */
+#steam-bundle .bundle-main-price,
+#ubisoft-bundle .bundle-main-price {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.7), 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 2px #ffffff !important;
+  filter: none !important;
+}
+
+/* Strikethrough price */
+#steam-bundle .line-through,
+#ubisoft-bundle .line-through {
+  color: #94a3b8 !important;
+  -webkit-text-fill-color: #94a3b8 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  filter: none !important;
+}
+
+/* Buttons inside bundles */
+#steam-bundle .btn-bundle-cart,
+#ubisoft-bundle .btn-bundle-cart {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.25s ease !important;
+}
+
+#steam-bundle .btn-bundle-cart:hover,
+#ubisoft-bundle .btn-bundle-cart:hover {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3) !important;
+}
+
+#steam-bundle .btn-single-add {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  transition: all 0.2s ease !important;
+}
+
+#steam-bundle .btn-single-add:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
+}
+
 .btn-glossy-white {
   background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
   color: #000000 !important;
