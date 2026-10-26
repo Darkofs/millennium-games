@@ -1184,6 +1184,176 @@ export const featuredGames: Game[] = [
       directX: "Version 12",
       storage: "100 GB SSD space"
     }
+  },
+  {
+    id: 35,
+    title: "Need for Speed: Rivals",
+    price: 199,
+    originalPrice: 999,
+    discount: 80,
+    rating: 4.6,
+    reviews: 5400,
+    platform: "steam",
+    genre: ["Racing", "Action", "Open World"],
+    image: "/images/Game Images/Need for Speed Rivals.jpg",
+    trending: true,
+    developer: "Ghost Games",
+    publisher: "Electronic Arts",
+    releaseDate: "2013-11-19",
+    description: "Erase the line between single player and multiplayer in Redview County as a cop or racer.",
+    longDescription: "Welcome to Redview County, where a street-racing rivalry between cops and racers never stops as both sides compete in an all-out war featuring the fastest cars, mods, and technology in a gritty open road environment. Play as either a cop or a racer, where each side of the law has its own set of high stakes challenges, rewards, and consequences.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core 2 Duo 2.4 GHz or AMD Athlon X2 2.8 GHz",
+      memory: "4 GB RAM",
+      graphics: "AMD Radeon 3870 or NVIDIA GeForce 8800 GT",
+      directX: "Version 11",
+      storage: "30 GB available space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Quad-Core CPU or AMD Six-Core CPU",
+      memory: "8 GB RAM",
+      graphics: "AMD Radeon 7870 or NVIDIA GeForce GTX 660",
+      directX: "Version 11",
+      storage: "30 GB available space"
+    }
+  },
+  {
+    id: 36,
+    title: "Need for Speed: Payback",
+    price: 199,
+    originalPrice: 1499,
+    discount: 87,
+    rating: 4.7,
+    reviews: 7800,
+    platform: "steam",
+    genre: ["Racing", "Action", "Open World"],
+    image: "/images/Game Images/Need for Speed Payback.jpg",
+    trending: true,
+    developer: "Ghost Games",
+    publisher: "Electronic Arts",
+    releaseDate: "2017-11-10",
+    description: "Set in the underworld of Fortune Valley, you and your crew reunite to take down The House.",
+    longDescription: "Need for Speed Payback features a blockbuster action-driving campaign set in the underworld of Fortune Valley. Drive as three distinct characters united by a quest for vengeance against The House, a nefarious cartel that rules the city's casinos, criminals, and cops. Craft unique rides with deeper performance and visual customization than ever before.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core i3-6300 or AMD FX-8150",
+      memory: "6 GB RAM",
+      graphics: "NVIDIA GeForce GTX 750 Ti or AMD Radeon HD 7850",
+      directX: "Version 11",
+      storage: "30 GB available space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Core i5-4690K or AMD FX-8350",
+      memory: "8 GB RAM",
+      graphics: "NVIDIA GeForce GTX 1060 or AMD Radeon RX 480",
+      directX: "Version 11",
+      storage: "30 GB available space"
+    }
+  },
+  {
+    id: 37,
+    title: "Need for Speed: Heat",
+    price: 199,
+    originalPrice: 2999,
+    discount: 93,
+    rating: 4.8,
+    reviews: 14200,
+    platform: "steam",
+    genre: ["Racing", "Action", "Open World"],
+    image: "/images/Game Images/nfs heat.png",
+    trending: true,
+    developer: "Ghost Games",
+    publisher: "Electronic Arts",
+    releaseDate: "2019-11-08",
+    description: "Hustle by day and risk it all at night in Palm City, a thrilling street race battleground.",
+    longDescription: "A thrilling race experience that pits you against a city’s rogue police force as you battle your way into street racing’s elite. By day, compete in the Speedhunters Showdown – a sanctioned competition where you earn bank to customize and upgrade your garage of high-performance cars. At night, ramp up the intensity in illicit street races that build your rep.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core i5-3570 or AMD FX-6350",
+      memory: "8 GB RAM",
+      graphics: "NVIDIA GeForce GTX 760 or AMD Radeon 7970 / R9 280x",
+      directX: "Version 11",
+      storage: "50 GB available space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Core i7-4790 or AMD Ryzen 3 1300X",
+      memory: "16 GB RAM",
+      graphics: "NVIDIA GeForce GTX 1060 or AMD Radeon RX 480",
+      directX: "Version 11",
+      storage: "50 GB available space"
+    }
+  },
+  {
+    id: 38,
+    title: "Need for Speed: Hot Pursuit Remastered",
+    price: 199,
+    originalPrice: 1999,
+    discount: 90,
+    rating: 4.8,
+    reviews: 9600,
+    platform: "steam",
+    genre: ["Racing", "Action", "Arcade"],
+    image: "/images/Game Images/Need for Speed Hot Pursuit Remastered (2020).jpg",
+    trending: true,
+    developer: "Criterion Games / Stellar Entertainment",
+    publisher: "Electronic Arts",
+    releaseDate: "2020-11-06",
+    description: "Feel the thrill of the chase and the rush of escape in Seacrest County's ultimate pursuit.",
+    longDescription: "Unleash a savage sense of speed both as an outlaw and a cop in the world's hottest high-performance cars. Outsmart the heat or take down lawbreakers with the tactical weaponry at your disposal in a heart-pumping, socially competitive racing experience with cross-play multiplayer, updated visuals, and all main DLC included.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core i3-2120 or AMD Phenom II X4 965",
+      memory: "8 GB RAM",
+      graphics: "NVIDIA GeForce GTS 450 or AMD Radeon HD 5750",
+      directX: "Version 11",
+      storage: "45 GB available space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Core i5-3570K or AMD Ryzen 3 1300X",
+      memory: "8 GB RAM",
+      graphics: "NVIDIA GeForce GTX 660 or AMD Radeon R9 270x",
+      directX: "Version 11",
+      storage: "45 GB available space"
+    }
+  },
+  {
+    id: 39,
+    title: "Need for Speed: Unbound",
+    price: 199,
+    originalPrice: 3499,
+    discount: 94,
+    rating: 4.7,
+    reviews: 11500,
+    platform: "steam",
+    genre: ["Racing", "Action", "Open World"],
+    image: "/images/Game Images/Need for Speed Unbound.png",
+    trending: true,
+    developer: "Criterion Games",
+    publisher: "Electronic Arts",
+    releaseDate: "2022-12-02",
+    description: "Tear up the streets with graffiti effects, outsmart the cops, and conquer The Grand.",
+    longDescription: "The world is your canvas in Need for Speed Unbound. Prove you have what it takes to win The Grand, Lakeshore’s ultimate street racing challenge. Across four intense weeks of racing, earn enough cash to enter weekly qualifiers, beat the competition, and leave your mark on the street racing scene while outdriving and outsmarting the cops.",
+    minimumRequirements: {
+      os: "Windows 10 64-bit",
+      processor: "Intel Core i5-8600 or AMD Ryzen 5 2600",
+      memory: "8 GB RAM",
+      graphics: "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 570",
+      directX: "Version 12",
+      storage: "50 GB available space"
+    },
+    recommendedRequirements: {
+      os: "Windows 10/11 64-bit",
+      processor: "Intel Core i7-8700 or AMD Ryzen 5 3600",
+      memory: "16 GB RAM",
+      graphics: "NVIDIA GeForce RTX 2070 or AMD Radeon RX 6700 XT",
+      directX: "Version 12",
+      storage: "50 GB available space"
+    }
   }
 ];
 
