@@ -761,7 +761,7 @@ function CartPageContent() {
                         {loading ? (
                           <>
                             <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            <span>Verifying &amp; Allocating Accounts...</span>
+                            <span>Sending Invoice &amp; Redirecting to WhatsApp...</span>
                           </>
                         ) : (
                           <>
