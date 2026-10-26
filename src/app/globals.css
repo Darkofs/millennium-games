@@ -527,10 +527,10 @@ footer a:hover, footer button:hover:not(.btn-dark):not(.btn-theme-dark):not(.tex
 }
 
 /* Group-hover text transitions inside game cards and values */
-.group:hover h3,
-.group:hover h4,
-a:hover h3,
-a:hover h4 {
+.group:hover h3:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *):not(.video-card-overlay *),
+.group:hover h4:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *):not(.video-card-overlay *),
+a:hover h3:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *):not(.video-card-overlay *),
+a:hover h4:not(#steam-bundle *):not(#ubisoft-bundle *):not(.bundle-pure-white *):not(.video-card-overlay *) {
   color: #000000 !important;
   -webkit-text-fill-color: #000000 !important;
 }
