@@ -144,9 +144,9 @@ export default function SteamBundle() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl sm:rounded-[32px] overflow-hidden border border-[#66c0f4]/30 shadow-2xl bg-slate-950/95 backdrop-blur-xl group"
+          className="bundle-pure-white relative rounded-2xl sm:rounded-[32px] overflow-hidden border border-[#66c0f4]/40 shadow-2xl bg-slate-950/95 backdrop-blur-xl group"
           style={{
-            boxShadow: "0 25px 50px -12px rgba(10, 20, 35, 0.85), inset 0 1px 0 rgba(102, 192, 244, 0.25)",
+            boxShadow: "0 25px 50px -12px rgba(10, 20, 35, 0.85), inset 0 1px 0 rgba(102, 192, 244, 0.35)",
           }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -198,23 +198,23 @@ export default function SteamBundle() {
                     <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-400 text-black">
                       {currentGame.badge}
                     </span>
-                    <span className="text-xs font-bold text-slate-300">
+                    <span className="text-xs font-bold text-slate-200">
                       Released {currentGame.year} • ★ {currentGame.rating}
                     </span>
                   </div>
-                  <h4 className="text-xl sm:text-2xl lg:text-3xl font-black text-white drop-shadow-md">
+                  <h4 className="text-xl sm:text-2xl lg:text-3xl font-black text-white bundle-glossy-title">
                     {currentGame.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-300 max-w-xl drop-shadow">
+                  <p className="text-xs sm:text-sm text-slate-200 max-w-xl bundle-subtext">
                     {currentGame.tagline}
                   </p>
                 </div>
 
                 {/* 5-Game Fast Switcher Thumbnails */}
                 <div className="pt-2">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+                  <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
                     <span>Select Game Preview ({selectedGameIndex + 1}/5):</span>
-                    <span className="text-[#66c0f4]">Click to inspect</span>
+                    <span className="text-[#66c0f4] font-black tracking-wide">Click to inspect</span>
                   </div>
 
                   <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
@@ -253,43 +253,40 @@ export default function SteamBundle() {
             </div>
 
             {/* Right/Bottom: Bundle Details & Included Games */}
-            <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6 bg-slate-950/90 border-t lg:border-t-0 lg:border-l border-white/10">
+            <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6 bg-slate-950/95 border-t lg:border-t-0 lg:border-l border-white/10 video-card-overlay">
               <div className="space-y-4">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest text-[#66c0f4] bg-[#66c0f4]/10 border border-[#66c0f4]/30">
                     Steam Master Account
                   </span>
-                  <span className="text-xs text-slate-300 font-semibold">
+                  <span className="text-xs text-slate-200 font-bold">
                     Instant Steam Guard 2FA
                   </span>
                 </div>
 
                 <h3
-                  className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight"
-                  style={{ fontFamily: "var(--font-outfit)", color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                  className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight bundle-glossy-title"
+                  style={{ fontFamily: "var(--font-outfit)" }}
                 >
                   Need for Speed™ Complete Collection
                 </h3>
 
-                <p
-                  className="text-xs sm:text-sm text-slate-300 leading-relaxed"
-                  style={{ color: "#cbd5e1", WebkitTextFillColor: "#cbd5e1" }}
-                >
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed bundle-subtext">
                   Get the ultimate high-octane street racing franchise in a single verified Steam account with full lifetime access. Includes all 5 modern blockbuster titles featuring open-world driving, deep visual tuning, and explosive pursuit action.
                 </p>
 
                 {/* Included 5 Games List with Individual Price & Add Option */}
                 <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-300 uppercase tracking-wider">
-                    <span>5 Games Included in Bundle:</span>
-                    <span className="text-[#66c0f4]">Individual Price: ₹199</span>
+                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider">
+                    <span className="text-white">5 Games Included in Bundle:</span>
+                    <span className="text-[#66c0f4] font-black">Individual Price: ₹199</span>
                   </div>
 
                   <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1 no-scrollbar">
                     {nfsGames.map((game) => (
                       <div
                         key={game.id}
-                        className="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group/item"
+                        className="flex items-center justify-between p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 transition-all group/item"
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           <img
@@ -298,10 +295,10 @@ export default function SteamBundle() {
                             className="w-10 h-10 rounded-lg object-cover flex-shrink-0 border border-white/20"
                           />
                           <div className="min-w-0">
-                            <h5 className="text-xs font-bold text-white truncate group-hover/item:text-[#66c0f4] transition-colors">
+                            <h5 className="text-xs font-black text-white truncate bundle-game-title group-hover/item:text-[#66c0f4] transition-colors">
                               {game.title}
                             </h5>
-                            <span className="text-[10px] text-slate-400 block">
+                            <span className="text-[10px] text-slate-300 block font-semibold">
                               Steam Platform • Single Price ₹{game.price}
                             </span>
                           </div>
@@ -311,7 +308,7 @@ export default function SteamBundle() {
                           <button
                             type="button"
                             onClick={(e) => handleAddSingleGame(e, game.id)}
-                            className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 transition-all cursor-pointer active:scale-95"
+                            className="btn-single-add px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all cursor-pointer active:scale-95"
                             title={`Add ${game.title} only for ₹199`}
                           >
                             + Single ₹{game.price}
@@ -324,21 +321,21 @@ export default function SteamBundle() {
 
                 {/* Key Benefits List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-white/10">
-                  <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <span className="text-[#66c0f4] font-bold">✓</span>
-                    <span>5 Full Steam Games (Worth ₹8,495)</span>
+                  <div className="flex items-center gap-2 text-xs text-white font-medium">
+                    <span className="text-[#66c0f4] font-black text-sm">✓</span>
+                    <span className="text-slate-100">5 Full Steam Games (Worth ₹8,495)</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <span className="text-[#66c0f4] font-bold">✓</span>
-                    <span>Steam Guard 2FA Security</span>
+                  <div className="flex items-center gap-2 text-xs text-white font-medium">
+                    <span className="text-[#66c0f4] font-black text-sm">✓</span>
+                    <span className="text-slate-100">Steam Guard 2FA Security</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <span className="text-[#66c0f4] font-bold">✓</span>
-                    <span>Offline Campaign + Tuning</span>
+                  <div className="flex items-center gap-2 text-xs text-white font-medium">
+                    <span className="text-[#66c0f4] font-black text-sm">✓</span>
+                    <span className="text-slate-100">Offline Campaign + Tuning</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <span className="text-[#66c0f4] font-bold">✓</span>
-                    <span>Lifetime Warranty Guarantee</span>
+                  <div className="flex items-center gap-2 text-xs text-white font-medium">
+                    <span className="text-[#66c0f4] font-black text-sm">✓</span>
+                    <span className="text-slate-100">Lifetime Warranty Guarantee</span>
                   </div>
                 </div>
               </div>
@@ -347,17 +344,17 @@ export default function SteamBundle() {
               <div className="pt-4 border-t border-white/15 space-y-4">
                 <div className="flex items-baseline justify-between">
                   <div>
-                    <span className="text-xs text-slate-400 uppercase tracking-wider block" style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}>
+                    <span className="text-xs text-slate-300 uppercase tracking-wider block font-semibold">
                       Steam Bundle Special Price
                     </span>
                     <div className="flex items-baseline gap-3 mt-1">
                       <span
-                        className="text-3xl sm:text-4xl lg:text-5xl font-black text-white"
-                        style={{ fontFamily: "var(--font-outfit)", color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                        className="text-3xl sm:text-4xl lg:text-5xl font-black text-white bundle-main-price"
+                        style={{ fontFamily: "var(--font-outfit)" }}
                       >
                         ₹{bundleDeal.price}
                       </span>
-                      <span className="text-sm sm:text-base text-slate-400 line-through" style={{ color: "#94a3b8", WebkitTextFillColor: "#94a3b8" }}>
+                      <span className="text-sm sm:text-base text-slate-400 line-through font-semibold">
                         ₹{bundleDeal.originalPrice}
                       </span>
                     </div>
@@ -374,8 +371,7 @@ export default function SteamBundle() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                   <button
                     onClick={handleAddBundleToCart}
-                    className="py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white/15 hover:bg-white text-white hover:text-black border border-white/25 transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
-                    style={{ color: "#ffffff" }}
+                    className="btn-bundle-cart py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
                   >
                     <span>🛒 Add Bundle to Cart</span>
                   </button>
@@ -383,14 +379,14 @@ export default function SteamBundle() {
                   <Magnetic>
                     <button
                       onClick={handleBuyBundleNow}
-                      className="w-full btn-primary text-center py-3 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider cursor-pointer shadow-xl hover:shadow-2xl active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
+                      className="w-full btn-primary btn-glossy-white text-center py-3 px-6 text-xs sm:text-sm font-black uppercase tracking-wider cursor-pointer shadow-xl hover:shadow-2xl active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap"
                     >
                       <span>⚡ Buy Steam Bundle ₹899</span>
                     </button>
                   </Magnetic>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 pt-1 text-[11px] text-slate-400">
+                <div className="flex items-center justify-center gap-2 pt-1 text-[11px] text-slate-300 font-medium">
                   <span>🛡️ 100% Verified Steam Delivery</span>
                   <span>•</span>
                   <span>🔒 Instant Invoice & Account</span>
