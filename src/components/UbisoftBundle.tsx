@@ -126,7 +126,7 @@ export default function UbisoftBundle() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl sm:rounded-[32px] overflow-hidden border border-white/30 shadow-2xl bg-slate-950/90 backdrop-blur-xl group"
+          className="bundle-pure-white relative rounded-2xl sm:rounded-[32px] overflow-hidden border border-white/30 shadow-2xl bg-slate-950/90 backdrop-blur-xl group"
           style={{
             boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15)",
           }}
